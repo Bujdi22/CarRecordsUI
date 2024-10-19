@@ -1,0 +1,7 @@
+{
+  "name": "CarRecordsUI",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
