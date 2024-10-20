@@ -7,11 +7,14 @@
       <ion-title>
         <slot></slot>
       </ion-title>
-      <ion-chip slot="end" @click="$router.push('/login')">
+      <ion-chip slot="end" @click="$router.push(account ? '/account' : '/login')" :color="account ? 'success' : 'medium' ">
         <ion-avatar>
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+          <ion-icon :icon="personCircleOutline" style="font-size: 1.7em"></ion-icon>
         </ion-avatar>
-        <ion-label>Welcome, Guest</ion-label>
+        <ion-label v-if="account">
+          Welcome, {{ account.username }}
+        </ion-label>
+        <ion-label v-else>Login</ion-label>
       </ion-chip>
     </ion-toolbar>
   </ion-header>
@@ -19,7 +22,29 @@
 
 <script setup lang="ts">
 
-import {IonButtons, IonHeader, IonMenuButton, IonTitle, IonToolbar} from "@ionic/vue";
+import {
+  IonButtons,
+  IonHeader,
+  IonMenuButton,
+  IonTitle,
+  IonToolbar,
+  IonChip,
+  IonAvatar,
+  IonLabel,
+  IonIcon
+} from "@ionic/vue";
+import {personCircleOutline} from "ionicons/icons";
+
+</script>
+<script lang="ts">
+import {mapState} from "vuex";
+export default {
+
+  computed: mapState({
+    account: state => state.account
+  })
+}
+
 </script>
 
 <style scoped>

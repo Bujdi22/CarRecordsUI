@@ -11,6 +11,7 @@
 
       <div class="container">
         About
+
       </div>
 
     </ion-content>
@@ -22,8 +23,9 @@
 
 <script setup lang="ts">
 
-import {IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
+import {IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
+
 </script>
 
 <style scoped>

@@ -5,7 +5,13 @@
     <ion-content :fullscreen="true">
 
       <div class="container">
-        {{password}} {{ username}}
+        <ion-card v-if="afterRegister" color="success">
+          <ion-card-header>
+            <ion-card-title>Register successful</ion-card-title>
+            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+
         <ion-list>
           <ion-item>
             <ion-input v-model="username" label="Email" label-placement="stacked" placeholder="Type your email">
@@ -24,6 +30,14 @@
             </ion-button>
           </div>
 
+          <div style="padding:10px;">
+            <ion-button expand="block" @click="redirectToRegister" color="medium">
+              New here? Create an account
+            </ion-button>
+          </div>
+
+
+
         </ion-list>
 
       </div>
@@ -37,30 +51,52 @@
 
 <script setup lang="ts">
 
-import axios from 'axios';
+import {IonContent, IonIcon, IonPage, IonInput, IonItem, IonButton, IonList, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle} from "@ionic/vue";
 
-import {IonContent, IonIcon, IonPage, IonInput} from "@ionic/vue";
 import {
   lockClosedOutline,
   personCircleOutline
 } from 'ionicons/icons';
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import {ref} from "vue";
+</script>
+<script lang="ts">
+import router from "@/router";
+import axiosInstance from '@/config/axiosConfig';
 
-const username = ref('');
-const password = ref('');
-
-function login() {
-  axios.post('/api/login', {username: username.value, password: password.value}).then((data) => {
-    console.log(data);
-  }).catch(error => {
-    if (error.response && error.response.status === 401) {
-      // Handle unauthorized response without prompting for credentials
-      console.error('Invalid username or password');
-    } else {
-      console.error('An error occurred:', error);
+export default {
+  data() {
+    return {
+      username: '',
+      password: '',
     }
-  });
+  },
+  methods: {
+    login() {
+      axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
+        localStorage.setItem('bearerToken', data.data); // Save token to local storage
+        axiosInstance.get('/api/fetch-account').then((data) => {
+          this.$store.commit('setAccount', data.data)
+          localStorage.setItem('account', JSON.stringify(data.data));
+          router.push('/home');
+        })
+      }).catch(error => {
+        if (error.response && error.response.status === 401) {
+          // Handle unauthorized response without prompting for credentials
+          console.error('Invalid username or password');
+        } else {
+          console.error('An error occurred:', error);
+        }
+      });
+    },
+    redirectToRegister() {
+      router.push('/register');
+    }
+  },
+  computed: {
+    afterRegister() {
+      return !!this.$route.query.afterRegister;
+    }
+  }
 }
 </script>
 

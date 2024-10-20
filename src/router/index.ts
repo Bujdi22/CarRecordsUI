@@ -22,6 +22,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     component: () => import ('../views/LoginPage.vue')
   },
+  {
+    path: '/register',
+    component: () => import ('../views/RegisterPage.vue')
+  },
+  {
+    path: '/account',
+    component: () => import ('../views/AccountPage.vue')
+  },
   // {
   //   path: '/folder/:id',
   //   component: () => import ('../views/FolderPage.vue')

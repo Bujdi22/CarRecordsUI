@@ -12,6 +12,7 @@
       <div class="container">
         Home
         {{ some }}
+        <br>
       </div>
 
     </ion-content>
@@ -27,12 +28,13 @@ import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
 
 </script>
 <script lang="ts">
+
 export default {
   data() {
     return {
       some: 2,
     }
-  }
+  },
 }
 </script>
 
