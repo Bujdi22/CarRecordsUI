@@ -4,18 +4,21 @@
       <ion-buttons slot="start">
         <ion-menu-button color="primary"></ion-menu-button>
       </ion-buttons>
-      <ion-title>
-        <slot></slot>
-      </ion-title>
-      <ion-chip slot="end" @click="$router.push(account ? '/account' : '/login')" :color="account ? 'success' : 'medium' ">
+      <ion-chip slot="end" @click="$router.push(account ? '/account' : '/login')"
+                :color="account ? 'primary' : 'medium' ">
         <ion-avatar>
           <ion-icon :icon="personCircleOutline" style="font-size: 1.7em"></ion-icon>
         </ion-avatar>
         <ion-label v-if="account">
-          Welcome, {{ account.username }}
+          Welcome, {{ account.displayName }}
         </ion-label>
         <ion-label v-else>Login</ion-label>
       </ion-chip>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-title>
+        <slot></slot>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 </template>
@@ -38,6 +41,7 @@ import {personCircleOutline} from "ionicons/icons";
 </script>
 <script lang="ts">
 import {mapState} from "vuex";
+
 export default {
 
   computed: mapState({

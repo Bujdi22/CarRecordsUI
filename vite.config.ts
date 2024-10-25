@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080/', // Your back-end server
+        target: 'http://192.168.0.246:8080/', // Your back-end server
         changeOrigin: true,
       },
     },
@@ -27,5 +27,13 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom'
-  }
+  },
+  // other config settings
+  define: {
+    'process.env.API_BASE_URL': JSON.stringify(
+        process.env.NODE_ENV === 'production'
+            ? 'http://192.168.0.246:8080' // Android app API base URL
+            : '/api' // Vite proxy for development
+    ),
+  },
 })

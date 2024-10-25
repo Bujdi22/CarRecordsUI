@@ -2,12 +2,8 @@
   <ion-page>
 
     <header-toolbar>Home</header-toolbar>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">{{ $route.params.id }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
+    <ion-content>
+
 
       <div class="container">
         Home
@@ -24,7 +20,7 @@
 
 <script setup lang="ts">
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
+import {IonContent, IonPage} from "@ionic/vue";
 
 </script>
 <script lang="ts">

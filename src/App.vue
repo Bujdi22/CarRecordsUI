@@ -3,7 +3,7 @@
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <ion-list id="inbox-list">
+          <ion-list id="inbox-list" style="padding-top: 60px">
             <ion-list-header>Car Records App</ion-list-header>
             <ion-note>Your maintenance records application</ion-note>
 
@@ -27,7 +27,7 @@
         </ion-content>
       </ion-menu>
 
-        <ion-router-outlet id="main-content"></ion-router-outlet>
+      <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
   </ion-app>
 </template>
@@ -58,6 +58,7 @@ import {
   informationCircleSharp
 } from "ionicons/icons";
 import {mapState} from "vuex";
+import axiosInstance from '@/config/axiosConfig';
 
 export default {
   data() {
@@ -84,6 +85,7 @@ export default {
           accountRequired: true,
         },
       ],
+      refreshInterval: null,
     }
   },
   mounted() {
@@ -99,7 +101,22 @@ export default {
 
   computed: mapState({
     account: state => state.account
-  })
+  }),
+
+  watch: {
+    account(account) {
+      console.log('account changed', account);
+      if (account) {
+        this.refreshInterval = setInterval(() => {
+          axiosInstance.get('/api/refresh-token').then((response) => {
+            localStorage.setItem('bearerToken', response.data);
+          })
+        }, 10 * 60 * 1000)
+      } else {
+        clearInterval(this.refreshInterval);
+      }
+    }
+  },
 }
 </script>
 

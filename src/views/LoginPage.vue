@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <header-toolbar>Login</header-toolbar>
 
-    <ion-content :fullscreen="true">
+    <header-toolbar>Login</header-toolbar>
+    <ion-content>
 
       <div class="container">
         <ion-card v-if="afterRegister" color="success">
@@ -19,7 +19,8 @@
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="password" label="Password" label-placement="stacked" type="password" placeholder="Type your password">
+            <ion-input v-model="password" label="Password" label-placement="stacked" type="password"
+                       placeholder="Type your password">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
@@ -37,7 +38,6 @@
           </div>
 
 
-
         </ion-list>
 
       </div>
@@ -51,7 +51,19 @@
 
 <script setup lang="ts">
 
-import {IonContent, IonIcon, IonPage, IonInput, IonItem, IonButton, IonList, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle} from "@ionic/vue";
+import {
+  IonContent,
+  IonIcon,
+  IonPage,
+  IonInput,
+  IonItem,
+  IonButton,
+  IonList,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle
+} from "@ionic/vue";
 
 import {
   lockClosedOutline,
@@ -60,7 +72,6 @@ import {
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 </script>
 <script lang="ts">
-import router from "@/router";
 import axiosInstance from '@/config/axiosConfig';
 
 export default {
@@ -72,16 +83,16 @@ export default {
   },
   methods: {
     login() {
+      localStorage.clear();
       axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
-        localStorage.setItem('bearerToken', data.data); // Save token to local storage
+        localStorage.setItem('bearerToken', data.data);
         axiosInstance.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
-          router.push('/home');
+          this.$router.push('/home');
         })
       }).catch(error => {
         if (error.response && error.response.status === 401) {
-          // Handle unauthorized response without prompting for credentials
           console.error('Invalid username or password');
         } else {
           console.error('An error occurred:', error);
@@ -89,7 +100,7 @@ export default {
       });
     },
     redirectToRegister() {
-      router.push('/register');
+      this.$router.push('/register');
     }
   },
   computed: {
