@@ -1,7 +1,7 @@
 <template>
   <ion-page>
 
-    <header-toolbar>Login</header-toolbar>
+    <header-toolbar>Login updated</header-toolbar>
     <ion-content>
 
       <div class="container">
@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 
-import {IonContent, IonIcon, IonPage, IonInput, IonItem, IonButton, IonList, IonCard, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle} from "@ionic/vue";
+import {IonContent, IonIcon, IonPage, IonInput, IonItem, IonButton, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle} from "@ionic/vue";
 
 import {
   lockClosedOutline,
@@ -60,7 +60,6 @@ import {
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 </script>
 <script lang="ts">
-import router from "@/router";
 import axiosInstance from '@/config/axiosConfig';
 
 export default {
@@ -72,6 +71,7 @@ export default {
   },
   methods: {
     login() {
+      localStorage.clear();
       axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
         localStorage.setItem('bearerToken', data.data); // Save token to local storage
         axiosInstance.get('/api/fetch-account').then((data) => {
