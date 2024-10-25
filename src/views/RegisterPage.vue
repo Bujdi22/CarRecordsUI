@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <header-toolbar>Register</header-toolbar>
 
-    <ion-content :fullscreen="true">
+    <header-toolbar>Register</header-toolbar>
+    <ion-content>
 
       <div class="container">
         <ion-list>

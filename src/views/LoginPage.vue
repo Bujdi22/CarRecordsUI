@@ -1,7 +1,7 @@
 <template>
   <ion-page>
 
-    <header-toolbar>About</header-toolbar>
+    <header-toolbar>Login</header-toolbar>
     <ion-content>
 
       <div class="container">
@@ -77,7 +77,7 @@ export default {
         axiosInstance.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
-          router.push('/home');
+          this.$router.push('/home');
         })
       }).catch(error => {
         if (error.response && error.response.status === 401) {
@@ -89,7 +89,7 @@ export default {
       });
     },
     redirectToRegister() {
-      router.push('/register');
+      this.$router.push('/register');
     }
   },
   computed: {
