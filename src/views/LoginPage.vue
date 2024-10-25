@@ -1,7 +1,7 @@
 <template>
   <ion-page>
 
-    <header-toolbar>Login updated</header-toolbar>
+    <header-toolbar>Login</header-toolbar>
     <ion-content>
 
       <div class="container">
@@ -79,6 +79,12 @@ export default {
           localStorage.setItem('account', JSON.stringify(data.data));
           this.$router.push('/home');
         })
+        setTimeout(() => {
+          axiosInstance.get('/api/refresh-token').then((response) => {
+            console.log(response)
+          })
+        }, 3000)
+
       }).catch(error => {
         if (error.response && error.response.status === 401) {
           // Handle unauthorized response without prompting for credentials

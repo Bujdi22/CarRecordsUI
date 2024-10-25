@@ -9,7 +9,7 @@
           <ion-icon :icon="personCircleOutline" style="font-size: 1.7em"></ion-icon>
         </ion-avatar>
         <ion-label v-if="account">
-          Welcome, {{ account.username }}
+          Welcome, {{ account.displayName }}
         </ion-label>
         <ion-label v-else>Login</ion-label>
       </ion-chip>
