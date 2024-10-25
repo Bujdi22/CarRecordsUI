@@ -58,6 +58,7 @@ import {
   informationCircleSharp
 } from "ionicons/icons";
 import {mapState} from "vuex";
+import axiosInstance from '@/config/axiosConfig';
 
 export default {
   data() {
@@ -84,6 +85,7 @@ export default {
           accountRequired: true,
         },
       ],
+      refreshInterval: null,
     }
   },
   mounted() {
@@ -99,7 +101,22 @@ export default {
 
   computed: mapState({
     account: state => state.account
-  })
+  }),
+
+  watch: {
+    account(account) {
+      console.log('account changed', account);
+      if (account) {
+        this.refreshInterval = setInterval(() => {
+          axiosInstance.get('/api/refresh-token').then((response) => {
+             localStorage.setItem('bearerToken', response.data);
+          })
+        }, 10 * 60 * 1000)
+      } else {
+        clearInterval(this.refreshInterval);
+      }
+    }
+  },
 }
 </script>
 

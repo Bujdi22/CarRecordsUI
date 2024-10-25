@@ -6,7 +6,7 @@ const baseURL = process.env.NODE_ENV === 'production'
     ? 'http://192.168.0.246:8080' // Production base URL for Android
     : '/'; // Proxy for development
 
-console.log('123', baseURL)
+console.log('Car records current endpoint = ', baseURL)
 
 // Create an Axios instance
 const axiosInstance = axios.create({

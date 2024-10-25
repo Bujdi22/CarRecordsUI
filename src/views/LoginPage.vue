@@ -73,21 +73,14 @@ export default {
     login() {
       localStorage.clear();
       axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
-        localStorage.setItem('bearerToken', data.data); // Save token to local storage
+        localStorage.setItem('bearerToken', data.data);
         axiosInstance.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
           this.$router.push('/home');
         })
-        setTimeout(() => {
-          axiosInstance.get('/api/refresh-token').then((response) => {
-            console.log(response)
-          })
-        }, 3000)
-
       }).catch(error => {
         if (error.response && error.response.status === 401) {
-          // Handle unauthorized response without prompting for credentials
           console.error('Invalid username or password');
         } else {
           console.error('An error occurred:', error);
