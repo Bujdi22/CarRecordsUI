@@ -4,9 +4,6 @@
       <ion-buttons slot="start">
         <ion-menu-button color="primary"></ion-menu-button>
       </ion-buttons>
-      <ion-title>
-        <slot></slot>
-      </ion-title>
       <ion-chip slot="end" @click="$router.push(account ? '/account' : '/login')" :color="account ? 'success' : 'medium' ">
         <ion-avatar>
           <ion-icon :icon="personCircleOutline" style="font-size: 1.7em"></ion-icon>
@@ -16,6 +13,11 @@
         </ion-label>
         <ion-label v-else>Login</ion-label>
       </ion-chip>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-title>
+        <slot></slot>
+      </ion-title>
     </ion-toolbar>
   </ion-header>
 </template>

@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <header-toolbar>Account Management</header-toolbar>
 
-    <ion-content :fullscreen="true">
+    <header-toolbar>Account Management</header-toolbar>
+    <ion-content>
 
       <div class="container">
         <h2>Welcome, {{ account?.username }}</h2>
@@ -36,6 +36,7 @@ export default {
         text: "Press confirm if you would like to logout.",
         icon: "warning",
         showCancelButton: true,
+        confirmButtonText: 'Confirm',
         heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {
@@ -54,6 +55,8 @@ export default {
         text: "This cannot be undone.",
         icon: "warning",
         showCancelButton: true,
+        confirmButtonText: 'Yes, delete my account',
+        confirmButtonColor: 'red',
         heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {

@@ -3,7 +3,7 @@
     <ion-split-pane content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
-          <ion-list id="inbox-list">
+          <ion-list id="inbox-list" style="padding-top: 60px">
             <ion-list-header>Car Records App</ion-list-header>
             <ion-note>Your maintenance records application</ion-note>
 

@@ -1,8 +1,8 @@
 <template>
   <ion-page>
-    <header-toolbar>Login</header-toolbar>
 
-    <ion-content :fullscreen="true">
+    <header-toolbar>About</header-toolbar>
+    <ion-content>
 
       <div class="container">
         <ion-card v-if="afterRegister" color="success">
