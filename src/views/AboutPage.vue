@@ -1,18 +1,18 @@
 <template>
   <ion-page>
 
-      <header-toolbar>About</header-toolbar>
-      <ion-content>
+    <header-toolbar>About</header-toolbar>
+    <ion-content>
 
 
-        <div class="container">
-          About pg
-          <br>
-        </div>
+      <div class="container">
+        About pg
+        <br>
+      </div>
 
-      </ion-content>
+    </ion-content>
 
-    </ion-page>
+  </ion-page>
 
 
 </template>

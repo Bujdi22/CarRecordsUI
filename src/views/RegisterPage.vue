@@ -6,9 +6,7 @@
 
       <div class="container">
 
-        <form-error-list :errors="formErrors">
-
-        </form-error-list>
+        <form-error-list :errors="formErrors"></form-error-list>
 
         <ion-list>
           <ion-item>
@@ -36,7 +34,8 @@
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="password2" label="Repeat Password" label-placement="stacked" type="password" placeholder="Type your password again">
+            <ion-input v-model="password2" label="Repeat Password" label-placement="stacked" type="password"
+                       placeholder="Type your password again">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
@@ -66,6 +65,7 @@ import FormErrorList from "@/components/FormErrorList.vue";
 <script lang="ts">
 import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
+
 export default {
   mixins: [FormErrors],
   data() {

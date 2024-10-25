@@ -19,7 +19,8 @@
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="password" label="Password" label-placement="stacked" type="password" placeholder="Type your password">
+            <ion-input v-model="password" label="Password" label-placement="stacked" type="password"
+                       placeholder="Type your password">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
@@ -37,7 +38,6 @@
           </div>
 
 
-
         </ion-list>
 
       </div>
@@ -51,7 +51,19 @@
 
 <script setup lang="ts">
 
-import {IonContent, IonIcon, IonPage, IonInput, IonItem, IonButton, IonList, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle} from "@ionic/vue";
+import {
+  IonContent,
+  IonIcon,
+  IonPage,
+  IonInput,
+  IonItem,
+  IonButton,
+  IonList,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle
+} from "@ionic/vue";
 
 import {
   lockClosedOutline,

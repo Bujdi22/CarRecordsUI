@@ -27,7 +27,7 @@
         </ion-content>
       </ion-menu>
 
-        <ion-router-outlet id="main-content"></ion-router-outlet>
+      <ion-router-outlet id="main-content"></ion-router-outlet>
     </ion-split-pane>
   </ion-app>
 </template>
@@ -109,7 +109,7 @@ export default {
       if (account) {
         this.refreshInterval = setInterval(() => {
           axiosInstance.get('/api/refresh-token').then((response) => {
-             localStorage.setItem('bearerToken', response.data);
+            localStorage.setItem('bearerToken', response.data);
           })
         }, 10 * 60 * 1000)
       } else {
