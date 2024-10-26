@@ -5,9 +5,10 @@
     <ion-content>
 
       <div class="container">
-        <ion-card v-if="afterRegister" color="success">
+        <ion-card v-if="afterRegister || afterForgot" color="success">
           <ion-card-header>
-            <ion-card-title>Register successful</ion-card-title>
+            <ion-card-title v-if="afterRegister">Register successful</ion-card-title>
+            <ion-card-title v-else>Password reset successful</ion-card-title>
             <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
@@ -34,6 +35,12 @@
           <div style="padding:10px;">
             <ion-button expand="block" @click="redirectToRegister" color="medium">
               New here? Create an account
+            </ion-button>
+          </div>
+
+          <div style="padding:10px;">
+            <ion-button expand="block" @click="redirectToForgotPassword" color="medium">
+              Forgot Password?
             </ion-button>
           </div>
 
@@ -101,11 +108,17 @@ export default {
     },
     redirectToRegister() {
       this.$router.push('/register');
+    },
+    redirectToForgotPassword() {
+      this.$router.push('/forgot-password');
     }
   },
   computed: {
     afterRegister() {
       return !!this.$route.query.afterRegister;
+    },
+    afterForgot() {
+      return !!this.$route.query.afterForgot;
     }
   }
 }

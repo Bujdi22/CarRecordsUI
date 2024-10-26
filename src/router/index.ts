@@ -30,6 +30,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/account',
     component: () => import ('../views/AccountPage.vue')
   },
+  {
+    path: '/resetPassword',
+    component: () => import ('../views/ForgotPasswordPage.vue')
+  },
+  {
+    path: '/forgot-password',
+    component: () => import ('../views/SendForgotPasswordPage.vue')
+  },
   // {
   //   path: '/folder/:id',
   //   component: () => import ('../views/FolderPage.vue')

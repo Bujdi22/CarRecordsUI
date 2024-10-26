@@ -4,8 +4,20 @@
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
           <ion-list id="inbox-list" style="padding-top: 60px">
-            <ion-list-header>Car Records App</ion-list-header>
-            <ion-note>Your maintenance records application</ion-note>
+            <div>
+              <img v-if="isDarkMode()"
+                  src="./assets/logo_white.png"
+                  style="display: block; width: 80%; margin: auto; height: auto;"
+                  alt="logo"/>
+              <img v-else
+                  src="./assets/logo_black.png"
+                  style="display: block; width: 80%; margin: auto; height: auto;"
+                  alt="logo"/>
+            </div>
+
+            <div style="text-align: center">
+              <ion-note>Your maintenance records application</ion-note>
+            </div>
 
             <ion-menu-toggle :auto-hide="false"
                              v-for="(p, i) in appPages"
@@ -115,6 +127,11 @@ export default {
       } else {
         clearInterval(this.refreshInterval);
       }
+    }
+  },
+  methods: {
+    isDarkMode() {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
   },
 }
