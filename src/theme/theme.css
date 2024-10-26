@@ -168,3 +168,10 @@ ion-card {
     border-color: var(--ion-color-danger);
     border-style: solid;
 }
+
+ion-card.ion-color-success {
+    background-color: transparent;
+    border: 2px solid var(--ion-color-success);
+    color: var(--ion-color-success);
+    box-shadow: none;
+}

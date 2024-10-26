@@ -13,6 +13,8 @@
           </ion-card-header>
         </ion-card>
 
+        <form-error-list :errors="formErrors"></form-error-list>
+
         <ion-list>
           <ion-item>
             <ion-input v-model="username" label="Email" label-placement="stacked" placeholder="Type your email">
@@ -77,6 +79,7 @@ import {
   personCircleOutline
 } from 'ionicons/icons';
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
+import FormErrorList from "@/components/FormErrorList.vue";
 </script>
 <script lang="ts">
 import axiosInstance from '@/config/axiosConfig';
@@ -86,10 +89,13 @@ export default {
     return {
       username: '',
       password: '',
+      formErrors: null,
     }
   },
   methods: {
     login() {
+      this.$router.replace('/login');
+      this.formErrors = null;
       localStorage.clear();
       axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
         localStorage.setItem('bearerToken', data.data);
@@ -99,10 +105,14 @@ export default {
           this.$router.push('/home');
         })
       }).catch(error => {
-        if (error.response && error.response.status === 401) {
-          console.error('Invalid username or password');
+        if (error.response && error.response.status === 403) {
+          this.formErrors = {
+            'Credentials': 'Incorrect credentials'
+          };
         } else {
-          console.error('An error occurred:', error);
+          this.formErrors = {
+            'Error': 'Something went wrong'
+          };
         }
       });
     },
