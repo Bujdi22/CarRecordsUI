@@ -175,3 +175,20 @@ ion-card.ion-color-success {
     color: var(--ion-color-success);
     box-shadow: none;
 }
+
+.card-icon-header {
+    background: var(--ion-color-primary);
+    color: var(--ion-color-primary-contrast);
+    text-align: center;
+}
+
+.card-icon-header ion-icon {
+    font-size: 60px;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+
+ion-card-content p {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}

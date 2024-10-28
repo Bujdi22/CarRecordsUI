@@ -40,7 +40,7 @@
             </ion-button>
           </div>
 
-          <div style="padding:10px;">
+          <div style="padding:10px;">-
             <ion-button expand="block" @click="redirectToForgotPassword" color="medium">
               Forgot Password?
             </ion-button>
@@ -83,8 +83,10 @@ import FormErrorList from "@/components/FormErrorList.vue";
 </script>
 <script lang="ts">
 import axiosInstance from '@/config/axiosConfig';
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
+  name: 'LoginPage',
   data() {
     return {
       username: '',
@@ -131,7 +133,7 @@ export default {
       return !!this.$route.query.afterForgot;
     }
   }
-}
+})
 </script>
 
 <style scoped>

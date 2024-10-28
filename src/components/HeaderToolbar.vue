@@ -1,7 +1,10 @@
 <template>
   <ion-header :translucent="true">
     <ion-toolbar>
-      <ion-buttons slot="start">
+      <ion-buttons v-if="hasBackButton" slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-buttons v-else slot="start">
         <ion-menu-button color="primary"></ion-menu-button>
       </ion-buttons>
       <ion-chip slot="end" @click="$router.push(account ? '/account' : '/login')"
@@ -34,16 +37,20 @@ import {
   IonChip,
   IonAvatar,
   IonLabel,
-  IonIcon
+  IonIcon,
+  IonBackButton,
 } from "@ionic/vue";
 import {personCircleOutline} from "ionicons/icons";
 
 </script>
+
 <script lang="ts">
 import {mapState} from "vuex";
 
 export default {
-
+  props: {
+    hasBackButton: {type: Boolean, required: false, default: false},
+  },
   computed: mapState({
     account: state => state.account
   })

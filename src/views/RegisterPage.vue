@@ -65,8 +65,10 @@ import FormErrorList from "@/components/FormErrorList.vue";
 <script lang="ts">
 import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
+  name: 'RegisterPage',
   mixins: [FormErrors],
   data() {
     return {
@@ -105,7 +107,7 @@ export default {
       return !this.matchingPassword || !this.username || !this.password || !this.displayName
     },
   }
-}
+})
 </script>
 
 <style scoped>

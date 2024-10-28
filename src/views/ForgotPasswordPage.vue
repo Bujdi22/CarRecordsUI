@@ -66,7 +66,8 @@ import {
   IonList,
   IonLabel,
   IonInput,
-  IonButton, IonItem, IonIcon
+  IonButton, IonItem, IonIcon,
+    IonContent,
 } from "@ionic/vue";
 
 export default defineComponent({
@@ -77,7 +78,7 @@ export default defineComponent({
     IonButton,
     IonInput,
     IonLabel,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle},
+    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent},
     mixins: [FormErrors],
 
   data() {

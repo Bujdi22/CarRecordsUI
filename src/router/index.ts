@@ -38,6 +38,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/forgot-password',
     component: () => import ('../views/SendForgotPasswordPage.vue')
   },
+  {
+    path: '/vehicles/add',
+    component: () => import ('../views/AddVehiclePage.vue')
+  },
   // {
   //   path: '/folder/:id',
   //   component: () => import ('../views/FolderPage.vue')

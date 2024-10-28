@@ -53,7 +53,8 @@ import {
   IonCardSubtitle,
   IonList,
   IonInput,
-  IonButton, IonItem, IonIcon
+  IonButton, IonItem, IonIcon,
+    IonContent,
 } from "@ionic/vue";
 import Swal from "sweetalert2";
 import {personCircleOutline} from "ionicons/icons";
@@ -65,7 +66,7 @@ export default defineComponent({
     IonItem,
     IonButton,
     IonInput,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle},
+    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent},
   mixins: [FormErrors],
 
   data() {
