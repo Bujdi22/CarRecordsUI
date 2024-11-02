@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://18.203.65.4:8080/', // Your back-end server
+        target: 'https://api.autojournalapp.com/', // Your back-end server
         changeOrigin: true,
       },
     },
@@ -32,7 +32,7 @@ export default defineConfig({
   define: {
     'process.env.API_BASE_URL': JSON.stringify(
         process.env.NODE_ENV === 'production'
-            ? 'http://192.168.0.246:8080' // Android app API base URL
+            ? 'https://api.autojournalapp.com' // Android app API base URL
             : '/api' // Vite proxy for development
     ),
   },
