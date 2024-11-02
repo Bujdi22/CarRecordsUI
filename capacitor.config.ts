@@ -6,8 +6,7 @@ const config: CapacitorConfig = {
   webDir: 'dist',
   server: {
     allowNavigation: [
-      'http://192.168.0.246:8080',
-      'http://localhost:8100', // If you're testing locally
+      'https://api.autojournalapp.com', // If you're testing locally
       'capacitor://localhost'
     ],
     cleartext: true, // Allow cleartext traffic (HTTP)
