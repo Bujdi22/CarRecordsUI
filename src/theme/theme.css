@@ -177,9 +177,20 @@ ion-card.ion-color-success {
 }
 
 .card-icon-header {
-    background: var(--ion-color-primary);
-    color: var(--ion-color-primary-contrast);
     text-align: center;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .card-icon-header {
+        background: var(--ion-color-dark-shade);
+        color: var(--ion-color-dark-contrast);    }
+}
+
+@media (prefers-color-scheme: light) {
+    .card-icon-header {
+        background: var(--ion-color-dark-shade);
+        color: var(--ion-color-dark-contrast);    }
 }
 
 .card-icon-header ion-icon {
@@ -191,4 +202,12 @@ ion-card.ion-color-success {
 ion-card-content p {
     padding-bottom: 5px;
     padding-top: 5px;
+}
+
+ion-card-content ion-button {
+    margin-top: 20px;
+}
+
+ion-card {
+    margin-bottom: 20px;
 }

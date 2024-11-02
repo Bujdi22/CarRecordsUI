@@ -18,17 +18,19 @@
 
 </template>
 
-<script setup lang="ts">
-import {IonContent, IonPage, IonButton} from "@ionic/vue";
-import {} from 'ionicons/icons';
-import HeaderToolbar from "@/components/HeaderToolbar.vue";
-</script>
 <script lang="ts">
+import {IonContent, IonPage, IonButton} from "@ionic/vue";
+import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import Swal from "sweetalert2";
 import {mapState} from "vuex";
 import axiosInstance from '@/config/axiosConfig';
+import {defineComponent} from "vue";
 
-export default {
+export default defineComponent({
+  name: "AccountPage",
+  components: {
+    IonContent, IonPage, IonButton, HeaderToolbar,
+  },
   methods: {
     logout() {
       Swal.fire({
@@ -71,7 +73,7 @@ export default {
   computed: mapState({
     account: state => state.account
   })
-}
+})
 </script>
 <style scoped>
 

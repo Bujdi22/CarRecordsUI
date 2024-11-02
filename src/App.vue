@@ -107,7 +107,17 @@ export default {
     }
     const storedAccount = localStorage.getItem("account");
     if (storedAccount) {
-      this.$store.commit('setAccount', JSON.parse(storedAccount));
+      axiosInstance.get('/api/fetch-account').then((data) => {
+        this.$store.commit('setAccount', data.data)
+        localStorage.setItem('account', JSON.stringify(data.data));
+        axiosInstance.get('/api/refresh-token').then((response) => {
+          localStorage.setItem('bearerToken', response.data);
+        })
+      }).catch(() => {
+        localStorage.clear();
+        this.$store.commit('setAccount', null);
+        this.$router.push('/login');
+      })
     }
   },
 
@@ -118,15 +128,6 @@ export default {
   watch: {
     account(account) {
       console.log('account changed', account);
-      if (account) {
-        this.refreshInterval = setInterval(() => {
-          axiosInstance.get('/api/refresh-token').then((response) => {
-            localStorage.setItem('bearerToken', response.data);
-          })
-        }, 10 * 60 * 1000)
-      } else {
-        clearInterval(this.refreshInterval);
-      }
     }
   },
   methods: {

@@ -21,7 +21,7 @@
                 label-placement="stacked"
                 placeholder="Enter the make"
             >
-              <ion-select-option v-for="(make, key) in carmakes.brands" :value="make" :key="key">{{ make }}</ion-select-option>
+              <ion-select-option v-for="(make, key) in carmakers.brands" :value="make" :key="key">{{ make }}</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item>
@@ -51,10 +51,9 @@
     </ion-content>
   </ion-page>
 </template>
-<script setup lang="ts">
+<script lang="ts">
 import {
   IonPage,
-  IonIcon,
   IonButton,
   IonContent,
   IonList,
@@ -65,16 +64,25 @@ import {
 } from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
-import carmakes from "@/assets/carmakers.json";
-</script>
-<script lang="ts">
-
+import carmakers from "@/assets/carmakers.json";
 import {defineComponent} from "vue";
 import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
 
 export default defineComponent({
   name: "AddVehiclePage",
+  components: {
+    IonPage,
+    IonButton,
+    IonContent,
+    IonList,
+    IonItem,
+    IonInput,
+    IonSelect,
+    IonSelectOption,
+    HeaderToolbar,
+    FormErrorList
+  },
   mixins: [FormErrors],
   data() {
     return {
@@ -82,6 +90,7 @@ export default defineComponent({
       make: '',
       model: '',
       year: '',
+      carmakers: carmakers,
     }
   },
   mounted() {

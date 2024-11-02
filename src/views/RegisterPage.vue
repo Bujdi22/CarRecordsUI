@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
 
     <header-toolbar>Register</header-toolbar>
     <ion-content>
@@ -76,10 +77,12 @@ export default defineComponent({
       password: '',
       password2: '',
       displayName: '',
+      loading: false,
     }
   },
   methods: {
     register() {
+      this.loading = true;
       const form = {
         username: this.username,
         password: this.password,
@@ -89,6 +92,7 @@ export default defineComponent({
       localStorage.clear();
       axiosInstance.post('/api/register', form)
           .then(() => {
+            this.loading = false;
             this.$router.push({
               path: '/login',
               query: {afterRegister: true},
@@ -96,6 +100,7 @@ export default defineComponent({
           })
           .catch((error) => {
             this.parseFormErrors(error.response.data);
+            this.loading = false;
           });
     },
   },

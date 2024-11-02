@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
 
     <header-toolbar>Login</header-toolbar>
     <ion-content>
@@ -40,7 +41,7 @@
             </ion-button>
           </div>
 
-          <div style="padding:10px;">-
+          <div style="padding:10px;">
             <ion-button expand="block" @click="redirectToForgotPassword" color="medium">
               Forgot Password?
             </ion-button>
@@ -58,8 +59,7 @@
 
 </template>
 
-<script setup lang="ts">
-
+<script lang="ts">
 import {
   IonContent,
   IonIcon,
@@ -71,7 +71,8 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle
+  IonCardSubtitle,
+  onIonViewDidEnter,
 } from "@ionic/vue";
 
 import {
@@ -80,22 +81,44 @@ import {
 } from 'ionicons/icons';
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
-</script>
-<script lang="ts">
 import axiosInstance from '@/config/axiosConfig';
 import {defineComponent} from "vue";
 
 export default defineComponent({
   name: 'LoginPage',
+  components: {
+    IonContent,
+    IonIcon,
+    IonPage,
+    IonInput,
+    IonItem,
+    IonButton,
+    IonList,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    HeaderToolbar,
+    FormErrorList
+  },
   data() {
     return {
       username: '',
       password: '',
       formErrors: null,
+      loading: false,
     }
+  },
+  created() {
+    onIonViewDidEnter(() => {
+      this.username = '';
+      this.password =  '';
+      this.formErrors = null;
+    });
   },
   methods: {
     login() {
+      this.loading = true;
       this.$router.replace('/login');
       this.formErrors = null;
       localStorage.clear();
@@ -104,9 +127,11 @@ export default defineComponent({
         axiosInstance.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
+          this.loading = false;
           this.$router.push('/home');
         })
       }).catch(error => {
+        this.loading = false;
         if (error.response && error.response.status === 403) {
           this.formErrors = {
             'Credentials': 'Incorrect credentials'
@@ -123,7 +148,9 @@ export default defineComponent({
     },
     redirectToForgotPassword() {
       this.$router.push('/forgot-password');
-    }
+    },
+    lockClosedOutline() { return lockClosedOutline },
+    personCircleOutline() { return personCircleOutline },
   },
   computed: {
     afterRegister() {
