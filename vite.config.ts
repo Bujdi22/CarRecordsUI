@@ -14,7 +14,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://api.autojournalapp.com/', // Your back-end server
+        target: 'http://localhost:8080/', // Your back-end server
         changeOrigin: true,
       },
     },
