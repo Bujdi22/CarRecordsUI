@@ -21,7 +21,7 @@
                 label-placement="stacked"
                 placeholder="Enter the make"
             >
-              <ion-select-option v-for="(make, key) in carmakers.brands" :value="make" :key="key">{{ make }}</ion-select-option>
+              <ion-select-option v-for="(make, key) in carmakers.brands" :value="make.name" :key="key">{{ make.name }}</ion-select-option>
             </ion-select>
           </ion-item>
           <ion-item>

@@ -42,10 +42,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/vehicles/add',
     component: () => import ('../views/AddVehiclePage.vue')
   },
-  // {
-  //   path: '/folder/:id',
-  //   component: () => import ('../views/FolderPage.vue')
-  // },
+  {
+    path: '/vehicles/:id',
+    component: () => import ('../views/ViewVehiclePage.vue')
+  },
 ]
 
 const router = createRouter({

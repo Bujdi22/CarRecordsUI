@@ -22,6 +22,7 @@
       <ion-title>
         <slot></slot>
       </ion-title>
+      <slot name="raw"></slot>
     </ion-toolbar>
   </ion-header>
 </template>
