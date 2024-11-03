@@ -66,7 +66,6 @@ import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
 import carmakers from "@/assets/carmakers.json";
 import {defineComponent} from "vue";
-import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
 
 export default defineComponent({
@@ -108,7 +107,7 @@ export default defineComponent({
         model: this.model,
         year: this.year
       };
-      axiosInstance.post('/api/vehicles', form)
+      this.$axios.post('/api/vehicles', form)
           .then(() => {
             this.$router.push('/vehicles');
           }).catch((error) => {

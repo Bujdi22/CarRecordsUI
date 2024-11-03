@@ -17,6 +17,11 @@
     <ion-content>
 
       <div class="container">
+        <div v-if="loading">
+          <skeleton-card></skeleton-card>
+          <skeleton-card></skeleton-card>
+          <skeleton-card></skeleton-card>
+        </div>
         <div v-if="!loading && !vehicles.length" style="margin-top:50px;">
           <h1>
             You do not have any vehicles yet.
@@ -64,15 +69,16 @@
 
 </template>
 <script lang="ts">
-import axiosInstance from '@/config/axiosConfig';
 import {IonContent, IonPage, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, onIonViewDidEnter, IonFabButton, IonFab, IonProgressBar, IonButtons, IonTitle} from "@ionic/vue";
 import {add, carOutline} from "ionicons/icons";
 import carmakers from "@/assets/carmakers.json";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import moment from "moment";
+import SkeletonCard from "@/components/SkeletonCard.vue";
 
 export default {
   components: {
+    SkeletonCard,
     IonContent, IonPage, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFabButton, IonFab, IonProgressBar, IonButtons, IonTitle,
     HeaderToolbar,
   },
@@ -95,7 +101,7 @@ export default {
     load() {
       this.loading = true;
       this.vehicles = [];
-      axiosInstance.get('/api/vehicles').then(({data}) => {
+      this.$axios.get('/api/vehicles').then(({data}) => {
         this.vehicles = data.map((vehicle) => {
           vehicle.icon = this.carmakers.brands.filter((brand) => vehicle.make === brand.name)?.[0]?.path;
           return vehicle;

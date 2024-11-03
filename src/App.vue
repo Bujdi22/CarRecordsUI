@@ -70,7 +70,6 @@ import {
   informationCircleSharp
 } from "ionicons/icons";
 import {mapState} from "vuex";
-import axiosInstance from '@/config/axiosConfig';
 
 export default {
   data() {
@@ -104,20 +103,6 @@ export default {
     const path = window.location.pathname.split('/')[1];
     if (path) {
       this.selectedIndex = this.appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
-    }
-    const storedAccount = localStorage.getItem("account");
-    if (storedAccount) {
-      axiosInstance.get('/api/fetch-account').then((data) => {
-        this.$store.commit('setAccount', data.data)
-        localStorage.setItem('account', JSON.stringify(data.data));
-        axiosInstance.get('/api/refresh-token').then((response) => {
-          localStorage.setItem('bearerToken', response.data);
-        })
-      }).catch(() => {
-        localStorage.clear();
-        this.$store.commit('setAccount', null);
-        this.$router.push('/login');
-      })
     }
   },
 

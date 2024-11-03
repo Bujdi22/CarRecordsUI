@@ -43,7 +43,6 @@ import FormErrorList from "@/components/FormErrorList.vue";
 <script lang="ts">
 import {defineComponent} from 'vue'
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
 import {
   IonPage,
@@ -85,7 +84,7 @@ export default defineComponent({
         username: this.username,
       }
 
-      axiosInstance.post('/api/forgot-password-request', form)
+      this.$axios.post('/api/forgot-password-request', form)
           .then(() => {
             Swal.fire({
               title: "Check your e-mail",

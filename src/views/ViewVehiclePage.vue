@@ -14,8 +14,13 @@
         </router-link>
       </div>
       <div v-else class="container">
-        <ion-list :inset="true">
-
+        <skeleton-card :inset="true" v-if="loading"></skeleton-card>
+        <ion-list :inset="true" v-else>
+          <ion-item>
+            <div style="margin:10px; margin-left: 0">
+              <img :src="logoPath" style="height:50px"/>
+            </div>
+          </ion-item>
           <ion-item>
             <ion-label>
               Make: {{ vehicle.make }}
@@ -52,21 +57,25 @@
 </template>
 
 <script lang="ts">
-import axiosInstance from '@/config/axiosConfig';
 import {defineComponent} from 'vue'
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import {IonCardContent, IonCardSubtitle, IonContent, IonPage, IonProgressBar, onIonViewDidEnter, IonButton} from "@ionic/vue";
+import {IonCardContent, IonCardSubtitle, IonContent, IonPage, IonProgressBar, onIonViewDidEnter, IonButton, IonItem, IonLabel, IonList} from "@ionic/vue";
 import moment from "moment/moment";
+import SkeletonCard from "@/components/SkeletonCard.vue";
+import carmakers from "@/assets/carmakers.json";
 
 export default defineComponent({
   name: "ViewVehiclePage",
-  components: {IonCardSubtitle, IonCardContent, IonProgressBar, IonPage, IonContent, HeaderToolbar, IonButton},
+  components: {
+    SkeletonCard,
+    IonCardSubtitle, IonCardContent, IonProgressBar, IonPage, IonContent, HeaderToolbar, IonButton, IonItem, IonLabel, IonList},
   data() {
     return {
       vehicle: {},
       records: [],
       loading: false,
       fail: false,
+      carmakers: carmakers,
     }
   },
   created() {
@@ -78,7 +87,7 @@ export default defineComponent({
     load() {
       this.loading = true;
       this.fail = false;
-      axiosInstance.get(`/api/vehicles/${this.$route.params.id}`).then(({data}) => {
+      this.$axios.get(`/api/vehicles/${this.$route.params.id}`).then(({data}) => {
         this.vehicle = data;
         this.loading = false;
       }).catch(() => {
@@ -94,6 +103,14 @@ export default defineComponent({
       return moment(date).fromNow();
     },
   },
+  computed: {
+    logoPath() {
+      if (this.vehicle) {
+        return this.carmakers.brands.filter((brand) => this.vehicle.make === brand.name)?.[0]?.path;
+      }
+      return null;
+    }
+  }
 })
 </script>
 

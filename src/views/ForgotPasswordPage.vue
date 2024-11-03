@@ -55,7 +55,6 @@ import FormErrorList from "@/components/FormErrorList.vue";
 <script lang="ts">
 import {defineComponent} from 'vue'
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
 import {
   IonPage,
@@ -108,7 +107,7 @@ export default defineComponent({
         token: this.$route.query.token
       }
 
-      axiosInstance.post('/api/forgot-password', form)
+      this.$axios.post('/api/forgot-password', form)
           .then(() => {
             this.$router.push({
               path: '/login',

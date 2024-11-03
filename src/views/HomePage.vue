@@ -1,6 +1,5 @@
 <template>
   <ion-page>
-
     <header-toolbar>Home</header-toolbar>
     <ion-content>
 

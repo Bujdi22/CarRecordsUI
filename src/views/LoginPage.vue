@@ -73,6 +73,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   onIonViewDidEnter,
+  IonProgressBar,
 } from "@ionic/vue";
 
 import {
@@ -81,7 +82,6 @@ import {
 } from 'ionicons/icons';
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
-import axiosInstance from '@/config/axiosConfig';
 import {defineComponent} from "vue";
 
 export default defineComponent({
@@ -99,7 +99,8 @@ export default defineComponent({
     IonCardTitle,
     IonCardSubtitle,
     HeaderToolbar,
-    FormErrorList
+    FormErrorList,
+    IonProgressBar,
   },
   data() {
     return {
@@ -119,16 +120,17 @@ export default defineComponent({
   methods: {
     login() {
       this.loading = true;
+      const redirect = this.$route.query.redirect ? this.$route.query.redirect : '/home';
       this.$router.replace('/login');
       this.formErrors = null;
       localStorage.clear();
-      axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
+      this.$axios.post('/api/login', {username: this.username, password: this.password}).then((data) => {
         localStorage.setItem('bearerToken', data.data);
-        axiosInstance.get('/api/fetch-account').then((data) => {
+        this.$axios.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
           this.loading = false;
-          this.$router.push('/home');
+          this.$router.push(redirect);
         })
       }).catch(error => {
         this.loading = false;

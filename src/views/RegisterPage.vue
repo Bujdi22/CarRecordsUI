@@ -78,7 +78,6 @@ import FormErrorList from "@/components/FormErrorList.vue";
 
 </script>
 <script lang="ts">
-import axiosInstance from '@/config/axiosConfig';
 import FormErrors from '../mixins/FormErrors';
 import useRecaptcha from '../mixins/useRecaptcha';
 import {defineComponent} from "vue";
@@ -113,7 +112,7 @@ export default defineComponent({
       };
       this.resetFormErrors();
       localStorage.clear();
-      axiosInstance.post('/api/register', form)
+      this.$axios.post('/api/register', form)
           .then(() => {
             this.loading = false;
             this.$router.push({

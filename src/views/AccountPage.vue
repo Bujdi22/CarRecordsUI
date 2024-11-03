@@ -23,7 +23,6 @@ import {IonContent, IonPage, IonButton} from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import Swal from "sweetalert2";
 import {mapState} from "vuex";
-import axiosInstance from '@/config/axiosConfig';
 import {defineComponent} from "vue";
 
 export default defineComponent({
@@ -62,7 +61,7 @@ export default defineComponent({
         heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {
-          axiosInstance.delete('/api/delete-account').then(() => {
+          this.$axios.delete('/api/delete-account').then(() => {
             this.logoutAction();
           })
         }

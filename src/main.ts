@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
-import { createStore } from 'vuex'
 import App from './App.vue'
 import router from './router';
+import store from "@/store";
 
 import { IonicVue } from '@ionic/vue';
 
@@ -36,25 +36,36 @@ import '@ionic/vue/css/palettes/dark.system.css';
 import './theme/variables.css';
 import './theme/theme.css';
 
-const store = createStore({
-  state() {
-    return {
-      account: null,
-    }
-  },
-  mutations: {
-    setAccount (state, value) {
-      state.account = value;
-    }
+import axiosInstance from '@/config/axiosConfig';
+
+async function fetchAccountData() {
+  const storedAccount = localStorage.getItem("account");
+  store.commit('setAccount', JSON.parse(storedAccount));
+  if (storedAccount) {
+    axiosInstance.get('/api/fetch-account').then((data) => {
+      store.commit('setAccount', data.data)
+      localStorage.setItem('account', JSON.stringify(data.data));
+      axiosInstance.get('/api/refresh-token').then((response) => {
+        localStorage.setItem('bearerToken', response.data);
+      })
+    }).catch(() => {
+      localStorage.clear();
+      store.commit('setAccount', null);
+    })
   }
+}
+
+fetchAccountData().finally(() => {
+  const app = createApp(App)
+      .use(IonicVue)
+      .use(router)
+      .use(store)
+
+  app.config.globalProperties.$axios = axiosInstance;
+
+  router.isReady().then(() => {
+    app.mount('#app');
+  });
 })
 
-const app = createApp(App)
-  .use(IonicVue)
-  .use(router);
 
-app.use(store);
-
-router.isReady().then(() => {
-  app.mount('#app');
-});
