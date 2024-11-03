@@ -223,3 +223,13 @@ ion-card-content ion-button {
 ion-card {
     margin-bottom: 20px;
 }
+
+.icon-title {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.icon-title ion-icon {
+    font-size: 1.5em;
+    margin-right: 8px;
+}

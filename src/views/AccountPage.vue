@@ -24,6 +24,7 @@ import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import Swal from "sweetalert2";
 import {mapState} from "vuex";
 import {defineComponent} from "vue";
+import Confirm from "@/utils/confirm";
 
 export default defineComponent({
   name: "AccountPage",
@@ -32,13 +33,9 @@ export default defineComponent({
   },
   methods: {
     logout() {
-      Swal.fire({
+      Confirm.fire({
         title: "Would you like to logout?",
         text: "Press confirm if you would like to logout.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: 'Confirm',
-        heightAuto: false
       }).then((result) => {
         if (result.isConfirmed) {
           this.logoutAction();
@@ -51,14 +48,9 @@ export default defineComponent({
       this.$router.push('/');
     },
     deleteAccount() {
-      Swal.fire({
+      Confirm.fire({
         title: "Would you like to delete your account?",
-        text: "This cannot be undone.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete my account',
-        confirmButtonColor: 'red',
-        heightAuto: false
+        text: "This cannot be undone."
       }).then((result) => {
         if (result.isConfirmed) {
           this.$axios.delete('/api/delete-account').then(() => {
