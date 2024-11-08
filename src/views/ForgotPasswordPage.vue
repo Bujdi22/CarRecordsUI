@@ -8,9 +8,11 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>You are now going to reset your password.</ion-card-title>
-            <ion-card-subtitle>Please type your new password.</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
+        <ion-card-content>
+          <p>Please type your new password.</p>
+        </ion-card-content>
         <form-error-list :errors="formErrors"></form-error-list>
 
         <ion-list>
@@ -65,7 +67,7 @@ import {
   IonList,
   IonLabel,
   IonInput,
-  IonButton, IonItem, IonIcon,
+  IonButton, IonItem, IonIcon, IonCardContent,
     IonContent,
 } from "@ionic/vue";
 
@@ -77,7 +79,7 @@ export default defineComponent({
     IonButton,
     IonInput,
     IonLabel,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent},
+    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonCardContent},
     mixins: [FormErrors],
 
   data() {

@@ -3,15 +3,15 @@
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
     <header-toolbar>
       <template #raw>
-          <ion-buttons slot="start">
-            <router-link to="/vehicles/add">
-              <ion-button color="primary" shape="round">
-                <ion-icon slot="start" :icon="add()"></ion-icon>
-                <p>Add a vehicle</p>
-              </ion-button>
-            </router-link>
-          </ion-buttons>
-          <ion-title>My Vehicles</ion-title>
+        <ion-buttons slot="start">
+          <router-link to="/vehicles/add">
+            <ion-button color="primary" shape="round">
+              <ion-icon slot="start" :icon="add()"></ion-icon>
+              <p>Add</p>
+            </ion-button>
+          </router-link>
+        </ion-buttons>
+        <ion-title>My Vehicles</ion-title>
       </template>
     </header-toolbar>
     <ion-content>
@@ -69,7 +69,20 @@
 
 </template>
 <script lang="ts">
-import {IonContent, IonPage, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, onIonViewDidEnter, IonFabButton, IonFab, IonProgressBar, IonButtons, IonTitle} from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  onIonViewDidEnter,
+  IonProgressBar,
+  IonButtons,
+  IonTitle
+} from "@ionic/vue";
 import {add, carOutline} from "ionicons/icons";
 import carmakers from "@/assets/carmakers.json";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
@@ -79,7 +92,17 @@ import SkeletonCard from "@/components/SkeletonCard.vue";
 export default {
   components: {
     SkeletonCard,
-    IonContent, IonPage, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonFabButton, IonFab, IonProgressBar, IonButtons, IonTitle,
+    IonContent,
+    IonPage,
+    IonButton,
+    IonIcon,
+    IonCard,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonProgressBar,
+    IonButtons,
+    IonTitle,
     HeaderToolbar,
   },
   data() {
@@ -96,8 +119,12 @@ export default {
   },
 
   methods: {
-    carOutline() {return carOutline},
-    add() {return add},
+    carOutline() {
+      return carOutline
+    },
+    add() {
+      return add
+    },
     load() {
       this.loading = true;
       this.vehicles = [];
