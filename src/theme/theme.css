@@ -171,8 +171,8 @@ ion-card {
 
 ion-card.ion-color-success {
     background-color: transparent;
-    border: 2px solid var(--ion-color-success);
-    color: var(--ion-color-success);
+    border: 2px solid var(--ion-color-success-shade);
+    color: var(--ion-color-success-shade);
     box-shadow: none;
 }
 

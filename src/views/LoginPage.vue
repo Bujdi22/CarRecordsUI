@@ -83,6 +83,7 @@ import {
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
 import {defineComponent} from "vue";
+import axiosInstance from "@/config/axiosConfig";
 
 export default defineComponent({
   name: 'LoginPage',
@@ -124,7 +125,7 @@ export default defineComponent({
       this.$router.replace('/login');
       this.formErrors = null;
       localStorage.clear();
-      this.$axios.post('/api/login', {username: this.username, password: this.password}).then((data) => {
+      axiosInstance.post('/api/login', {username: this.username, password: this.password}).then((data) => {
         localStorage.setItem('bearerToken', data.data);
         this.$axios.get('/api/fetch-account').then((data) => {
           this.$store.commit('setAccount', data.data)

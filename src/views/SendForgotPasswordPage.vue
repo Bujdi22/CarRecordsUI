@@ -8,11 +8,14 @@
         <ion-card>
           <ion-card-header>
             <ion-card-title>Request a password reset</ion-card-title>
-            <ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>
               If you have forgotten your password, please enter your e-mail address below,
               and we will send a password reset link if we find a matching account.
-            </ion-card-subtitle>
-          </ion-card-header>
+            </p>
+          </ion-card-content>
+
         </ion-card>
         <form-error-list :errors="formErrors"></form-error-list>
 
@@ -53,7 +56,7 @@ import {
   IonList,
   IonInput,
   IonButton, IonItem, IonIcon,
-    IonContent,
+    IonContent, IonCardContent
 } from "@ionic/vue";
 import Swal from "sweetalert2";
 import {personCircleOutline} from "ionicons/icons";
@@ -65,7 +68,7 @@ export default defineComponent({
     IonItem,
     IonButton,
     IonInput,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent},
+    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonCardContent},
   mixins: [FormErrors],
 
   data() {

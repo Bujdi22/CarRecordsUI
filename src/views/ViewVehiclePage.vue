@@ -61,6 +61,7 @@
               </ion-label>
             </ion-item>
           </ion-list>
+          <maintenance-records :vehicle="vehicle"></maintenance-records>
         </div>
         <div v-else-if="vehicle && editing && form">
           <ion-card color="light">
@@ -155,11 +156,13 @@ import FormErrors from "@/mixins/FormErrors";
 import FormErrorList from "@/components/FormErrorList.vue";
 import {informationCircleOutline} from "ionicons/icons";
 import Confirm from "@/utils/confirm";
+import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 
 export default defineComponent({
   name: "ViewVehiclePage",
   mixins: [FormErrors],
   components: {
+    MaintenanceRecords,
     IonIcon,
     IonCardSubtitle, IonCardTitle, IonCard, IonCardHeader,
     FormErrorList,
