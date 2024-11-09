@@ -88,6 +88,7 @@ import carmakers from "@/assets/carmakers.json";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import moment from "moment";
 import SkeletonCard from "@/components/SkeletonCard.vue";
+import {Vehicle} from "@/interfaces/Vehicle";
 
 export default {
   components: {
@@ -108,7 +109,7 @@ export default {
   data() {
     return {
       loading: false,
-      vehicles: [],
+      vehicles: [] as Vehicle[],
       carmakers: carmakers,
     }
   },
@@ -129,7 +130,7 @@ export default {
       this.loading = true;
       this.vehicles = [];
       this.$axios.get('/api/vehicles').then(({data}) => {
-        this.vehicles = data.map((vehicle) => {
+        this.vehicles = data.map((vehicle: Vehicle) => {
           vehicle.icon = this.carmakers.brands.filter((brand) => vehicle.make === brand.name)?.[0]?.path;
           return vehicle;
         });
@@ -138,11 +139,11 @@ export default {
       })
     },
 
-    formatCreatedAt(date) {
+    formatCreatedAt(date: string): string {
       return moment(date).format('LLLL');
     },
 
-    formatUpdatedAt(date) {
+    formatUpdatedAt(date: string): string {
       return moment(date).fromNow();
     },
   }

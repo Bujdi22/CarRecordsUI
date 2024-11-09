@@ -18,18 +18,22 @@
       <div v-else class="container">
         <skeleton-card :inset="true" v-if="loading"></skeleton-card>
         <div v-else-if="vehicle && !editing">
-          <div class="buttons">
-            <ion-button color="primary" @click="edit">
-              Edit Details
-            </ion-button>
-            <ion-button color="danger" @click="destroy" style="margin-left: 10px;">
-              Delete vehicle
-            </ion-button>
-          </div>
           <ion-list :inset="true">
             <ion-item>
-              <div style="margin: 10px 10px 10px 0;">
-                <img :src="logoPath" style="height:50px"/>
+              <div style="display: flex; justify-content: space-between; width: 100%;">
+                <div style="margin: 10px 10px 10px 0;">
+                  <img v-if="logoPath" :src="logoPath" style="height:50px" alt="car brand logo"/>
+                </div>
+                <div class="buttons">
+                  <ion-button color="primary" @click="edit">
+                    <ion-icon slot="start" :icon="createOutline()"></ion-icon>
+                    Edit
+                  </ion-button>
+                  <ion-button color="danger" @click="destroy" style="margin-left: 10px;">
+                    <ion-icon slot="start" :icon="trashOutline()"></ion-icon>
+                    Delete
+                  </ion-button>
+                </div>
               </div>
             </ion-item>
             <ion-item>
@@ -154,7 +158,7 @@ import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
 import FormErrors from "@/mixins/FormErrors";
 import FormErrorList from "@/components/FormErrorList.vue";
-import {informationCircleOutline} from "ionicons/icons";
+import {createOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
 import Confirm from "@/utils/confirm";
 import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 
@@ -173,7 +177,6 @@ export default defineComponent({
   data() {
     return {
       vehicle: null as Vehicle | null,
-      records: [],
       loading: false,
       loadingUpdate: false,
       fail: false,
@@ -192,6 +195,12 @@ export default defineComponent({
     });
   },
   methods: {
+    trashOutline() {
+      return trashOutline
+    },
+    createOutline() {
+      return createOutline
+    },
     informationCircleOutline() {
       return informationCircleOutline
     },

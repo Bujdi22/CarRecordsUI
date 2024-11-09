@@ -1,4 +1,5 @@
 export interface Vehicle {
+    icon: string,
     id: number,
     make: string,
     model: string,

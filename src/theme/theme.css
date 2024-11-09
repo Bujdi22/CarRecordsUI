@@ -233,3 +233,63 @@ ion-card {
     font-size: 1.5em;
     margin-right: 8px;
 }
+
+.is-loading {
+    display: block;
+    margin: auto;
+}
+
+.formatted-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+.formatted-table th,
+.formatted-table td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.formatted-table th {
+    color: var(--ion-color-primary);
+    font-weight: bold;
+}
+
+.formatted-table tr:nth-child(even) {
+    background-color: var(--ion-background-color-step-50); /* Light gray for even rows */
+}
+
+.formatted-table tbody tr:hover {
+    background-color: var(--ion-background-color-step-100); /* Slightly darker gray on hover */
+}
+
+.formatted-table td {
+    border-bottom: 1px solid var(--ion-color-primary); /* Add bottom border to separate rows */
+}
+
+.formatted-table thead {
+    border-bottom: 2px solid var(--ion-color-primary); /* Bold border under header */
+}
+
+.has-background {
+    background: var(--ion-item-background);
+}
+.has-padding {
+    padding: 12px;
+}
+
+.item-heading {
+    margin-top: 10px;
+    margin-bottom: 0;
+    padding: 0;
+    font-size: 0.85em;
+
+    color: var(--ion-color-primary-shade)
+}
+.item-value {
+    margin-top: 5px;
+    padding-top: 0;
+    margin-bottom: 10px;
+}
