@@ -16,19 +16,19 @@
     <ion-list>
       <ion-item>
         <div>
-          <p class="item-heading">Title</p>
+          <p class="item-heading is-color-primary">Title</p>
           <p class="item-value">{{ record.title }}</p>
         </div>
       </ion-item>
       <ion-item>
         <div>
-          <p class="item-heading">Date carried out</p>
+          <p class="item-heading is-color-primary">Date carried out</p>
           <p class="item-value">{{ formatDate(record.date) }}</p>
         </div>
       </ion-item>
       <ion-item>
         <div>
-          <p class="item-heading">Date recorded</p>
+          <p class="item-heading is-color-primary">Date recorded</p>
           <p class="item-value">{{ formatDate(record.createdAt) }}</p>
         </div>
       </ion-item>
@@ -41,6 +41,24 @@
       </ion-item>
     </ion-list>
   </ion-content>
+  <ion-footer style="text-align: right;">
+    <ion-button style="margin-top:20px; padding-right: 0"
+                @click="destroy"
+                color="danger"
+                class="has-padding"
+    >
+      <ion-icon slot="start" :icon="trashOutline()"></ion-icon>
+      Delete
+    </ion-button>
+    <ion-button style="margin-top:20px"
+                @click="edit"
+                color="primary"
+                class="has-padding"
+    >
+      <ion-icon slot="start" :icon="createOutline()"></ion-icon>
+      Edit
+    </ion-button>
+  </ion-footer>
 </template>
 
 <script lang="ts">
@@ -54,15 +72,20 @@ import {
   IonButton,
   IonItem,
   IonInput,
-  modalController, IonIcon,
+  modalController, IonIcon, IonFooter,
+    IonList,
 } from '@ionic/vue';
 import {MaintenanceRecord} from "@/interfaces/MaintenanceRecord";
-import {checkmarkOutline, closeCircleOutline} from "ionicons/icons";
-import moment from "moment/moment";
+import {checkmarkOutline, closeCircleOutline, createOutline, trashOutline} from "ionicons/icons";
+import {formatDate} from "@/utils/dateUtils";
+import Confirm from "@/utils/confirm";
+import axiosInstance from "@/config/axiosConfig";
+import Toast from "@/utils/toast";
 export default defineComponent({
   name: "MaintenanceRecordModal",
   props: {
     record: {type: Object as PropType<MaintenanceRecord>, required: true},
+    vehicleId: {type: Number, required: true},
   },
   components: {
     IonIcon,
@@ -74,6 +97,8 @@ export default defineComponent({
     IonButton,
     IonItem,
     IonInput,
+    IonFooter,
+    IonList,
   },
   data() {
     return {
@@ -81,6 +106,13 @@ export default defineComponent({
     }
   },
   methods: {
+    trashOutline() {
+      return trashOutline
+    },
+    createOutline() {
+      return createOutline
+    },
+    formatDate,
     checkmarkOutline() {
       return checkmarkOutline
     },
@@ -90,9 +122,27 @@ export default defineComponent({
     close() {
       modalController.dismiss(null, 'confirm');
     },
-
-    formatDate(date: string): string {
-      return moment(date).format('LL');
+    edit() {
+      this.$router.push({path: `/vehicles/edit-maintenance-record/${this.vehicleId}/${this.record.id}`})
+      modalController.dismiss(null, 'confirm');
+    },
+    destroy() {
+      Confirm.fire({
+        title: "Are you sure?",
+        text: "Press confirm if you would like to delete this record.",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosInstance.delete(`/api/maintenance-records/${this.record.id}`)
+              .then(() => {
+                Toast.fire({icon: 'success', title: 'Record deleted'});
+                modalController.dismiss(true, 'confirm');
+              })
+              .catch((error) => {
+                console.error(error);
+                Toast.fire({icon: 'error', title: 'Something went wrong'});
+              })
+        }
+      });
     },
   }
 })

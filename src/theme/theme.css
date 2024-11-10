@@ -280,16 +280,18 @@ ion-card {
     padding: 12px;
 }
 
-.item-heading {
+ion-item .item-heading {
     margin-top: 10px;
     margin-bottom: 0;
     padding: 0;
     font-size: 0.85em;
-
-    color: var(--ion-color-primary-shade)
+    color: var(--ion-color-base);
 }
-.item-value {
+ion-item .item-value {
     margin-top: 5px;
     padding-top: 0;
     margin-bottom: 10px;
+}
+.is-color-primary {
+    color: var(--ion-color-primary-shade)!important;
 }

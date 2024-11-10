@@ -150,7 +150,6 @@ import {
   IonCardContent,
   IonSelect, IonSelectOption, IonInput, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonIcon
 } from "@ionic/vue";
-import moment from "moment/moment";
 import SkeletonCard from "@/components/SkeletonCard.vue";
 import carmakers from "@/assets/carmakers.json";
 import {Vehicle} from "@/interfaces/Vehicle";
@@ -161,6 +160,7 @@ import FormErrorList from "@/components/FormErrorList.vue";
 import {createOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
 import Confirm from "@/utils/confirm";
 import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
+import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 
 export default defineComponent({
   name: "ViewVehiclePage",
@@ -195,6 +195,8 @@ export default defineComponent({
     });
   },
   methods: {
+    formatUpdatedAt,
+    formatCreatedAt,
     trashOutline() {
       return trashOutline
     },
@@ -215,13 +217,6 @@ export default defineComponent({
         this.loading = false;
         this.fail = true;
       });
-    },
-    formatCreatedAt(date: string): string {
-      return moment(date).format('LLLL');
-    },
-
-    formatUpdatedAt(date: string): string {
-      return moment(date).fromNow();
     },
     edit() {
       this.form = JSON.parse(JSON.stringify(this.vehicle));

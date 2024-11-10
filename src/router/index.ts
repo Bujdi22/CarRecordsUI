@@ -52,7 +52,14 @@ const routes: Array<RouteRecordRaw> = [
     path: '/vehicles/:id',
     component: () => import ('../views/ViewVehiclePage.vue')
   },
-
+  {
+    path: '/vehicles/create-maintenance-record/:vehicleId',
+    component: () => import ('../views/CreateMaintenanceRecordPage.vue')
+  },
+  {
+    path: '/vehicles/edit-maintenance-record/:vehicleId/:recordId',
+    component: () => import ('../views/CreateMaintenanceRecordPage.vue')
+  },
   {
     path: '/:pathMatch(.*)*',
     component: () => import ('../views/NotFoundPage.vue')
@@ -68,13 +75,11 @@ router.beforeEach((to, from, next) => {
   const requiresAuth = !to.meta.unauthenticated;
   const isAuthenticated = !!store.state.account;
   if (requiresAuth && !isAuthenticated) {
-    // Redirect to login if trying to access a protected route without authentication
     next({
       path: '/login',
       query: { redirect: to.fullPath }
     });
   } else {
-    // Continue to the requested route
     next();
   }
 });

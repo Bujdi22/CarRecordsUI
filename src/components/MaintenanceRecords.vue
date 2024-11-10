@@ -2,7 +2,7 @@
 <div style="padding:0 16px;">
   <ion-toolbar>
     <ion-buttons slot="end">
-      <ion-button color="secondary" shape="round" style="margin-right: 20px;">
+      <ion-button color="secondary" shape="round" style="margin-right: 20px;" @click="addRecord">
         <ion-icon slot="start" :icon="add()"></ion-icon>
         Add
       </ion-button>
@@ -48,9 +48,9 @@ import {MaintenanceRecord} from "@/interfaces/MaintenanceRecord";
 import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
 import {modalController, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonIcon} from "@ionic/vue";
-import moment from "moment";
 import {add} from "ionicons/icons";
 import MaintenanceRecordModal from "@/components/MaintenanceRecordModal.vue";
+import {formatDate} from "@/utils/dateUtils";
 
 export default defineComponent({
   name: "MaintenanceRecords",
@@ -68,6 +68,7 @@ export default defineComponent({
     this.load();
   },
   methods: {
+    formatDate,
     add() {
       return add
     },
@@ -85,22 +86,23 @@ export default defineComponent({
         });
       })
     },
-    formatDate(date: string): string {
-      return moment(date).format('LL');
-    },
     async viewRecord(record: MaintenanceRecord) {
       const modal = await modalController.create({
         component: MaintenanceRecordModal,
         cssClass: 'modal-fullscreen',
-        componentProps: {record}
+        componentProps: {record, vehicleId: this.vehicle.id},
       })
       modal.present();
 
       const { data, role } = await modal.onWillDismiss();
 
-      if (role === 'confirm') {
-        console.log('modalClosed', data);
+      if (role === 'confirm' && data) {
+        this.load();
       }
+    },
+    addRecord() {
+      this.$store.commit('setCachedVehicle', this.vehicle);
+      this.$router.push({path: `/vehicles/create-maintenance-record/${this.vehicle.id}`});
     },
   }
 })

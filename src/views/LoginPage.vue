@@ -24,7 +24,7 @@
           </ion-item>
           <ion-item>
             <ion-input v-model="password" label="Password" label-placement="stacked" type="password"
-                       placeholder="Type your password">
+                       placeholder="Type your password" @keyup.enter="login">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>

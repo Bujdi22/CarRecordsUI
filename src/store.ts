@@ -9,6 +9,9 @@ const store = createStore({
     mutations: {
         setAccount(state, value) {
             state.account = value;
+        },
+        setCachedVehicle(state, value) {
+            state.cachedVehicle = value;
         }
     }
 });

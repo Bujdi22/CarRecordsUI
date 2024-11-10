@@ -21,7 +21,6 @@
 <script lang="ts">
 import {IonContent, IonPage, IonButton} from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import Swal from "sweetalert2";
 import {mapState} from "vuex";
 import {defineComponent} from "vue";
 import Confirm from "@/utils/confirm";

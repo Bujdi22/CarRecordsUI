@@ -86,9 +86,9 @@ import {
 import {add, carOutline} from "ionicons/icons";
 import carmakers from "@/assets/carmakers.json";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import moment from "moment";
 import SkeletonCard from "@/components/SkeletonCard.vue";
 import {Vehicle} from "@/interfaces/Vehicle";
+import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 
 export default {
   components: {
@@ -120,6 +120,8 @@ export default {
   },
 
   methods: {
+    formatUpdatedAt,
+    formatCreatedAt,
     carOutline() {
       return carOutline
     },
@@ -137,14 +139,6 @@ export default {
 
         this.loading = false;
       })
-    },
-
-    formatCreatedAt(date: string): string {
-      return moment(date).format('LLLL');
-    },
-
-    formatUpdatedAt(date: string): string {
-      return moment(date).fromNow();
     },
   }
 }
