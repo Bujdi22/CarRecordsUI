@@ -84,6 +84,23 @@
               Add item
             </ion-button>
           </ion-list>
+
+          <ion-list style="margin-top:20px; margin-bottom: 20px">
+            <h5 class="has-padding" style="margin:0">Files</h5>
+            <ion-item v-for="(file, i) in files" :key="i">
+              {{ file.name }}
+            </ion-item>
+            <input
+                type="file"
+                style="display: none"
+                ref="fileInput"
+                accept="image/*"
+                @change="onFilePicked"/>
+            <ion-button @click="pickFile" class="has-padding" shape="round" color="primary">
+              <ion-icon slot="start" :icon="attachOutline()"></ion-icon>
+              Pick File
+            </ion-button>
+          </ion-list>
           <div style="text-align: right">
             <ion-button style="margin-bottom: 20px;" color="primary" @click="submit">
               Submit
@@ -120,7 +137,7 @@ import moment from "moment/moment";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {formatDate} from "../utils/dateUtils";
-import {addOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
+import {addOutline, attachOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
 import Toast from "@/utils/toast";
 
 export default defineComponent({
@@ -151,6 +168,7 @@ export default defineComponent({
       vehicle: null as Vehicle | null,
       fail: false,
       isEdit: false,
+      files: [],
     }
   },
   created() {
@@ -189,6 +207,9 @@ export default defineComponent({
   },
 
   methods: {
+    attachOutline() {
+      return attachOutline
+    },
     informationCircleOutline() {
       return informationCircleOutline
     },
@@ -214,11 +235,12 @@ export default defineComponent({
       const request = this.isEdit
           ? axiosInstance.put(`/api/maintenance-records/${this.form.id}`, this.form)
           : axiosInstance.post('/api/maintenance-records', this.form);
-      request.then(() => {
-        Toast.fire({'icon': 'success', title: 'Record saved'});
-        this.form = null;
-        this.loading = false;
-        this.$router.push({path: `/vehicles/${this.vehicle.id}`});
+      request.then(({data}) => {
+        if (this.files.length) {
+          this.handleFiles(data);
+        } else {
+          this.redirect();
+        }
       }).catch((error) => {
         console.error("Could not save", error);
         this.loading = false;
@@ -228,6 +250,40 @@ export default defineComponent({
     },
     cancelEdit() {
       this.$router.push({path: `/vehicles/${this.vehicle.id}`})
+    },
+    onFilePicked(event) {
+      console.log('hi', event);
+      const files = event.target.files
+      console.log(files[0]);
+      // let filename = files[0].name
+      // const fileReader = new FileReader()
+      // fileReader.addEventListener('load', () => {
+      //   this.imageUrl = fileReader.result
+      // })
+      // fileReader.readAsDataURL(files[0])
+      this.files.push(files[0]);
+    },
+    async handleFiles(record: MaintenanceRecord) {
+      for (const file of this.files) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('modelType', 'maintenance_record');
+        formData.append('modelId', record.id);
+        await axiosInstance.post('/api/file/upload', formData,  {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+      }
+
+      this.redirect();
+    },
+    redirect() {
+      Toast.fire({'icon': 'success', title: 'Record saved'});
+      this.form = null;
+      this.loading = false;
+      this.$router.push({path: `/vehicles/${this.vehicle.id}`});
+    },
+    pickFile() {
+      this.$refs.fileInput.click()
     },
   },
 

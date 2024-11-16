@@ -40,6 +40,12 @@
         <p>{{ item }}</p>
       </ion-item>
     </ion-list>
+    <h5>Files</h5>
+    <ion-list v-if="imageUrlsResolved">
+      <ion-item v-for="(file, key) in record.media">
+        <img :src="(file.resolvedImageUrl)" alt="test"/>
+      </ion-item>
+    </ion-list>
   </ion-content>
   <ion-footer style="text-align: right;">
     <ion-button style="margin-top:20px; padding-right: 0"
@@ -103,7 +109,11 @@ export default defineComponent({
   data() {
     return {
      name: '',
+     imageUrlsResolved: false,
     }
+  },
+  mounted() {
+    this.resolveImages();
   },
   methods: {
     trashOutline() {
@@ -143,6 +153,16 @@ export default defineComponent({
               })
         }
       });
+    },
+    async getImageUrl(media) {
+      const response = await axiosInstance.get(`/api/file/download/${media.id}`, {responseType: 'blob'});
+      media.resolvedImageUrl = URL.createObjectURL(response.data);
+    },
+    async resolveImages() {
+      for (const media of this.record.media) {
+        await this.getImageUrl(media);
+      }
+      this.imageUrlsResolved = true;
     },
   }
 })
