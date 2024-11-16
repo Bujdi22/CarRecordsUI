@@ -87,6 +87,26 @@
 
           <ion-list style="margin-top:20px; margin-bottom: 20px">
             <h5 class="has-padding" style="margin:0">Files</h5>
+            <div v-if="stagedForDelete.length" style="padding: 20px;">
+              <ion-icon :icon="warningOutline()" color="danger"></ion-icon>
+              You selected {{ stagedForDelete.length }} file(s) for deletion. After submitting, this cannot be undone.
+              <br>
+              <ion-button color="light" @click="stagedForDelete = []">
+                Undo delete
+              </ion-button>
+            </div>
+            <file-table
+                v-if="currentFilesExist && filteredFiles.length"
+                title="Current files"
+                :can-delete="true"
+                :files="filteredFiles"
+                @deleteFile="(file) => stageForDelete(file)"
+                style="padding-left: 20px; padding-right: 20px;"
+            ></file-table>
+            <ion-item v-if="files.length">
+              <h3>New Files</h3>
+            </ion-item>
+
             <ion-item v-for="(file, i) in files" :key="i">
               {{ file.name }}
             </ion-item>
@@ -98,7 +118,7 @@
                 @change="onFilePicked"/>
             <ion-button @click="pickFile" class="has-padding" shape="round" color="primary">
               <ion-icon slot="start" :icon="attachOutline()"></ion-icon>
-              Pick File
+              Add File
             </ion-button>
           </ion-list>
           <div style="text-align: right">
@@ -137,12 +157,14 @@ import moment from "moment/moment";
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css';
 import {formatDate} from "../utils/dateUtils";
-import {addOutline, attachOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
+import {addOutline, attachOutline, informationCircleOutline, trashOutline, warningOutline} from "ionicons/icons";
 import Toast from "@/utils/toast";
+import FileTable from "@/components/FileTable.vue";
 
 export default defineComponent({
   name: "CreateMaintenanceRecordPage",
   components: {
+    FileTable,
     IonCardSubtitle,
     IonCard,
     IonCardTitle,
@@ -169,17 +191,22 @@ export default defineComponent({
       fail: false,
       isEdit: false,
       files: [],
+      stagedForDelete: [],
     }
   },
   created() {
     onIonViewDidEnter(() => {
-      this.fail = this.loading = this.isEdit = false;
+      this.fail = false;
+      this.loading = false;
+      this.isEdit = false;
       this.form = {
         vehicleId: this.$route.params.vehicleId,
         title: '',
         description: {items: ['']},
         date: moment().format('YYYY-MM-DD'),
       }
+      this.files = [];
+      this.stagedForDelete = [];
       if (this.cachedVehicle && this.cachedVehicle === this.$route.params.vehicleId) {
         this.vehicle = this.cachedVehicle;
       } else {
@@ -207,6 +234,9 @@ export default defineComponent({
   },
 
   methods: {
+    warningOutline() {
+      return warningOutline
+    },
     attachOutline() {
       return attachOutline
     },
@@ -232,9 +262,13 @@ export default defineComponent({
     submit() {
       this.resetFormErrors();
       this.loading = true;
-      const request = this.isEdit
-          ? axiosInstance.put(`/api/maintenance-records/${this.form.id}`, this.form)
-          : axiosInstance.post('/api/maintenance-records', this.form);
+      let request;
+      if (this.isEdit) {
+        this.form.deleteFiles = this.stagedForDelete;
+        request = axiosInstance.put(`/api/maintenance-records/${this.form.id}`, this.form)
+      } else {
+        request = axiosInstance.post('/api/maintenance-records', this.form);
+      }
       request.then(({data}) => {
         if (this.files.length) {
           this.handleFiles(data);
@@ -252,15 +286,7 @@ export default defineComponent({
       this.$router.push({path: `/vehicles/${this.vehicle.id}`})
     },
     onFilePicked(event) {
-      console.log('hi', event);
       const files = event.target.files
-      console.log(files[0]);
-      // let filename = files[0].name
-      // const fileReader = new FileReader()
-      // fileReader.addEventListener('load', () => {
-      //   this.imageUrl = fileReader.result
-      // })
-      // fileReader.readAsDataURL(files[0])
       this.files.push(files[0]);
     },
     async handleFiles(record: MaintenanceRecord) {
@@ -285,6 +311,9 @@ export default defineComponent({
     pickFile() {
       this.$refs.fileInput.click()
     },
+    stageForDelete(file) {
+      this.stagedForDelete.push(file.id);
+    },
   },
 
   computed: {
@@ -294,7 +323,18 @@ export default defineComponent({
 
     isDarkMode() {
       return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
+    },
+
+    currentFilesExist() {
+      return this.form.media && this.form.media.length;
+    },
+
+    filteredFiles() {
+      if (this.currentFilesExist) {
+        return this.form.media.filter((file) => !this.stagedForDelete.includes(file.id));
+      }
+      return [];
+    },
   },
 })
 </script>

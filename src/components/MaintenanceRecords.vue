@@ -32,7 +32,7 @@
       <tr v-for="record in records" :key="record.id">
         <td>{{ record.title }}</td>
         <td>{{ formatDate(record.date) }}</td>
-        <td>{{ formatDate(record.date) }}</td>
+        <td>{{ formatDate(record.createdAt) }}</td>
         <td style="text-align: right"> <ion-button size="small" @click="viewRecord(record)">View</ion-button> </td>
       </tr>
       </tbody>
@@ -47,9 +47,8 @@ import {Vehicle} from "@/interfaces/Vehicle";
 import {MaintenanceRecord} from "@/interfaces/MaintenanceRecord";
 import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
-import {modalController, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonIcon} from "@ionic/vue";
+import {IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonIcon} from "@ionic/vue";
 import {add} from "ionicons/icons";
-import MaintenanceRecordModal from "@/components/MaintenanceRecordModal.vue";
 import {formatDate} from "@/utils/dateUtils";
 
 export default defineComponent({
@@ -86,19 +85,9 @@ export default defineComponent({
         });
       })
     },
-    async viewRecord(record: MaintenanceRecord) {
-      const modal = await modalController.create({
-        component: MaintenanceRecordModal,
-        cssClass: 'modal-fullscreen',
-        componentProps: {record, vehicleId: this.vehicle.id},
-      })
-      modal.present();
-
-      const { data, role } = await modal.onWillDismiss();
-
-      if (role === 'confirm' && data) {
-        this.load();
-      }
+    viewRecord(record: MaintenanceRecord) {
+      this.$store.commit('setCachedRecord', record);
+      this.$router.push({path: `/vehicles/view-maintenance-record/${record.id}`})
     },
     addRecord() {
       this.$store.commit('setCachedVehicle', this.vehicle);

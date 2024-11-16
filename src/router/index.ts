@@ -61,6 +61,10 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import ('../views/CreateMaintenanceRecordPage.vue')
   },
   {
+    path: '/vehicles/view-maintenance-record/:recordId',
+    component: () => import ('../views/ViewMaintenanceRecord.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     component: () => import ('../views/NotFoundPage.vue')
   },

@@ -12,6 +12,9 @@ const store = createStore({
         },
         setCachedVehicle(state, value) {
             state.cachedVehicle = value;
+        },
+        setCachedRecord(state, value) {
+            state.cachedRecord = value;
         }
     }
 });

@@ -7,4 +7,6 @@ export interface MaintenanceRecord {
     date: string,
     createdAt: string,
     updatedAt: string,
+    media: array,
+    vehicleId: number,
 }
