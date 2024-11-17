@@ -16,7 +16,10 @@
     <tbody>
     <tr v-for="(file) in files" :key="file.id">
       <th>
-        <img :src="(file.resolvedImageUrl)" alt="test"/>
+        <div v-if="file.fileType === 'pdf'" style="font-size: 70px">
+          <ion-icon :icon="documentTextOutline()"></ion-icon>
+        </div>
+        <img v-else :src="(file.resolvedUrl)" alt="test"/>
       </th>
       <th>
         {{ formatCreatedAt(file.createdAt) }}
@@ -49,10 +52,11 @@ import {defineComponent, PropType} from "vue";
 import {IonButton, IonIcon} from "@ionic/vue";
 import {formatCreatedAt} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
-import {eyeOutline, trashOutline} from "ionicons/icons";
+import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
 import ImageModal from "@/components/ImageModal.vue";
 import { modalController } from '@ionic/vue';
+import PdfModal from "@/components/PdfModal.vue";
 export default defineComponent({
   components: {IonIcon, IonButton},
   name: "FileTable",
@@ -74,6 +78,9 @@ export default defineComponent({
     this.resolveImages();
   },
   methods: {
+    documentTextOutline() {
+      return documentTextOutline
+    },
     eyeOutline() {
       return eyeOutline
     },
@@ -83,7 +90,7 @@ export default defineComponent({
     formatCreatedAt,
     async getImageUrl(media: Media) {
       const response = await axiosInstance.get(`/api/file/download/${media.id}`, {responseType: 'blob'});
-      media.resolvedImageUrl = URL.createObjectURL(response.data);
+      media.resolvedUrl = URL.createObjectURL(response.data);
     },
     async resolveImages() {
       this.imageUrlsResolved = false
@@ -95,7 +102,8 @@ export default defineComponent({
     },
     async view(file: Media) {
       const modal = await modalController.create({
-        component: ImageModal,
+        component: file.fileType === 'pdf' ? PdfModal : ImageModal,
+        cssClass: 'fullscreen',
         componentProps: {file}
       });
 

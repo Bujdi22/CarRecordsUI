@@ -1,25 +1,31 @@
 <template>
   <ion-header>
     <ion-toolbar>
-      <ion-title>Image Viewer</ion-title>
+      <ion-title>PDF Viewer</ion-title>
       <ion-buttons slot="end">
         <ion-button @click="close">
           <ion-icon :icon="closeCircleOutline()" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
+    <ion-progress-bar v-if="!ready" type="indeterminate"></ion-progress-bar>
   </ion-header>
   <ion-content class="ion-padding">
-    <ion-item>
-      <div class="image-container">
-        <img :src="file.resolvedUrl" alt="image"/>
-      </div>
-    </ion-item>
+
+    <PDFViewer
+        v-if="ready"
+        :source="file.resolvedUrl"
+        @download="handleDownload"
+    >
+
+    </PDFViewer>
+
   </ion-content>
 </template>
 
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
+import PDFViewer from 'pdf-viewer-vue'
 import {
   IonContent,
   IonHeader,
@@ -27,14 +33,15 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
-  IonItem,
-  modalController, IonIcon,
+  modalController,
+  IonIcon, IonProgressBar,
 } from '@ionic/vue';
 import {Media} from "@/interfaces/Media";
 import {closeCircleOutline} from "ionicons/icons";
 export default defineComponent({
-  name: "ImageModal",
+  name: "PdfModal",
   components: {
+    IonProgressBar,
     IonIcon,
     IonContent,
     IonHeader,
@@ -42,10 +49,15 @@ export default defineComponent({
     IonToolbar,
     IonButtons,
     IonButton,
-    IonItem,
+    PDFViewer
   },
   props: {
     file: {required: true, type: Object as PropType<Media>},
+  },
+  data() {
+    return {
+      ready: false,
+    }
   },
   methods: {
     closeCircleOutline() {
@@ -54,23 +66,19 @@ export default defineComponent({
     close() {
       modalController.dismiss(null, 'confirm');
     },
+    handleDownload() {
+
+    }
   },
+  mounted() {
+    setTimeout(() => this.ready = true, 1000);
+  }
 })
 </script>
 
 <style scoped>
-.image-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  max-height: 90vh; /* Take full height of the container */
-  width: 100%; /* Take full width of the container */
-  overflow: hidden; /* Ensure no overflow */
-}
-
-.image-container img {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain; /* Maintain aspect ratio */
+img {
+  width: 100%;
+  height: auto;
 }
 </style>

@@ -306,3 +306,7 @@ ion-item .item-value {
 .formatted-table img {
     height: 100px;
 }
+.fullscreen {
+    --width:100% !important;
+    --height:100% !important;
+}

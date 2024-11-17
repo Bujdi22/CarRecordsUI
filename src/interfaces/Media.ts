@@ -1,5 +1,6 @@
 export interface Media {
     id: string,
-    resolvedImageUrl: string,
+    resolvedUrl: string,
     createdAt: string,
+    fileType: string,
 }

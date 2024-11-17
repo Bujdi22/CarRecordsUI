@@ -207,7 +207,7 @@ export default defineComponent({
       }
       this.files = [];
       this.stagedForDelete = [];
-      if (this.cachedVehicle && this.cachedVehicle === this.$route.params.vehicleId) {
+      if (this.cachedVehicle && this.cachedVehicle.id === this.$route.params.vehicleId) {
         this.vehicle = this.cachedVehicle;
       } else {
         this.loading = true;
@@ -285,9 +285,28 @@ export default defineComponent({
     cancelEdit() {
       this.$router.push({path: `/vehicles/${this.vehicle.id}`})
     },
-    onFilePicked(event) {
+    onFilePicked(event: Event) {
       const files = event.target.files
-      this.files.push(files[0]);
+      const file = files[0];
+      const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+
+      if (file) {
+        if (!allowedTypes.includes(file.type)) {
+          alert('Only JPG, PNG, or PDF files are allowed.');
+          return;
+        }
+
+        const maxSizeInMB = 10;
+        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+
+        if (file.size > maxSizeInBytes) {
+          // Handle file rejection
+          alert(`File size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
+          return; // Exit the function without adding the file
+        }
+
+        this.files.push(file);
+      }
     },
     async handleFiles(record: MaintenanceRecord) {
       for (const file of this.files) {
