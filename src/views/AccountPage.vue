@@ -5,7 +5,8 @@
     <ion-content>
 
       <div class="container">
-        <h2>Welcome, {{ account?.username }}</h2>
+        <h2>Welcome, {{ account?.displayName }} </h2>
+        <p style="margin-bottom: 20px">Your e-mail: {{ account?.username }}</p>
         <ion-button color="danger" @click="logout">Logout</ion-button>
         <br>
         <ion-button color="danger" @click="deleteAccount">Delete Account</ion-button>

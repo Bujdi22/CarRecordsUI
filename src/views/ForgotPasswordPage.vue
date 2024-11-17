@@ -63,7 +63,6 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
   IonList,
   IonLabel,
   IonInput,
@@ -79,7 +78,7 @@ export default defineComponent({
     IonButton,
     IonInput,
     IonLabel,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonCardContent},
+    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonContent, IonCardContent},
     mixins: [FormErrors],
 
   data() {

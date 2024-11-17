@@ -1,8 +1,13 @@
 <template>
   <ion-header :translucent="true">
     <ion-toolbar>
-      <ion-buttons v-if="hasBackButton" slot="start">
-        <ion-back-button></ion-back-button>
+      <ion-buttons v-if="hasBackButton || backButtonTarget" slot="start">
+        <router-link v-if="backButtonTarget" :to="backButtonTarget">
+          <ion-button color="dark">
+            <ion-icon :icon="arrowBackOutline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </router-link>
+        <ion-back-button v-else></ion-back-button>
       </ion-buttons>
       <ion-buttons v-else slot="start">
         <ion-menu-button color="primary"></ion-menu-button>
@@ -40,8 +45,9 @@ import {
   IonLabel,
   IonIcon,
   IonBackButton,
+  IonButton,
 } from "@ionic/vue";
-import {personCircleOutline} from "ionicons/icons";
+import {arrowBackOutline, personCircleOutline} from "ionicons/icons";
 
 </script>
 
@@ -51,10 +57,11 @@ import {mapState} from "vuex";
 export default {
   props: {
     hasBackButton: {type: Boolean, required: false, default: false},
+    backButtonTarget: {type: String, required: false},
   },
   computed: mapState({
     account: state => state.account
-  })
+  }),
 }
 
 </script>

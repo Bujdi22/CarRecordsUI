@@ -22,13 +22,12 @@
             <ion-menu-toggle :auto-hide="false"
                              v-for="(p, i) in appPages"
                              :key="i">
-              <ion-item @click="selectedIndex = i"
-                        router-direction="root"
+              <ion-item router-direction="root"
                         :router-link="p.url"
                         lines="none"
                         :detail="false"
                         class="hydrated"
-                        :class="{ selected: selectedIndex === i }"
+                        :class="{ selected: isSelected(p.url) }"
                         :disabled="p.accountRequired && !account"
               >
                 <ion-icon aria-hidden="true" slot="start" :ios="p.iosIcon" :md="p.mdIcon"></ion-icon>
@@ -52,7 +51,6 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonMenu,
   IonMenuToggle,
   IonRouterOutlet,
@@ -67,7 +65,7 @@ import {
   homeOutline,
   homeSharp,
   informationCircleOutline,
-  informationCircleSharp
+  informationCircleSharp, personOutline, personSharp
 } from "ionicons/icons";
 import {mapState} from "vuex";
 
@@ -95,14 +93,15 @@ export default {
           mdIcon: carSharp,
           accountRequired: true,
         },
+        {
+          title: 'Account',
+          url: '/account',
+          iosIcon: personOutline,
+          mdIcon: personSharp,
+          accountRequired: true,
+        },
       ],
       refreshInterval: null,
-    }
-  },
-  mounted() {
-    const path = window.location.pathname.split('/')[1];
-    if (path) {
-      this.selectedIndex = this.appPages.findIndex((page) => page.title.toLowerCase() === path.toLowerCase());
     }
   },
 
@@ -118,7 +117,10 @@ export default {
   methods: {
     isDarkMode() {
         return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
+    },
+    isSelected(url: string) : boolean {
+      return this.$route.fullPath.startsWith(url);
+    },
   },
 }
 </script>

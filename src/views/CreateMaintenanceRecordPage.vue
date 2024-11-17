@@ -69,16 +69,18 @@
           </ion-list>
           <ion-list style="margin-top:20px; margin-bottom: 20px">
             <h5 class="has-padding" style="margin:0">Serviced Items</h5>
-            <ion-item v-if="form.description" v-for="(item, i) in form.description.items" :key="i">
-              <ion-input v-model="form.description.items[i]"
-                         :label="`Item ${i + 1}:`"
-                         label-placement="stacked"
-                         placeholder="Enter what was serviced">
-                <ion-button size="small" slot="end" color="medium" style="margin-right: 15px;" @click="remove(i)">
-                  <ion-icon slot="icon-only" size="small" :icon="trashOutline()"></ion-icon>
-                </ion-button>
-              </ion-input>
-            </ion-item>
+            <template v-if="form.description?.items">
+              <ion-item v-for="(item, i) in form.description.items" :key="i">
+                <ion-input v-model="form.description.items[i]"
+                           :label="`Item ${i + 1}:`"
+                           label-placement="stacked"
+                           placeholder="Enter what was serviced">
+                  <ion-button size="small" slot="end" color="medium" style="margin-right: 15px;" @click="remove(i)">
+                    <ion-icon slot="icon-only" size="small" :icon="trashOutline()"></ion-icon>
+                  </ion-button>
+                </ion-input>
+              </ion-item>
+            </template>
             <ion-button @click="addMore" class="has-padding" shape="round" color="primary">
               <ion-icon slot="start" :icon="addOutline()"></ion-icon>
               Add item
@@ -160,6 +162,7 @@ import {formatDate} from "../utils/dateUtils";
 import {addOutline, attachOutline, informationCircleOutline, trashOutline, warningOutline} from "ionicons/icons";
 import Toast from "@/utils/toast";
 import FileTable from "@/components/FileTable.vue";
+import {Media} from "@/interfaces/Media";
 
 export default defineComponent({
   name: "CreateMaintenanceRecordPage",
@@ -186,7 +189,7 @@ export default defineComponent({
   data() {
     return {
       loading: false,
-      form: {} as MaintenanceRecord | null,
+      form: {} as MaintenanceRecord,
       vehicle: null as Vehicle | null,
       fail: false,
       isEdit: false,
@@ -253,7 +256,7 @@ export default defineComponent({
     addMore() {
       this.form.description.items.push('');
     },
-    remove(i) {
+    remove(i: number) {
       this.form.description.items = [
         ...this.form.description.items.slice(0, i),
         ...this.form.description.items.slice(i + 1)
@@ -314,8 +317,8 @@ export default defineComponent({
         formData.append('file', file);
         formData.append('modelType', 'maintenance_record');
         formData.append('modelId', record.id);
-        await axiosInstance.post('/api/file/upload', formData,  {
-          headers: { 'Content-Type': 'multipart/form-data' },
+        await axiosInstance.post('/api/file/upload', formData, {
+          headers: {'Content-Type': 'multipart/form-data'},
         });
       }
 
@@ -323,14 +326,13 @@ export default defineComponent({
     },
     redirect() {
       Toast.fire({'icon': 'success', title: 'Record saved'});
-      this.form = null;
       this.loading = false;
       this.$router.push({path: `/vehicles/${this.vehicle.id}`});
     },
     pickFile() {
       this.$refs.fileInput.click()
     },
-    stageForDelete(file) {
+    stageForDelete(file: Media) {
       this.stagedForDelete.push(file.id);
     },
   },

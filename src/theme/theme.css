@@ -161,7 +161,7 @@ ion-card {
 }
 
 
-.error-list h3, h2 {
+.error-list h3, .error-list h2 {
     color: var(--ion-color-danger);
     margin: 20px;
 }
@@ -309,4 +309,8 @@ ion-item .item-value {
 .fullscreen {
     --width:100% !important;
     --height:100% !important;
+}
+.home-section {
+    background: var(--ion-toolbar-background);
+    padding: 25px;
 }

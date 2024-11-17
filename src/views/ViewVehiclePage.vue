@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-progress-bar v-if="loading || loadingUpdate" type="indeterminate"></ion-progress-bar>
-    <header-toolbar :has-back-button="true">
+    <header-toolbar :back-button-target="editing ? null : '/vehicles'">
       <span v-if="vehicle">
         {{ vehicle.displayName }}
       </span>

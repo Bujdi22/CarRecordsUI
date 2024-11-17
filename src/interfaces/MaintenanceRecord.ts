@@ -1,4 +1,5 @@
 import {RecordDescription} from "@/interfaces/RecordDescription";
+import {Media} from "@/interfaces/Media";
 
 export interface MaintenanceRecord {
     id: number,
@@ -7,6 +8,7 @@ export interface MaintenanceRecord {
     date: string,
     createdAt: string,
     updatedAt: string,
-    media: array,
+    media: Media[],
     vehicleId: number,
+    deleteFiles: string[];
 }

@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
 
-import {IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
+import {IonContent, IonPage} from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 
 </script>
