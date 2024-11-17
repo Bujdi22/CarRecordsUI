@@ -5,7 +5,7 @@
         {{ notFoundMessage }}
       </h4>
   </div>
-  <table class="formatted-table" v-else-if="imageUrlsResolved">
+  <table class="formatted-table" v-else-if="imageUrlsResolved" id="galleryId">
     <thead>
     <tr>
       <th style="width: 150px">{{ title }}</th>
@@ -45,16 +45,22 @@
 </div>
 </template>
 <script lang="ts">
-import {defineComponent} from "vue";
-import {IonButton, IonIcon, onIonViewDidEnter} from "@ionic/vue";
+import {defineComponent, PropType} from "vue";
+import {IonButton, IonIcon} from "@ionic/vue";
 import {formatCreatedAt} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
 import {eyeOutline, trashOutline} from "ionicons/icons";
+import {Media} from "@/interfaces/Media";
+import ImageModal from "@/components/ImageModal.vue";
+import { modalController } from '@ionic/vue';
 export default defineComponent({
   components: {IonIcon, IonButton},
   name: "FileTable",
   props: {
-    files: {required: true},
+    files: {
+      required: true,
+      type: Array as PropType<Media[]>,
+    },
     canDelete: {required: false, default: false},
     title: {required: false, default: 'Files'},
     notFoundMessage: {required: false, default: 'No files found.'},
@@ -75,7 +81,7 @@ export default defineComponent({
       return trashOutline
     },
     formatCreatedAt,
-    async getImageUrl(media) {
+    async getImageUrl(media: Media) {
       const response = await axiosInstance.get(`/api/file/download/${media.id}`, {responseType: 'blob'});
       media.resolvedImageUrl = URL.createObjectURL(response.data);
     },
@@ -87,9 +93,13 @@ export default defineComponent({
       }
       this.imageUrlsResolved = true;
     },
-    view(file) {
-      file;
-      alert('Todo implement view');
+    async view(file: Media) {
+      const modal = await modalController.create({
+        component: ImageModal,
+        componentProps: {file}
+      });
+
+      modal.present();
     },
   },
   watch: {
