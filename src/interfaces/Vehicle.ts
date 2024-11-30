@@ -1,6 +1,6 @@
 export interface Vehicle {
     icon: string,
-    id: number,
+    id: string,
     make: string,
     model: string,
     displayName: string,

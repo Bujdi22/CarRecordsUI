@@ -314,3 +314,15 @@ ion-item .item-value {
     background: var(--ion-toolbar-background);
     padding: 25px;
 }
+
+.is-flex {
+    display: flex;
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}
+
+ion-button {
+    text-transform: capitalize;
+}

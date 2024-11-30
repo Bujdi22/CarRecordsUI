@@ -29,27 +29,38 @@
             </ion-input>
           </ion-item>
 
-          <div style="padding:10px;">
-            <ion-button expand="block" @click="login">
-              Login
-            </ion-button>
-          </div>
-
-          <div style="padding:10px;">
-            <ion-button expand="block" @click="redirectToRegister" color="medium">
-              New here? Create an account
-            </ion-button>
-          </div>
-
-          <div style="padding:10px;">
-            <ion-button expand="block" @click="redirectToForgotPassword" color="medium">
-              Forgot Password?
-            </ion-button>
-          </div>
-
-
         </ion-list>
 
+        <div class="has-background has-padding">
+
+          <div class="has-padding is-flex">
+            <ion-button expand="block" @click="login">
+              Sign In
+            </ion-button>
+          </div>
+          <div class="has-padding is-flex">
+            <a :href="getGoogleURI()">
+              <ion-button expand="block" color="light">
+                <img src="/src/assets/google.png" style="height: 1.5em; margin-right: 10px"/>
+                Sign in with Google
+              </ion-button>
+            </a>
+          </div>
+          <div class="has-padding is-flex">
+
+            <div class="m-r-10">
+              <ion-button expand="block" @click="redirectToRegister" color="light">
+                New here? Create an account
+              </ion-button>
+            </div>
+
+            <div>
+              <ion-button expand="block" @click="redirectToForgotPassword" color="light">
+                Forgot Password?
+              </ion-button>
+            </div>
+          </div>
+        </div>
       </div>
 
     </ion-content>
@@ -84,6 +95,7 @@ import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
 import {defineComponent} from "vue";
 import axiosInstance from "@/config/axiosConfig";
+import getBaseUrl from "@/utils/baseUrlProvider";
 
 export default defineComponent({
   name: 'LoginPage',
@@ -119,6 +131,10 @@ export default defineComponent({
     });
   },
   methods: {
+    baseUrl() {
+      return baseUrl
+    },
+    axiosInstance,
     login() {
       this.loading = true;
       const redirect = this.$route.query.redirect ? this.$route.query.redirect : '/home';
@@ -154,6 +170,11 @@ export default defineComponent({
     },
     lockClosedOutline() { return lockClosedOutline },
     personCircleOutline() { return personCircleOutline },
+    getGoogleURI(): string{
+      const redirectURI = getBaseUrl() + '/google-redirect-uri';
+      const clientID = '218645435843-ofhsg050adqnt4v5gto1ig4snkg4c6ql.apps.googleusercontent.com';
+      return `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${redirectURI}&response_type=code&client_id=${clientID}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline`;
+    },
   },
   computed: {
     afterRegister() {

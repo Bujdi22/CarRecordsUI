@@ -37,6 +37,11 @@ const routes: Array<RouteRecordRaw> = [
     meta: {unauthenticated: true},
   },
   {
+    path: '/google-auth-success',
+    component: () => import ('../views/GoogleAuthSuccess.vue'),
+    meta: {unauthenticated: true},
+  },
+  {
     path: '/vehicles',
     component: () => import ('../views/MyVehiclesPage.vue')
   },

@@ -1,9 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
+import getBaseUrl from "@/utils/baseUrlProvider";
 
 // Determine the base URL based on the environment
-const baseURL: string = process.env.NODE_ENV === 'production'
-    ? 'https://api.autojournalapp.com' // Production base URL
-    : 'http://localhost:8080'; // Proxy for development
+const baseURL: string = getBaseUrl()
 
 console.log('Car records current endpoint = ', baseURL);
 
