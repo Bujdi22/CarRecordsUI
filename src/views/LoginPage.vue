@@ -2,14 +2,27 @@
   <ion-page>
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
 
-    <header-toolbar>Login</header-toolbar>
+    <header-toolbar>Sign in</header-toolbar>
     <ion-content>
 
       <div class="container">
-        <ion-card v-if="afterRegister || afterForgot" color="success">
+        <ion-card v-if="afterForgot" color="success">
           <ion-card-header>
-            <ion-card-title v-if="afterRegister">Register successful</ion-card-title>
-            <ion-card-title v-else>Password reset successful</ion-card-title>
+            <ion-card-title>Password reset successful</ion-card-title>
+            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+        <ion-card v-else-if="afterRegister" color="success">
+          <ion-card-header>
+            <ion-card-title>We sent you an e-mail.</ion-card-title>
+            <ion-card-subtitle>Please check your e-mail and click the verification link.</ion-card-subtitle>
+            <ion-card-subtitle>After that, you can use your credentials to sign in to your new account.</ion-card-subtitle>
+            <ion-card-subtitle>Welcome to the team!</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+        <ion-card v-else-if="afterVerification" color="success">
+          <ion-card-header>
+            <ion-card-title>You verified your e-mail.</ion-card-title>
             <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
@@ -38,14 +51,7 @@
               Sign In
             </ion-button>
           </div>
-          <div class="has-padding is-flex">
-            <a :href="getGoogleURI()">
-              <ion-button expand="block" color="light">
-                <img src="/src/assets/google.png" style="height: 1.5em; margin-right: 10px"/>
-                Sign in with Google
-              </ion-button>
-            </a>
-          </div>
+          <google-sign-in-button></google-sign-in-button>
           <div class="has-padding is-flex">
 
             <div class="m-r-10">
@@ -95,11 +101,12 @@ import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
 import {defineComponent} from "vue";
 import axiosInstance from "@/config/axiosConfig";
-import getBaseUrl from "@/utils/baseUrlProvider";
+import GoogleSignInButton from "@/components/GoogleSignInButton.vue";
 
 export default defineComponent({
   name: 'LoginPage',
   components: {
+    GoogleSignInButton,
     IonContent,
     IonIcon,
     IonPage,
@@ -151,9 +158,9 @@ export default defineComponent({
         })
       }).catch(error => {
         this.loading = false;
-        if (error.response && error.response.status === 403) {
+        if (error.response.data && error.response.status === 403) {
           this.formErrors = {
-            'Credentials': 'Incorrect credentials'
+            'Account': error.response.data
           };
         } else {
           this.formErrors = {
@@ -170,11 +177,6 @@ export default defineComponent({
     },
     lockClosedOutline() { return lockClosedOutline },
     personCircleOutline() { return personCircleOutline },
-    getGoogleURI(): string{
-      const redirectURI = getBaseUrl() + '/google-redirect-uri';
-      const clientID = '218645435843-ofhsg050adqnt4v5gto1ig4snkg4c6ql.apps.googleusercontent.com';
-      return `https://accounts.google.com/o/oauth2/v2/auth?redirect_uri=${redirectURI}&response_type=code&client_id=${clientID}&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile+openid&access_type=offline`;
-    },
   },
   computed: {
     afterRegister() {
@@ -182,6 +184,9 @@ export default defineComponent({
     },
     afterForgot() {
       return !!this.$route.query.afterForgot;
+    },
+    afterVerification() {
+      return !!this.$route.query.afterVerification;
     }
   }
 })

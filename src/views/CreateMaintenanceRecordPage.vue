@@ -188,7 +188,7 @@ export default defineComponent({
   mixins: [FormErrors],
   data() {
     return {
-      loading: false,
+      loading: true,
       form: {} as MaintenanceRecord,
       vehicle: null as Vehicle | null,
       fail: false,
@@ -199,8 +199,15 @@ export default defineComponent({
   },
   created() {
     onIonViewDidEnter(() => {
+      this.init();
+    });
+    this.init();
+  },
+
+  methods: {
+    init() {
       this.fail = false;
-      this.loading = false;
+      this.loading = true;
       this.isEdit = false;
       this.form = {
         vehicleId: this.$route.params.vehicleId,
@@ -210,33 +217,33 @@ export default defineComponent({
       }
       this.files = [];
       this.stagedForDelete = [];
-      if (this.cachedVehicle && this.cachedVehicle.id === this.$route.params.vehicleId) {
-        this.vehicle = this.cachedVehicle;
+      if (this.$route.params.recordId) {
+        this.isEdit = true;
+        axiosInstance.get<MaintenanceRecord>(`/api/maintenance-records/single-record/${this.$route.params.recordId}`)
+            .then(({data}) => {
+              this.getVehicle(data.vehicleId);
+              this.form = data;
+            })
       } else {
-        this.loading = true;
-        axiosInstance.get<Vehicle>(`/api/vehicles/${this.$route.params.vehicleId}`).then(({data}) => {
+        this.getVehicle(this.$route.params.vehicleId);
+      }
+    },
+    getVehicle(vehicleId: string) {
+      if (this.cachedVehicle && this.cachedVehicle.id === vehicleId) {
+        this.vehicle = this.cachedVehicle;
+        this.loading = false;
+      } else {
+        axiosInstance.get<Vehicle>(`/api/vehicles/${vehicleId}`).then(({data}) => {
           this.vehicle = data;
-          if (this.$route.params.recordId) {
-            this.isEdit = true;
-            axiosInstance.get<MaintenanceRecord>(`/api/maintenance-records/single-record/${this.$route.params.recordId}`)
-                .then(({data}) => {
-                  this.form = data;
-                  this.loading = false;
-                })
-          } else {
-            this.loading = false;
-            this.isEdit = false
-          }
+          this.isEdit = false
         }).catch((error) => {
           console.error("Failed to load vehicle", error);
-          this.loading = false;
           this.fail = true;
-        });
+        }).finally(() => {
+          this.loading = false;
+        })
       }
-    });
-  },
-
-  methods: {
+    },
     warningOutline() {
       return warningOutline
     },

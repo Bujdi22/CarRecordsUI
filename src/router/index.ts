@@ -42,6 +42,11 @@ const routes: Array<RouteRecordRaw> = [
     meta: {unauthenticated: true},
   },
   {
+    path: '/verifyEmail',
+    component: () => import ('../views/VerifyEmail.vue'),
+    meta: {unauthenticated: true},
+  },
+  {
     path: '/vehicles',
     component: () => import ('../views/MyVehiclesPage.vue')
   },

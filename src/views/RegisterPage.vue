@@ -9,6 +9,18 @@
 
         <form-error-list :errors="formErrors"></form-error-list>
 
+        <div class="has-padding has-background m-b-20">
+          <div class="has-padding is-flex">
+            <router-link to="/login">
+              <ion-button expand="block" color="light">
+                Have an account? Sign in here
+              </ion-button>
+            </router-link>
+          </div>
+          <google-sign-in-button></google-sign-in-button>
+
+        </div>
+
         <ion-list>
           <ion-item>
             <ion-input v-model="username" label="Email" label-placement="stacked" placeholder="Type your email">
@@ -75,6 +87,7 @@ import {
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import {lockClosedOutline, personCircleOutline} from "ionicons/icons";
 import FormErrorList from "@/components/FormErrorList.vue";
+import GoogleSignInButton from "@/components/GoogleSignInButton.vue";
 
 </script>
 <script lang="ts">

@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="has-background has-padding">
   <div v-if="!files.length">
       <h4>
         {{ notFoundMessage }}

@@ -5,12 +5,7 @@
         <ion-content>
           <ion-list id="inbox-list" style="padding-top: 60px">
             <div>
-              <img v-if="isDarkMode()"
-                  src="./assets/logo_white.png"
-                  style="display: block; width: 80%; margin: auto; height: auto;"
-                  alt="logo"/>
-              <img v-else
-                  src="./assets/logo_black.png"
+              <img src="./assets/logo.png"
                   style="display: block; width: 80%; margin: auto; height: auto;"
                   alt="logo"/>
             </div>
@@ -115,9 +110,6 @@ export default {
     }
   },
   methods: {
-    isDarkMode() {
-        return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    },
     isSelected(url: string) : boolean {
       return this.$route.fullPath.startsWith(url);
     },

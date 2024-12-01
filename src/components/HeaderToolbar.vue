@@ -20,7 +20,7 @@
         <ion-label v-if="account">
           Welcome, {{ account.displayName }}
         </ion-label>
-        <ion-label v-else>Login</ion-label>
+        <ion-label v-else>Sign in</ion-label>
       </ion-chip>
     </ion-toolbar>
     <ion-toolbar>

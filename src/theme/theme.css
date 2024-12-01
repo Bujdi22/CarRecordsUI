@@ -313,6 +313,24 @@ ion-item .item-value {
 .home-section {
     background: var(--ion-toolbar-background);
     padding: 25px;
+    display: flex;
+    min-height: 50vh;
+}
+
+.copyright-text {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+.is-half {
+    width: 50%;
+}
+
+.has-text-right {
+    text-align: right;
 }
 
 .is-flex {
@@ -325,4 +343,15 @@ ion-item .item-value {
 
 ion-button {
     text-transform: capitalize;
+}
+
+.m-t-50 {
+    margin-top: 50px;
+}
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+.m-b-10 {
+    margin-bottom: 10px;
 }
