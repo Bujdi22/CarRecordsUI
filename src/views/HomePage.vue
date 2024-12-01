@@ -6,7 +6,7 @@
         <div class="home-section">
 
           <div class="is-half">
-            <h1>Welcome to AutoJournal</h1>
+            <h1>👋 Welcome to AutoJournal</h1>
             <p>Effortlessly keep your vehicle maintenance records organized and up-to-date!</p>
 
             <h2 class="m-t-50">We’re excited to announce that AutoJournal is coming soon to both <ion-icon :icon="logoApple"></ion-icon>iOS and <ion-icon :icon="logoAndroid" style="margin-bottom:-2px;"></ion-icon>Android!</h2>
@@ -58,9 +58,6 @@ export default defineComponent({
 <style scoped>
 img {
   height: 25vh;
-  //-webkit-box-shadow: -7px 8px 24px -4px rgba(231,166,26,1);
-  //-moz-box-shadow: -7px 8px 24px -4px rgba(231,166,26,1);
-  //box-shadow: -7px 8px 24px -4px rgba(231,166,26,1);
 }
 ion-icon {
   margin-right: 6px;
