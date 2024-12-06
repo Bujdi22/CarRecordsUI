@@ -7,9 +7,22 @@
       <div class="container">
         <div class="has-background has-padding">
           <h2>👋 Welcome, {{ account?.displayName }} </h2>
-          <p class="has-padding" style="margin-bottom: 20px">Your e-mail: {{ account?.username }}</p>
+          <p class="has-padding">Your e-mail: {{ account?.username }}</p>
+
+
+            <p v-if="account?.verifiesWithGoogle" class="has-padding">
+              <FontAwesomeIcon :icon="faInfoCircle()" class="m-r-5"></FontAwesomeIcon>
+              Your AutoJournal account is linked to your Google account.
+            </p>
+            <p v-if="!account?.verifiesWithPassword" class="has-padding">
+              <FontAwesomeIcon :icon="faInfoCircle()" class="m-r-5"></FontAwesomeIcon>
+              You do not have a password for your account, because you use an alternative sign-in method.
+              If you wish, you can <a @click="createPassword">create a password.</a>
+            </p>
+
 
           <div v-if="isEdit && form">
+            <p class="has-padding">Please use the form below to make your changes.</p>
             <form-error-list :errors="formErrors"></form-error-list>
             <ion-list>
               <ion-item>
@@ -19,33 +32,35 @@
                            placeholder="Type your display name">
                 </ion-input>
               </ion-item>
-              <ion-item>
-                <ion-input
-                    v-model="form.password"
-                    label="Change Password (Optional)"
-                    label-placement="stacked"
-                    type="password"
-                    placeholder="Type your new password"
+              <div v-if="account.verifiesWithPassword">
+                <ion-item>
+                  <ion-input
+                      v-model="form.password"
+                      label="Change Password (Optional)"
+                      label-placement="stacked"
+                      type="password"
+                      placeholder="Type your new password"
 
-                >
-                  <ion-icon slot="end" :icon="lockClosedOutline()" size="medium" aria-hidden="true"></ion-icon>
-                </ion-input>
-              </ion-item>
-              <div v-if="form.password">
-                <ion-item>
-                  <ion-input v-model="form.password2" label="Repeat New Password" label-placement="stacked" type="password"
-                             placeholder="Type your new password again">
+                  >
                     <ion-icon slot="end" :icon="lockClosedOutline()" size="medium" aria-hidden="true"></ion-icon>
                   </ion-input>
                 </ion-item>
-                <ion-label v-if="!matchingPassword" color="danger" class="validation">Passwords do not match</ion-label>
-                <ion-item>
-                  <ion-input v-model="form.currentPassword" label="Current Password" label-placement="stacked" type="password"
-                             placeholder="Verify with your current password">
-                    <ion-icon slot="end" :icon="lockClosedOutline()" size="medium" aria-hidden="true"></ion-icon>
-                  </ion-input>
-                </ion-item>
-                <p class="has-padding">Note: You are changing your password now</p>
+                <div v-if="form.password">
+                  <ion-item>
+                    <ion-input v-model="form.password2" label="Repeat New Password" label-placement="stacked" type="password"
+                               placeholder="Type your new password again">
+                      <ion-icon slot="end" :icon="lockClosedOutline()" size="medium" aria-hidden="true"></ion-icon>
+                    </ion-input>
+                  </ion-item>
+                  <ion-label v-if="!matchingPassword" color="danger" class="validation">Passwords do not match</ion-label>
+                  <ion-item>
+                    <ion-input v-model="form.currentPassword" label="Current Password" label-placement="stacked" type="password"
+                               placeholder="Verify with your current password">
+                      <ion-icon slot="end" :icon="lockClosedOutline()" size="medium" aria-hidden="true"></ion-icon>
+                    </ion-input>
+                  </ion-item>
+                  <p class="has-padding">Note: You are changing your password now</p>
+                </div>
               </div>
             </ion-list>
 
@@ -93,6 +108,9 @@ import FormErrors from "@/mixins/FormErrors";
 import FormErrorList from "@/components/FormErrorList.vue";
 import store from "@/store";
 import Toast from "@/utils/toast";
+import Swal from "sweetalert2";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 
 interface Form {
   displayName: string | null;
@@ -104,6 +122,7 @@ export default defineComponent({
   mixins: [FormErrors],
   name: "AccountPage",
   components: {
+    FontAwesomeIcon,
     FormErrorList,
     IonProgressBar,
     IonLabel, IonInput, IonIcon, IonItem,
@@ -121,6 +140,9 @@ export default defineComponent({
     onIonViewDidEnter(() => this.cancelEdit)
   },
   methods: {
+    faInfoCircle() {
+      return faInfoCircle
+    },
     lockClosedOutline() {
       return lockClosedOutline
     },
@@ -187,10 +209,34 @@ export default defineComponent({
       this.isEdit = false;
       this.submitLoading = false;
     },
+    createPassword() {
+      Confirm.fire({
+        title: "Would you like to create a password?",
+        text: "After creating a password, you will still be able to log in with your Google account.",
+        confirmButtonColor: 'var(--ion-color-primary)',
+      }).then((result) => {
+            if (result.isConfirmed) {
+              axiosInstance.post('/api/forgot-password-request', {username: this.account.username})
+                  .then(() => {
+                    Swal.fire({
+                      title: "Check your e-mail",
+                      text: "For verification purposes, we sent you an e-mail to create your new password.",
+                      icon: "success",
+                      confirmButtonText: 'Ok',
+                      heightAuto: false
+                    })
+                  })
+                  .catch((error) => {
+                    console.error(error);
+                    Toast.fire({icon: 'error', title: 'Failed to request password creation.'});
+                  });
+            }
+      });
+    },
   },
 
   computed: {
-    matchingPassword() {
+    matchingPassword(): boolean {
       return this.form && this.form.password === this.form.password2;
     },
     submittable(): boolean {
@@ -206,5 +252,4 @@ export default defineComponent({
 })
 </script>
 <style scoped>
-
 </style>

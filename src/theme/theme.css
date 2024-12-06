@@ -18,7 +18,7 @@
     line-height: 26px;
 }
 
-.container p {
+.container p, li {
     font-size: 16px;
     line-height: 22px;
     color: #8c8c8c;
@@ -310,11 +310,37 @@ ion-item .item-value {
     --width:100% !important;
     --height:100% !important;
 }
-.home-section {
-    background: var(--ion-toolbar-background);
+@media only screen and (min-width: 768px) {
+    .home-section {
+        display: flex;
+    }
+
+    .is-half-desktop {
+        width: 50%;
+    }
+
+    .home-section .image-container img{
+        height: 25vh;
+    }
+}
+@media only screen and (max-width: 767px) {
+    .home-section .image-container{
+        width: 80%;
+        margin: 20px auto;
+    }
+    .home-section .image-container img{
+        width: 100%;
+    }
+    .large-icon {
+        text-align: center
+    }
+
+}
+.page-style {
     padding: 25px;
-    display: flex;
     min-height: 50vh;
+    background: var(--ion-item-background);
+    margin-bottom: 50px;
 }
 
 .copyright-text {
@@ -332,13 +358,19 @@ ion-item .item-value {
 .has-text-right {
     text-align: right;
 }
+.has-text-center {
+    text-align: center;
+}
+.has-text-justified {
+    text-align: justify;
+}
 
 .is-flex {
     display: flex;
 }
 
 .m-r-10 {
-    margin-right: 10px;
+    margin-right: 10px !important;
 }
 
 ion-button {
@@ -346,12 +378,38 @@ ion-button {
 }
 
 .m-t-50 {
-    margin-top: 50px;
+    margin-top: 50px !important;
 }
 .m-b-20 {
-    margin-bottom: 20px;
+    margin-bottom: 20px !important;
+}
+.m-b-50 {
+    margin-bottom: 50px !important;
 }
 
 .m-b-10 {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
+}
+
+.p-b-50 {
+    padding-bottom: 50px !important;
+}
+.large-icon {
+    font-size: 5em;
+    color: var(--ion-color-medium-tint);
+}
+li {
+    padding-bottom: 10px;
+}
+
+a {
+    cursor: pointer;
+}
+a:hover {
+    color: var(--ion-color-primary-shade);
+    text-decoration: underline;
+}
+
+.m-r-5 {
+    margin-right: 5px;
 }

@@ -1,9 +1,12 @@
 import { createStore } from 'vuex';
+import {Account} from "@/interfaces/Account";
 
 const store = createStore({
     state() {
         return {
-            account: null,
+            account: {} as Account | null,
+            cachedVehicle: null,
+            cachedRecord: null,
         }
     },
     mutations: {

@@ -3,9 +3,9 @@
     <header-toolbar>Home</header-toolbar>
     <ion-content>
       <div class="container">
-        <div class="home-section">
+        <div class="home-section has-background page-style">
 
-          <div class="is-half">
+          <div class="is-half-desktop">
             <h1>👋 Welcome to AutoJournal</h1>
             <p>Effortlessly keep your vehicle maintenance records organized and up-to-date!</p>
 
@@ -17,7 +17,7 @@
               Ready to get started? Visit our <router-link to="/login">login page</router-link> to create your account today!
             </h4>
           </div>
-          <div class="is-half has-text-right">
+          <div class="image-container is-half-desktop has-text-right">
             <img src="/src/assets/new-illustration.png"/>
           </div>
 
@@ -56,9 +56,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-img {
-  height: 25vh;
-}
 ion-icon {
   margin-right: 6px;
 }
