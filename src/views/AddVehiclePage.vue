@@ -15,6 +15,13 @@
             </ion-input>
           </ion-item>
           <ion-item>
+            <ion-input v-model="registration"
+                       label="Registration"
+                       label-placement="stacked"
+                       placeholder="Enter the registration">
+            </ion-input>
+          </ion-item>
+          <ion-item>
             <ion-select
                 v-model="make"
                 label="Make"
@@ -89,6 +96,7 @@ export default defineComponent({
       make: '',
       model: '',
       year: '',
+      registration: '',
       carmakers: carmakers,
     }
   },
@@ -97,12 +105,14 @@ export default defineComponent({
     this.make = '';
     this.model = '';
     this.year = '';
+    this.registration = '';
   },
   methods: {
     add() {
       this.resetFormErrors();
       const form = {
         displayName: this.displayName,
+        registration: this.registration,
         make: this.make,
         model: this.model,
         year: this.year

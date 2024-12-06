@@ -4,6 +4,7 @@ export interface Vehicle {
     make: string,
     model: string,
     displayName: string,
+    registration: string,
     year: number,
     createdAt: string,
     updatedAt: string,

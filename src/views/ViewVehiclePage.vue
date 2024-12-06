@@ -38,6 +38,11 @@
             </ion-item>
             <ion-item>
               <ion-label>
+                Registration: {{ vehicle.registration }}
+              </ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>
                 Make: {{ vehicle.make }}
               </ion-label>
             </ion-item>
@@ -92,6 +97,13 @@
                          label="Display Name"
                          label-placement="stacked"
                          placeholder="Enter the display name of your vehicle">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input v-model="form.registration"
+                         label="Registration"
+                         label-placement="stacked"
+                         placeholder="Enter the registration">
               </ion-input>
             </ion-item>
             <ion-item>
