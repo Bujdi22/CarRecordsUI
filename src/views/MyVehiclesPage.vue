@@ -22,13 +22,17 @@
           <skeleton-card></skeleton-card>
           <skeleton-card></skeleton-card>
         </div>
-        <div v-if="!loading && !vehicles.length" style="margin-top:50px;">
+        <div v-if="!loading && !vehicles.length" class="m-t-50">
+          <div class="large-icon m-b-50">
+            <FontAwesomeIcon :icon="faHouseCircleExclamation()"></FontAwesomeIcon>
+          </div>
           <h1>
             You do not have any vehicles yet.
           </h1>
           <p>
             Please use the button to add your first vehicle!
           </p>
+
         </div>
 
         <ion-card v-for="vehicle in vehicles" :key="vehicle.id">
@@ -89,9 +93,12 @@ import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import SkeletonCard from "@/components/SkeletonCard.vue";
 import {Vehicle} from "@/interfaces/Vehicle";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faHouseCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 
 export default {
   components: {
+    FontAwesomeIcon,
     SkeletonCard,
     IonContent,
     IonPage,
@@ -120,6 +127,9 @@ export default {
   },
 
   methods: {
+    faHouseCircleExclamation() {
+      return faHouseCircleExclamation
+    },
     formatUpdatedAt,
     formatCreatedAt,
     carOutline() {

@@ -15,7 +15,7 @@
           <ion-button color="primary">Vehicles page</ion-button>
         </router-link>
       </div>
-      <div v-else class="container">
+      <div v-else class="container p-b-50">
         <skeleton-card :inset="true" v-if="loading"></skeleton-card>
         <div v-else-if="vehicle && !editing">
           <ion-list :inset="true">

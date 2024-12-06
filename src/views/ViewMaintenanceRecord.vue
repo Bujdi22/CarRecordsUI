@@ -7,7 +7,7 @@
       </span>
     </header-toolbar>
     <ion-content>
-      <div class="container">
+      <div class="container p-b-50">
         <div v-if="fail">
           <h3>
             Sorry, record not found
