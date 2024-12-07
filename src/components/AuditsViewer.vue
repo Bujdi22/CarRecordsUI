@@ -27,7 +27,7 @@
        </p><p>
          After:
         <span v-if="item.updated_field !== 'descriptionJson'">
-         {{ item.old_value }}
+         {{ item.new_value }}
         </span>
          <ul v-else style="margin-bottom: 0">
            <li v-for="(value, key) in JSON.parse(item.new_value).items" :key="key">
