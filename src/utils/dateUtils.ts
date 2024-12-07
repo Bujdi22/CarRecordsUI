@@ -11,3 +11,6 @@ export function formatCreatedAt(date: string): string {
 export function formatUpdatedAt(date: string): string {
     return moment(date).fromNow()
 }
+export function getYear(): string {
+    return moment().format('YYYY');
+}

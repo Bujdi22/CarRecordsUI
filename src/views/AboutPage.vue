@@ -42,10 +42,11 @@
               <a href="mailto:admin@autojournalapp.com">admin@autojournalapp.com</a>
             </p>
             <p class="m-t-50">
-              <i>Balázs Bujdosó, Creator</i>
+              <i>Balázs, Creator</i>
             </p>
           </div>
         </div>
+        <p class="copyright-text">AutoJournal {{ getYear() }}</p>
       </div>
 
     </ion-content>
@@ -60,7 +61,8 @@
 import {IonContent, IonPage} from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {faCircleInfo, faCircleQuestion} from "@fortawesome/free-solid-svg-icons";
+import {faCircleInfo} from "@fortawesome/free-solid-svg-icons";
+import {getYear} from "@/utils/dateUtils";
 
 </script>
 

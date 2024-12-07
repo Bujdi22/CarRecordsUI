@@ -235,7 +235,6 @@ export default defineComponent({
       } else {
         axiosInstance.get<Vehicle>(`/api/vehicles/${vehicleId}`).then(({data}) => {
           this.vehicle = data;
-          this.isEdit = false
         }).catch((error) => {
           console.error("Failed to load vehicle", error);
           this.fail = true;
