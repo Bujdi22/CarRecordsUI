@@ -65,7 +65,7 @@
             </ion-item>
             <ion-item>
               <ion-label>
-                Last update:
+                Last updated:
                 {{ formatUpdatedAt(vehicle.updatedAt) }}
               </ion-label>
             </ion-item>

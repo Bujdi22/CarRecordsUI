@@ -54,9 +54,7 @@ import {formatCreatedAt} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
 import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
-import ImageModal from "@/components/ImageModal.vue";
 import { modalController } from '@ionic/vue';
-import PdfModal from "@/components/PdfModal.vue";
 export default defineComponent({
   components: {IonIcon, IonButton},
   name: "FileTable",
@@ -101,8 +99,11 @@ export default defineComponent({
       this.imageUrlsResolved = true;
     },
     async view(file: Media) {
+      const component = file.fileType === 'pdf'
+          ? (await import('@/components/PdfModal.vue')).default
+          : (await import('@/components/ImageModal.vue')).default;
       const modal = await modalController.create({
-        component: file.fileType === 'pdf' ? PdfModal : ImageModal,
+        component: component,
         cssClass: 'fullscreen',
         componentProps: {file}
       });
