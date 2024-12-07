@@ -58,6 +58,16 @@
                 <p class="item-value">{{ formatDate(record.createdAt) }}</p>
               </div>
             </ion-item>
+            <ion-item>
+              <ion-label>
+                <audits-viewer
+                    v-if="!loading"
+                    model-type="maintenance_record"
+                    :model-id="record.id"
+                    :reloader="reloader"
+                ></audits-viewer>
+              </ion-label>
+            </ion-item>
           </ion-list>
           <h5>Serviced Items</h5>
           <ion-list v-if="record.description">
@@ -84,7 +94,7 @@ import {
   IonButton,
   IonContent,
   IonIcon,
-  IonItem,
+  IonItem, IonLabel,
   IonList,
   IonPage,
   IonProgressBar,
@@ -99,19 +109,24 @@ import {checkmarkOutline, createOutline, eyeOutline, trashOutline} from "ionicon
 import Confirm from "@/utils/confirm";
 import Toast from "@/utils/toast";
 import FileTable from "@/components/FileTable.vue";
+import AuditsViewer from "@/components/AuditsViewer.vue";
 
 export default defineComponent({
   name: "ViewMaintenanceRecord",
-  components: {FileTable, IonIcon, IonItem, IonList, IonButton, IonContent, HeaderToolbar, IonPage, IonProgressBar},
+  components: {
+    AuditsViewer,
+    IonLabel, FileTable, IonIcon, IonItem, IonList, IonButton, IonContent, HeaderToolbar, IonPage, IonProgressBar},
   data() {
     return {
       record: {} as MaintenanceRecord | null,
       loading: false,
       fail: false,
+      reloader: 0,
     }
   },
   mounted() {
     onIonViewDidEnter(() => {
+      this.reloader++;
       this.load();
     });
     this.load();

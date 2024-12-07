@@ -69,6 +69,15 @@
                 {{ formatUpdatedAt(vehicle.updatedAt) }}
               </ion-label>
             </ion-item>
+            <ion-item>
+              <ion-label>
+                <audits-viewer
+                    model-type="vehicle"
+                    :model-id="vehicle.id"
+                    :reloader="reloader"
+                ></audits-viewer>
+              </ion-label>
+            </ion-item>
           </ion-list>
           <maintenance-records :vehicle="vehicle"></maintenance-records>
         </div>
@@ -173,11 +182,13 @@ import {createOutline, informationCircleOutline, trashOutline} from "ionicons/ic
 import Confirm from "@/utils/confirm";
 import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
+import AuditsViewer from "@/components/AuditsViewer.vue";
 
 export default defineComponent({
   name: "ViewVehiclePage",
   mixins: [FormErrors],
   components: {
+    AuditsViewer,
     MaintenanceRecords,
     IonIcon,
     IonCardSubtitle, IonCardTitle, IonCard, IonCardHeader,
@@ -195,10 +206,12 @@ export default defineComponent({
       carmakers: carmakers,
       editing: false,
       form: {} as Vehicle | null,
+      reloader: 0,
     }
   },
   created() {
     onIonViewDidEnter(() => {
+      this.reloader++;
       this.form = null;
       this.editing = false;
       this.fail = false;

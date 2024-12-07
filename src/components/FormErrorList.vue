@@ -18,6 +18,7 @@
 <script setup lang="ts">
 
 import {IonItem, IonLabel, IonList} from "@ionic/vue";
+import {humanize} from "@/utils/stringUtils";
 </script>
 
 <script lang="ts">
@@ -27,13 +28,6 @@ export default {
     errors: {required: false}
   },
   methods: {
-    humanize(str: string): string {
-      const frags = str.split('_');
-      for (let i = 0; i < frags.length; i++) {
-        frags[i] = frags[i].charAt(0).toUpperCase() + frags[i].slice(1);
-      }
-      return frags.join(' ');
-    },
     getRenderedError(error: string): string {
       if (error.includes(";")) {
         const parts = error.split(';');

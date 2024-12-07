@@ -24,7 +24,7 @@
 
 
         </div>
-        <p class="copyright-text">AutoJournal {{ getDate() }}</p>
+        <p class="copyright-text">AutoJournal {{ getYear() }}</p>
 
       </div>
     </ion-content>
@@ -35,23 +35,18 @@
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import {IonContent, IonIcon, IonPage} from "@ionic/vue";
 import {logoAndroid, logoApple} from "ionicons/icons";
+import {getYear} from "@/utils/dateUtils";
 </script>
 <script lang="ts">
 
 import {defineComponent} from "vue";
 import {mapState} from "vuex";
-import moment from "moment/moment";
 
 export default defineComponent({
   name: 'HomePage',
   computed: mapState({
     account: state => state.account
   }),
-  methods: {
-    getDate() {
-      return moment().format('YYYY');
-    }
-  }
 })
 </script>
 
