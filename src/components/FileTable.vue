@@ -1,56 +1,48 @@
 <template>
-<div class="has-background has-padding">
+<div class="has-padding">
   <div v-if="!files.length">
       <h4>
         {{ notFoundMessage }}
       </h4>
   </div>
-  <table class="formatted-table" v-else-if="imageUrlsResolved" id="galleryId">
-    <thead>
-    <tr>
-      <th style="width: 150px">{{ title }}</th>
-      <th>Uploaded</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr v-for="(file) in files" :key="file.id">
-      <th>
-        <div v-if="file.fileType === 'pdf'" style="font-size: 70px">
-          <ion-icon :icon="documentTextOutline()"></ion-icon>
-        </div>
-        <img v-else :src="(file.resolvedUrl)" alt="test"/>
-      </th>
-      <th>
-        {{ formatCreatedAt(file.createdAt) }}
-      </th>
-      <th style="text-align: right">
+  <div v-if="imageUrlsResolved" class="is-grid-desktop">
+    <ion-card v-for="(file) in files" :key="file.id" class="is-grid-item-desktop">
+      <div v-if="file.fileType === 'pdf'" style="font-size: 70px; height: 150px;" class="m-t-50 has-text-center">
+        <ion-icon :icon="documentTextOutline()"></ion-icon>
+      </div>
+      <div v-else class="image-container">
+        <img :src="(file.resolvedUrl)" alt="test"/>
+      </div>
+      <ion-card-header>
+        <ion-card-title>{{ formatDate(file.createdAt) }}</ion-card-title>
+        <ion-card-subtitle>File Attached</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
         <ion-button v-if="canDelete"
-           color="danger"
-           class="has-padding"
-           @click="$emit('deleteFile', file)"
+                    color="danger"
+                    @click="$emit('deleteFile', file)"
         >
           <ion-icon slot="start" :icon="trashOutline()"></ion-icon>
           Delete
         </ion-button>
         <ion-button color="primary"
-                    class="has-padding"
                     @click="view(file)"
         >
           <ion-icon slot="start" :icon="eyeOutline()"></ion-icon>
           View
         </ion-button>
-      </th>
-    </tr>
-    </tbody>
-  </table>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
 
 </div>
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
 import {IonButton, IonIcon} from "@ionic/vue";
-import {formatCreatedAt} from "@/utils/dateUtils";
+import {formatDate} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
 import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
@@ -76,6 +68,7 @@ export default defineComponent({
     this.resolveImages();
   },
   methods: {
+    formatDate,
     documentTextOutline() {
       return documentTextOutline
     },
@@ -85,7 +78,6 @@ export default defineComponent({
     trashOutline() {
       return trashOutline
     },
-    formatCreatedAt,
     async getImageUrl(media: Media) {
       const response = await axiosInstance.get(`/api/file/download/${media.id}`, {responseType: 'blob'});
       media.resolvedUrl = URL.createObjectURL(response.data);
@@ -118,3 +110,16 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+.image-container {
+  height: 200px;
+  text-align: center;
+  padding-top: 20px;
+
+}
+.image-container img {
+  height: 100%;
+  border-radius: 20px;
+}
+</style>

@@ -7,37 +7,27 @@
         Add
       </ion-button>
     </ion-buttons>
-    <ion-title>Maintenance Records</ion-title>
+    <ion-title>Records</ion-title>
   </ion-toolbar>
   <ion-spinner class="is-loading" v-if="loading" style="margin: auto"></ion-spinner>
-  <div v-else class="has-background has-padding" style="margin-bottom: 20px">
-    <div v-if="!records.length" class="has-padding">
-      <h4>
-        You do not have any records yet.
-      </h4>
-      <p>
-        Please use the button to add your maintenance record!
-      </p>
-    </div>
-    <table v-else class="formatted-table">
-      <thead>
-      <tr>
-        <th>Service</th>
-        <th>Date</th>
-        <th>Created</th>
-        <th></th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="record in records" :key="record.id">
-        <td>{{ record.title }}</td>
-        <td>{{ formatDate(record.date) }}</td>
-        <td>{{ formatDate(record.createdAt) }}</td>
-        <td style="text-align: right"> <ion-button size="small" @click="viewRecord(record)">View</ion-button> </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <ion-card v-else v-for="record in records" :key="record.id">
+    <ion-card-header>
+      <FontAwesomeIcon :icon="faWrench()" class="m-r-5"></FontAwesomeIcon>
+      <ion-card-title>{{ record.title }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-card-subtitle>Date: {{ formatDate(record.date) }}</ion-card-subtitle>
+      <ion-card-subtitle>Created: {{ formatDate(record.createdAt) }}</ion-card-subtitle>
+      <ion-button
+          shape="round"
+          fill="outline"
+          @click="viewRecord(record)">
+        View
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
 </div>
 </template>
 
@@ -47,13 +37,27 @@ import {Vehicle} from "@/interfaces/Vehicle";
 import {MaintenanceRecord} from "@/interfaces/MaintenanceRecord";
 import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
-import {IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonIcon} from "@ionic/vue";
+import {
+  IonSpinner,
+  IonButton,
+  IonToolbar,
+  IonButtons,
+  IonTitle,
+  IonIcon,
+  IonCard,
+  IonCardTitle,
+  IonCardSubtitle
+} from "@ionic/vue";
 import {add} from "ionicons/icons";
 import {formatDate} from "@/utils/dateUtils";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {faWrench} from "@fortawesome/free-solid-svg-icons";
 
 export default defineComponent({
   name: "MaintenanceRecords",
-  components: {IonIcon, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle},
+  components: {
+    IonCardSubtitle,
+    FontAwesomeIcon, IonCardTitle, IonCard, IonIcon, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle},
   props: {
     vehicle: {type: Object as PropType<Vehicle>, required: true},
   },
@@ -67,6 +71,9 @@ export default defineComponent({
     this.load();
   },
   methods: {
+    faWrench() {
+      return faWrench
+    },
     formatDate,
     add() {
       return add

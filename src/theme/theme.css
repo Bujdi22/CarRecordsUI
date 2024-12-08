@@ -322,6 +322,18 @@ ion-item .item-value {
     .home-section .image-container img{
         height: 25vh;
     }
+
+    .is-grid-desktop {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+    .is-grid-item-desktop {
+        border-radius: 20px;
+        margin: 1%;
+        width: 23%;
+    }
 }
 @media only screen and (max-width: 767px) {
     .home-section .image-container{
