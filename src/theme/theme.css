@@ -347,6 +347,9 @@ ion-item .item-value {
         text-align: center
     }
 
+    .mobile-bottom-padded {
+        padding-bottom: 600px;
+    }
 }
 .page-style {
     padding: 25px;
@@ -424,4 +427,8 @@ a:hover {
 
 .m-r-5 {
     margin-right: 5px;
+}
+
+.mouse-pointer {
+    cursor: pointer;
 }

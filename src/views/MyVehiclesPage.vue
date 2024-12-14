@@ -35,7 +35,12 @@
 
         </div>
 
-        <ion-card v-for="vehicle in vehicles" :key="vehicle.id">
+        <ion-card v-for="vehicle in vehicles"
+                  :key="vehicle.id"
+                  class="ion-activatable ripple-parent rounded-rectangle mouse-pointer"
+                  @click="openVehicle(vehicle)"
+        >
+          <ion-ripple-effect></ion-ripple-effect>
           <div class="card-icon-header">
             <div class="icon">
               <img v-if="vehicle.icon"
@@ -85,7 +90,7 @@ import {
   onIonViewDidEnter,
   IonProgressBar,
   IonButtons,
-  IonTitle
+  IonTitle, IonRippleEffect
 } from "@ionic/vue";
 import {add, carOutline} from "ionicons/icons";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
@@ -99,6 +104,7 @@ import useCarlogos from "@/mixins/useCarlogos";
 
 export default {
   components: {
+    IonRippleEffect,
     FontAwesomeIcon,
     SkeletonCard,
     IonContent,
@@ -152,6 +158,9 @@ export default {
         this.loading = false;
       })
     },
+    openVehicle(vehicle: Vehicle) {
+      this.$router.push(`/vehicles/${vehicle.id}`);
+    }
   }
 }
 </script>

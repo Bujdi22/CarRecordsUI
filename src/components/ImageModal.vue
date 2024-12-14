@@ -9,17 +9,32 @@
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-    <ion-item>
-      <div class="image-container">
-        <img :src="file.resolvedUrl" alt="image"/>
+  <ion-content>
+    <div class="viewer">
+      <div class="image-container" ref="imageContainer">
+        <img
+            :src="file.resolvedUrl"
+            alt="image"
+            ref="image"
+            @wheel="zoom"
+            @touchstart="onTouchStart"
+            @touchmove="onTouchMove"
+            style="transform: scale(1);"
+        />
       </div>
-    </ion-item>
+    </div>
   </ion-content>
+  <ion-footer :translucent="true">
+    <ion-toolbar>
+        <ion-button color="light" slot="end" class="m-r-10" @click="download">
+          <ion-icon slot="start" :icon="cloudDownloadOutline()"></ion-icon>
+          Download</ion-button>
+    </ion-toolbar>
+  </ion-footer>
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue'
+import {defineComponent, PropType} from 'vue';
 import {
   IonContent,
   IonHeader,
@@ -27,11 +42,13 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
-  IonItem,
-  modalController, IonIcon,
+  modalController,
+  IonIcon,
 } from '@ionic/vue';
 import {Media} from "@/interfaces/Media";
-import {closeCircleOutline} from "ionicons/icons";
+import {closeCircleOutline, cloudDownloadOutline} from "ionicons/icons";
+import {downloadFile} from '@/utils/fileDownloader';
+
 export default defineComponent({
   name: "ImageModal",
   components: {
@@ -42,35 +59,81 @@ export default defineComponent({
     IonToolbar,
     IonButtons,
     IonButton,
-    IonItem,
   },
   props: {
     file: {required: true, type: Object as PropType<Media>},
   },
+  data() {
+    return {
+      scale: 1,
+      startDistance: 0,
+    };
+  },
   methods: {
+    cloudDownloadOutline() {
+      return cloudDownloadOutline
+    },
     closeCircleOutline() {
-      return closeCircleOutline
+      return closeCircleOutline;
     },
     close() {
       modalController.dismiss(null, 'confirm');
     },
+    zoom(event: WheelEvent) {
+      event.preventDefault();
+      this.scale += event.deltaY > 0 ? -0.1 : 0.1;
+      this.scale = Math.max(this.scale, 0.5); // Prevent too small
+      this.scale = Math.min(this.scale, 3);   // Prevent too large
+      (this.$refs.image as HTMLImageElement).style.transform = `scale(${this.scale})`;
+    },
+    onTouchStart(event: TouchEvent) {
+      if (event.touches.length === 2) {
+        const [touch1, touch2] = event.touches;
+        this.startDistance = Math.hypot(
+            touch2.pageX - touch1.pageX,
+            touch2.pageY - touch1.pageY
+        );
+      }
+    },
+    onTouchMove(event: TouchEvent) {
+      if (event.touches.length === 2) {
+        const [touch1, touch2] = event.touches;
+        const currentDistance = Math.hypot(
+            touch2.pageX - touch1.pageX,
+            touch2.pageY - touch1.pageY
+        );
+        const scaleChange = currentDistance / this.startDistance;
+        this.scale = Math.min(Math.max(this.scale * scaleChange, 0.5), 3);
+        (this.$refs.image as HTMLImageElement).style.transform = `scale(${this.scale})`;
+        this.startDistance = currentDistance; // Update for next move
+      }
+    },
+    download() {
+      downloadFile(this.file.resolvedUrl, `${this.file.id}.${this.file.fileType}`);
+    }
   },
-})
+});
 </script>
 
 <style scoped>
+.viewer {
+  height: 100%;
+}
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-height: 90vh; /* Take full height of the container */
-  width: 100%; /* Take full width of the container */
-  overflow: hidden; /* Ensure no overflow */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .image-container img {
   max-height: 100%;
   max-width: 100%;
-  object-fit: contain; /* Maintain aspect ratio */
+  object-fit: contain;
+  touch-action: none;
+  pointer-events: all;
+  transition: transform 0.3s ease;
 }
 </style>
