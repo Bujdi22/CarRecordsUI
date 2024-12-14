@@ -88,13 +88,14 @@ import {
   IonTitle
 } from "@ionic/vue";
 import {add, carOutline} from "ionicons/icons";
-import carmakers from "@/assets/carmakers.json";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import SkeletonCard from "@/components/SkeletonCard.vue";
 import {Vehicle} from "@/interfaces/Vehicle";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faHouseCircleExclamation} from "@fortawesome/free-solid-svg-icons";
+import axiosInstance from "@/config/axiosConfig";
+import useCarlogos from "@/mixins/useCarlogos";
 
 export default {
   components: {
@@ -113,11 +114,11 @@ export default {
     IonTitle,
     HeaderToolbar,
   },
+  mixins: [useCarlogos],
   data() {
     return {
       loading: false,
       vehicles: [] as Vehicle[],
-      carmakers: carmakers,
     }
   },
   created() {
@@ -141,11 +142,12 @@ export default {
     load() {
       this.loading = true;
       this.vehicles = [];
-      this.$axios.get('/api/vehicles').then(({data}) => {
-        this.vehicles = data.map((vehicle: Vehicle) => {
-          vehicle.icon = this.carmakers.brands.filter((brand) => vehicle.make === brand.name)?.[0]?.path;
+      axiosInstance.get('/api/vehicles').then(async ({data}) => {
+        this.vehicles = await Promise.all(data.map(async (vehicle: Vehicle) => {
+          vehicle.icon = await this.getLogo(vehicle.make);
+          console.log(vehicle.icon);
           return vehicle;
-        });
+        }));
 
         this.loading = false;
       })

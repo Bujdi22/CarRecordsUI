@@ -2,399 +2,399 @@
   "brands": [
     {
       "name": "Abarth",
-      "path": "/src/assets/carlogos/abarth.png"
+      "path": "abarth.png"
     },
     {
       "name": "Acura",
-      "path": "/src/assets/carlogos/acura.png"
+      "path": "acura.png"
     },
     {
       "name": "Alfa Romeo",
-      "path": "/src/assets/carlogos/alfa.png"
+      "path": "alfa.png"
     },
     {
       "name": "Ariel",
-      "path": "/src/assets/carlogos/ariel.png"
+      "path": "ariel.png"
     },
     {
       "name": "Aston Martin",
-      "path": "/src/assets/carlogos/aston.png"
+      "path": "aston.png"
     },
     {
       "name": "Audi",
-      "path": "/src/assets/carlogos/audi.png"
+      "path": "audi.png"
     },
     {
       "name": "BAIC",
-      "path": "/src/assets/carlogos/baic.png"
+      "path": "baic.png"
     },
     {
       "name": "Bentley",
-      "path": "/src/assets/carlogos/bentley.png"
+      "path": "bentley.png"
     },
     {
       "name": "BMW",
-      "path": "/src/assets/carlogos/bmw.png"
+      "path": "bmw.png"
     },
     {
       "name": "Brabus",
-      "path": "/src/assets/carlogos/brabus.png"
+      "path": "brabus.png"
     },
     {
       "name": "Bugatti",
-      "path": "/src/assets/carlogos/bugatti.png"
+      "path": "bugatti.png"
     },
     {
       "name": "Buick",
-      "path": "/src/assets/carlogos/buick.png"
+      "path": "buick.png"
     },
     {
       "name": "BYD",
-      "path": "/src/assets/carlogos/byd.png"
+      "path": "byd.png"
     },
     {
       "name": "Cadillac",
-      "path": "/src/assets/carlogos/cadillac.png"
+      "path": "cadillac.png"
     },
     {
       "name": "Changan",
-      "path": "/src/assets/carlogos/changan.png"
+      "path": "changan.png"
     },
     {
       "name": "Chevrolet",
-      "path": "/src/assets/carlogos/chevrolet.png"
+      "path": "chevrolet.png"
     },
     {
       "name": "Chrysler",
-      "path": "/src/assets/carlogos/chrysler.png"
+      "path": "chrysler.png"
     },
     {
       "name": "Citroën",
-      "path": "/src/assets/carlogos/citroen.png"
+      "path": "citroen.png"
     },
     {
       "name": "Cupra",
-      "path": "/src/assets/carlogos/cupra.png"
+      "path": "cupra.png"
     },
     {
       "name": "Dacia",
-      "path": "/src/assets/carlogos/dacia.png"
+      "path": "dacia.png"
     },
     {
       "name": "Daewoo",
-      "path": "/src/assets/carlogos/daewoo.png"
+      "path": "daewoo.png"
     },
     {
       "name": "Daihatsu",
-      "path": "/src/assets/carlogos/daihatsu.png"
+      "path": "daihatsu.png"
     },
     {
       "name": "DeLorean",
-      "path": "/src/assets/carlogos/delorean.png"
+      "path": "delorean.png"
     },
     {
       "name": "Dodge",
-      "path": "/src/assets/carlogos/dodge.png"
+      "path": "dodge.png"
     },
     {
       "name": "Dongfeng",
-      "path": "/src/assets/carlogos/dongfeng.png"
+      "path": "dongfeng.png"
     },
     {
       "name": "FAW",
-      "path": "/src/assets/carlogos/faw.png"
+      "path": "faw.png"
     },
     {
       "name": "Ferrari",
-      "path": "/src/assets/carlogos/ferrari.png"
+      "path": "ferrari.png"
     },
     {
       "name": "Fiat",
-      "path": "/src/assets/carlogos/fiat.png"
+      "path": "fiat.png"
     },
     {
       "name": "Fisker",
-      "path": "/src/assets/carlogos/fisker.png"
+      "path": "fisker.png"
     },
     {
       "name": "Ford",
-      "path": "/src/assets/carlogos/ford.png"
+      "path": "ford.png"
     },
     {
       "name": "Geely",
-      "path": "/src/assets/carlogos/geely.png"
+      "path": "geely.png"
     },
     {
       "name": "Genesis",
-      "path": "/src/assets/carlogos/genesis.png"
+      "path": "genesis.png"
     },
     {
       "name": "GMC",
-      "path": "/src/assets/carlogos/gmc.png"
+      "path": "gmc.png"
     },
     {
       "name": "Great Wall",
-      "path": "/src/assets/carlogos/greatwall.png"
+      "path": "greatwall.png"
     },
     {
       "name": "Holden",
-      "path": "/src/assets/carlogos/holden.png"
+      "path": "holden.png"
     },
     {
       "name": "Honda",
-      "path": "/src/assets/carlogos/honda.png"
+      "path": "honda.png"
     },
     {
       "name": "Hummer",
-      "path": "/src/assets/carlogos/hummer.png"
+      "path": "hummer.png"
     },
     {
       "name": "Hyundai",
-      "path": "/src/assets/carlogos/hyundai.png"
+      "path": "hyundai.png"
     },
     {
       "name": "Infiniti",
-      "path": "/src/assets/carlogos/infiniti.png"
+      "path": "infiniti.png"
     },
     {
       "name": "Jaguar",
-      "path": "/src/assets/carlogos/jaguar.png"
+      "path": "jaguar.png"
     },
     {
       "name": "Jeep",
-      "path": "/src/assets/carlogos/jeep.png"
+      "path": "jeep.png"
     },
     {
       "name": "Kia",
-      "path": "/src/assets/carlogos/kia.png"
+      "path": "kia.png"
     },
     {
       "name": "Koenigsegg",
-      "path": "/src/assets/carlogos/koenigsegg.png"
+      "path": "koenigsegg.png"
     },
     {
       "name": "Lamborghini",
-      "path": "/src/assets/carlogos/lamborghini.png"
+      "path": "lamborghini.png"
     },
     {
       "name": "Land Rover",
-      "path": "/src/assets/carlogos/landrover.png"
+      "path": "landrover.png"
     },
     {
       "name": "Lexus",
-      "path": "/src/assets/carlogos/lexus.png"
+      "path": "lexus.png"
     },
     {
       "name": "Lincoln",
-      "path": "/src/assets/carlogos/lincoln.png"
+      "path": "lincoln.png"
     },
     {
       "name": "Lotus",
-      "path": "/src/assets/carlogos/lotus.png"
+      "path": "lotus.png"
     },
     {
       "name": "Lucid",
-      "path": "/src/assets/carlogos/lucid.png"
+      "path": "lucid.png"
     },
     {
       "name": "Lynk & Co",
-      "path": "/src/assets/carlogos/lynk.png"
+      "path": "lynk.png"
     },
     {
       "name": "Mahindra",
-      "path": "/src/assets/carlogos/mahindra.png"
+      "path": "mahindra.png"
     },
     {
       "name": "Maruti Suzuki",
-      "path": "/src/assets/carlogos/maruti.png"
+      "path": "maruti.png"
     },
     {
       "name": "Maserati",
-      "path": "/src/assets/carlogos/maserati.png"
+      "path": "maserati.png"
     },
     {
       "name": "Mazda",
-      "path": "/src/assets/carlogos/mazda.png"
+      "path": "mazda.png"
     },
     {
       "name": "McLaren",
-      "path": "/src/assets/carlogos/mclaren.png"
+      "path": "mclaren.png"
     },
     {
       "name": "Mercedes-Benz",
-      "path": "/src/assets/carlogos/mercedes.png"
+      "path": "mercedes.png"
     },
     {
       "name": "Mercury",
-      "path": "/src/assets/carlogos/mercury.png"
+      "path": "mercury.png"
     },
     {
       "name": "MG (Morris Garages)",
-      "path": "/src/assets/carlogos/mg.png"
+      "path": "mg.png"
     },
     {
       "name": "Mini",
-      "path": "/src/assets/carlogos/mini.png"
+      "path": "mini.png"
     },
     {
       "name": "Mitsubishi",
-      "path": "/src/assets/carlogos/mitsubishi.png"
+      "path": "mitsubishi.png"
     },
     {
       "name": "NIO",
-      "path": "/src/assets/carlogos/nio.png"
+      "path": "nio.png"
     },
     {
       "name": "Nissan",
-      "path": "/src/assets/carlogos/nissan.png"
+      "path": "nissan.png"
     },
     {
       "name": "Opel",
-      "path": "/src/assets/carlogos/opel.png"
+      "path": "opel.png"
     },
     {
       "name": "Pagani",
-      "path": "/src/assets/carlogos/pagani.png"
+      "path": "pagani.png"
     },
     {
       "name": "Perodua",
-      "path": "/src/assets/carlogos/perodua.png"
+      "path": "perodua.png"
     },
     {
       "name": "Peugeot",
-      "path": "/src/assets/carlogos/peugeot.png"
+      "path": "peugeot.png"
     },
     {
       "name": "Plymouth",
-      "path": "/src/assets/carlogos/plymouth.png"
+      "path": "plymouth.png"
     },
     {
       "name": "Polestar",
-      "path": "/src/assets/carlogos/polestar.png"
+      "path": "polestar.png"
     },
     {
       "name": "Pontiac",
-      "path": "/src/assets/carlogos/pontiac.png"
+      "path": "pontiac.png"
     },
     {
       "name": "Porsche",
-      "path": "/src/assets/carlogos/porsche.png"
+      "path": "porsche.png"
     },
     {
       "name": "Proton",
-      "path": "/src/assets/carlogos/proton.png"
+      "path": "proton.png"
     },
     {
       "name": "Ram",
-      "path": "/src/assets/carlogos/ram.png"
+      "path": "ram.png"
     },
     {
       "name": "Renault",
-      "path": "/src/assets/carlogos/renault.png"
+      "path": "renault.png"
     },
     {
       "name": "Rimac",
-      "path": "/src/assets/carlogos/rimac.png"
+      "path": "rimac.png"
     },
     {
       "name": "Rivian",
-      "path": "/src/assets/carlogos/rivian.png"
+      "path": "rivian.png"
     },
     {
       "name": "Roewe",
-      "path": "/src/assets/carlogos/roewe.webp"
+      "path": "roewe.webp"
     },
     {
       "name": "Rolls-Royce",
-      "path": "/src/assets/carlogos/rolls.png"
+      "path": "rolls.png"
     },
     {
       "name": "Saab",
-      "path": "/src/assets/carlogos/saab.png"
+      "path": "saab.png"
     },
     {
       "name": "Saturn",
-      "path": "/src/assets/carlogos/saturn.png"
+      "path": "saturn.png"
     },
     {
       "name": "Scion",
-      "path": "/src/assets/carlogos/scion.png"
+      "path": "scion.png"
     },
     {
       "name": "Seat",
-      "path": "/src/assets/carlogos/seat.png"
+      "path": "seat.png"
     },
     {
       "name": "Shelby",
-      "path": "/src/assets/carlogos/shelby.png"
+      "path": "shelby.png"
     },
     {
       "name": "Skoda",
-      "path": "/src/assets/carlogos/skoda.png"
+      "path": "skoda.png"
     },
     {
       "name": "Smart",
-      "path": "/src/assets/carlogos/smart.png"
+      "path": "smart.png"
     },
     {
       "name": "Spyker",
-      "path": "/src/assets/carlogos/spyker.png"
+      "path": "spyker.png"
     },
     {
       "name": "SsangYong",
-      "path": "/src/assets/carlogos/ssangyong.png"
+      "path": "ssangyong.png"
     },
     {
       "name": "Subaru",
-      "path": "/src/assets/carlogos/subaru.png"
+      "path": "subaru.png"
     },
     {
       "name": "Suzuki",
-      "path": "/src/assets/carlogos/suzuki.png"
+      "path": "suzuki.png"
     },
     {
       "name": "Tata",
-      "path": "/src/assets/carlogos/tata.png"
+      "path": "tata.png"
     },
     {
       "name": "Tesla",
-      "path": "/src/assets/carlogos/tesla.png"
+      "path": "tesla.png"
     },
     {
       "name": "Toyota",
-      "path": "/src/assets/carlogos/toyota.png"
+      "path": "toyota.png"
     },
     {
       "name": "TVR",
-      "path": "/src/assets/carlogos/tvr.png"
+      "path": "tvr.png"
     },
     {
       "name": "Vauxhall",
-      "path": "/src/assets/carlogos/vauxhall.png"
+      "path": "vauxhall.png"
     },
     {
       "name": "Vector",
-      "path": "/src/assets/carlogos/vector.png"
+      "path": "vector.png"
     },
     {
       "name": "Venturi",
-      "path": "/src/assets/carlogos/venturi.png"
+      "path": "venturi.png"
     },
     {
       "name": "Volkswagen",
-      "path": "/src/assets/carlogos/volkswagen.png"
+      "path": "volkswagen.png"
     },
     {
       "name": "Wiesmann",
-      "path": "/src/assets/carlogos/weismann.png"
+      "path": "weismann.png"
     },
     {
       "name": "Xpeng",
-      "path": "/src/assets/carlogos/xpeng.png"
+      "path": "xpeng.png"
     },
     {
       "name": "Zenvo",
-      "path": "/src/assets/carlogos/zenvo.png"
+      "path": "zenvo.png"
     }
   ]
 }

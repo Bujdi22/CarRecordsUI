@@ -172,7 +172,6 @@ import {
   IonSelect, IonSelectOption, IonInput, IonCardHeader, IonCard, IonCardTitle, IonCardSubtitle, IonIcon
 } from "@ionic/vue";
 import SkeletonCard from "@/components/SkeletonCard.vue";
-import carmakers from "@/assets/carmakers.json";
 import {Vehicle} from "@/interfaces/Vehicle";
 import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
@@ -183,10 +182,11 @@ import Confirm from "@/utils/confirm";
 import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 import AuditsViewer from "@/components/AuditsViewer.vue";
+import useCarlogos from "@/mixins/useCarlogos";
 
 export default defineComponent({
   name: "ViewVehiclePage",
-  mixins: [FormErrors],
+  mixins: [FormErrors, useCarlogos],
   components: {
     AuditsViewer,
     MaintenanceRecords,
@@ -203,10 +203,10 @@ export default defineComponent({
       loading: false,
       loadingUpdate: false,
       fail: false,
-      carmakers: carmakers,
       editing: false,
       form: {} as Vehicle | null,
       reloader: 0,
+      logoPath: null,
     }
   },
   created() {
@@ -292,15 +292,17 @@ export default defineComponent({
     },
   },
   computed: {
-    logoPath(): string {
-      return this.vehicle
-          ? this.carmakers.brands.find((brand) => this.vehicle!.make === brand.name)?.path || ''
-          : '';
-    },
     isSaveDisabled(): boolean {
       return !(this.form && this.form.displayName && this.form.make && this.form.model && this.form.year)
     }
-  }
+  },
+  watch: {
+    async vehicle(v) {
+      if (v?.make) {
+        this.logoPath = await this.getLogo(v.make);
+      }
+    },
+  },
 })
 </script>
 
