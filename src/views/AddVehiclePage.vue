@@ -3,7 +3,7 @@
 
     <header-toolbar :has-back-button="true">Add Vehicle</header-toolbar>
     <ion-content>
-      <div class="container">
+      <div class="container mobile-bottom-padded">
         <form-error-list :errors="formErrors"></form-error-list>
 
         <ion-list>

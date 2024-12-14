@@ -6,7 +6,13 @@
       </h4>
   </div>
   <div v-if="imageUrlsResolved" class="is-grid-desktop">
-    <ion-card v-for="(file) in files" :key="file.id" class="is-grid-item-desktop">
+    <ion-card v-for="(file) in files"
+              :key="file.id"
+              class="is-grid-item-desktop"
+              :class="{'ion-activatable ripple-parent rounded-rectangle mouse-pointer': openOnClick}"
+              @click="cardClicked(file)"
+    >
+      <ion-ripple-effect v-if="openOnClick"></ion-ripple-effect>
       <div v-if="file.fileType === 'pdf'" style="font-size: 70px; height: 150px;" class="m-t-50 has-text-center">
         <ion-icon :icon="documentTextOutline()"></ion-icon>
       </div>
@@ -27,7 +33,7 @@
           Delete
         </ion-button>
         <ion-button color="primary"
-                    @click="view(file)"
+                    @click.stop="view(file)"
         >
           <ion-icon slot="start" :icon="eyeOutline()"></ion-icon>
           View
@@ -41,14 +47,14 @@
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
-import {IonButton, IonIcon} from "@ionic/vue";
+import {IonButton, IonIcon, IonRippleEffect} from "@ionic/vue";
 import {formatDate} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
 import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
 import { modalController } from '@ionic/vue';
 export default defineComponent({
-  components: {IonIcon, IonButton},
+  components: {IonIcon, IonButton, IonRippleEffect},
   name: "FileTable",
   props: {
     files: {
@@ -58,6 +64,7 @@ export default defineComponent({
     canDelete: {required: false, default: false},
     title: {required: false, default: 'Files'},
     notFoundMessage: {required: false, default: 'No files found.'},
+    openOnClick: {required: false, default: false},
   },
   data() {
     return {
@@ -101,6 +108,11 @@ export default defineComponent({
       });
 
       modal.present();
+    },
+    cardClicked(file: Media) {
+      if (this.openOnClick) {
+        this.view(file);
+      }
     },
   },
   watch: {

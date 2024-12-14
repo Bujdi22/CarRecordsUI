@@ -79,6 +79,7 @@
           <file-table
               v-if="record.media"
               :files="record.media"
+              :open-on-click="true"
               style="margin-top: 20px;"
               @deleteFile="(file) => deleteFile(file)"
           ></file-table>

@@ -39,7 +39,7 @@
             <ion-button color="primary">Vehicles page</ion-button>
           </router-link>
         </div>
-        <div v-else-if="form">
+        <div v-else-if="form" class="mobile-bottom-padded">
           <form-error-list :errors="formErrors"></form-error-list>
           <ion-list>
             <ion-item>
@@ -116,7 +116,7 @@
                 type="file"
                 style="display: none"
                 ref="fileInput"
-                accept="image/*"
+                accept="image/*,.pdf"
                 @change="onFilePicked"/>
             <ion-button @click="pickFile" class="has-padding" shape="round" color="primary">
               <ion-icon slot="start" :icon="attachOutline()"></ion-icon>
@@ -282,7 +282,7 @@ export default defineComponent({
         if (this.files.length) {
           this.handleFiles(data);
         } else {
-          this.redirect();
+          this.redirect(data);
         }
       }).catch((error) => {
         console.error("Could not save", error);
@@ -328,12 +328,12 @@ export default defineComponent({
         });
       }
 
-      this.redirect();
+      this.redirect(record);
     },
-    redirect() {
+    redirect(record: MaintenanceRecord) {
       Toast.fire({'icon': 'success', title: 'Record saved'});
       this.loading = false;
-      this.$router.push({path: `/vehicles/${this.vehicle.id}`});
+      this.$router.push({path: `/vehicles/view-maintenance-record/${record.id}`});
     },
     pickFile() {
       this.$refs.fileInput.click()

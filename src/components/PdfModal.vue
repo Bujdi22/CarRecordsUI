@@ -10,17 +10,22 @@
     </ion-toolbar>
     <ion-progress-bar v-if="!ready" type="indeterminate"></ion-progress-bar>
   </ion-header>
-  <ion-content class="ion-padding">
-
+  <ion-content>
     <PDFViewer
         v-if="ready"
         :source="file.resolvedUrl"
-        @download="handleDownload"
+        @download="download"
     >
 
     </PDFViewer>
-
   </ion-content>
+  <ion-footer :translucent="true">
+    <ion-toolbar>
+      <ion-button color="light" slot="end" class="m-r-10" @click="download">
+        <ion-icon slot="start" :icon="cloudDownloadOutline()"></ion-icon>
+        Download</ion-button>
+    </ion-toolbar>
+  </ion-footer>
 </template>
 
 <script lang="ts">
@@ -37,7 +42,8 @@ import {
   IonIcon, IonProgressBar,
 } from '@ionic/vue';
 import {Media} from "@/interfaces/Media";
-import {closeCircleOutline} from "ionicons/icons";
+import {closeCircleOutline, cloudDownloadOutline} from "ionicons/icons";
+import {downloadFile} from "@/utils/fileDownloader";
 export default defineComponent({
   name: "PdfModal",
   components: {
@@ -60,14 +66,17 @@ export default defineComponent({
     }
   },
   methods: {
+    cloudDownloadOutline() {
+      return cloudDownloadOutline
+    },
     closeCircleOutline() {
       return closeCircleOutline
     },
     close() {
       modalController.dismiss(null, 'confirm');
     },
-    handleDownload() {
-
+    download() {
+      downloadFile(this.file.resolvedUrl, `${this.file.id}.${this.file.fileType}`);
     }
   },
   mounted() {

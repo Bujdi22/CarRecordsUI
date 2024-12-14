@@ -10,7 +10,11 @@
     <ion-title>Records</ion-title>
   </ion-toolbar>
   <ion-spinner class="is-loading" v-if="loading" style="margin: auto"></ion-spinner>
-  <ion-card v-else v-for="record in records" :key="record.id">
+  <ion-card v-else v-for="record in records" :key="record.id"
+            class="ion-activatable ripple-parent rounded-rectangle mouse-pointer"
+            @click="viewRecord(record)"
+  >
+    <ion-ripple-effect></ion-ripple-effect>
     <ion-card-header>
       <FontAwesomeIcon :icon="faWrench()" class="m-r-5"></FontAwesomeIcon>
       <ion-card-title>{{ record.title }}</ion-card-title>
@@ -22,7 +26,7 @@
       <ion-button
           shape="round"
           fill="outline"
-          @click="viewRecord(record)">
+          @click.stop="viewRecord(record)">
         View
       </ion-button>
 
@@ -46,7 +50,8 @@ import {
   IonIcon,
   IonCard,
   IonCardTitle,
-  IonCardSubtitle
+  IonCardSubtitle,
+  IonRippleEffect,
 } from "@ionic/vue";
 import {add} from "ionicons/icons";
 import {formatDate} from "@/utils/dateUtils";
@@ -57,7 +62,7 @@ export default defineComponent({
   name: "MaintenanceRecords",
   components: {
     IonCardSubtitle,
-    FontAwesomeIcon, IonCardTitle, IonCard, IonIcon, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle},
+    FontAwesomeIcon, IonCardTitle, IonCard, IonIcon, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonRippleEffect},
   props: {
     vehicle: {type: Object as PropType<Vehicle>, required: true},
   },
