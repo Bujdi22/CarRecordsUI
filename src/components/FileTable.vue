@@ -21,7 +21,7 @@
       </div>
       <ion-card-header>
         <ion-card-title>{{ formatDate(file.createdAt) }}</ion-card-title>
-        <ion-card-subtitle>File Attached</ion-card-subtitle>
+        <ion-card-subtitle>File Attached <span>({{ file.fileType }})</span></ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
@@ -35,8 +35,13 @@
         <ion-button color="primary"
                     @click.stop="view(file)"
         >
-          <ion-icon slot="start" :icon="eyeOutline()"></ion-icon>
-          View
+          <ion-icon slot="start" :icon="file.fileType === 'pdf' ? cloudDownloadOutline() : eyeOutline()"></ion-icon>
+          <span v-if="file.fileType === 'pdf'">
+            Download
+          </span>
+          <span v-else>
+            View
+          </span>
         </ion-button>
       </ion-card-content>
     </ion-card>
@@ -50,9 +55,10 @@ import {defineComponent, PropType} from "vue";
 import {IonButton, IonIcon, IonRippleEffect, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle, IonCard} from "@ionic/vue";
 import {formatDate} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
-import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
+import {cloudDownloadOutline, documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
 import { modalController } from '@ionic/vue';
+import {downloadFile} from "@/utils/fileDownloader";
 export default defineComponent({
   components: {IonIcon, IonButton, IonRippleEffect, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle, IonCard},
   name: "FileTable",
@@ -75,6 +81,9 @@ export default defineComponent({
     this.resolveImages();
   },
   methods: {
+    cloudDownloadOutline() {
+      return cloudDownloadOutline
+    },
     formatDate,
     documentTextOutline() {
       return documentTextOutline
@@ -98,16 +107,19 @@ export default defineComponent({
       this.imageUrlsResolved = true;
     },
     async view(file: Media) {
-      const component = file.fileType === 'pdf'
-          ? (await import('@/components/PdfModal.vue')).default
-          : (await import('@/components/ImageModal.vue')).default;
-      const modal = await modalController.create({
-        component: component,
-        cssClass: 'fullscreen',
-        componentProps: {file}
-      });
+      if (file.fileType === 'pdf') {
+        downloadFile(file.resolvedUrl, `${file.id}.pdf`);
+      } else {
+        const component = (await import('@/components/ImageModal.vue')).default;
+        const modal = await modalController.create({
+          component: component,
+          cssClass: 'fullscreen',
+          componentProps: {file}
+        });
 
-      modal.present();
+        modal.present();
+      }
+
     },
     cardClicked(file: Media) {
       if (this.openOnClick) {
