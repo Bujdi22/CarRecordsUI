@@ -59,6 +59,12 @@
               </div>
             </ion-item>
             <ion-item>
+              <div>
+                <p class="item-heading is-color-primary">Odometer Reading</p>
+                <p class="item-value">{{ record.odometer }}</p>
+              </div>
+            </ion-item>
+            <ion-item>
               <ion-label>
                 <audits-viewer
                     v-if="!loading"

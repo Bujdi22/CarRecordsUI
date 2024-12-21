@@ -20,7 +20,7 @@ export default defineComponent({
   <div class="has-padding is-flex">
     <a :href="getGoogleURI()">
       <ion-button expand="block" color="light">
-        <img src="/src/assets/google.png" style="height: 1.5em; margin-right: 10px"/>
+        <img src="/src/assets/google.webp" style="height: 1.5em; margin-right: 10px"/>
         Sign in with Google
       </ion-button>
     </a>

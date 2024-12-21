@@ -52,6 +52,8 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonRippleEffect,
+  IonCardHeader,
+  IonCardContent,
 } from "@ionic/vue";
 import {add} from "ionicons/icons";
 import {formatDate} from "@/utils/dateUtils";
@@ -61,7 +63,7 @@ import {faWrench} from "@fortawesome/free-solid-svg-icons";
 export default defineComponent({
   name: "MaintenanceRecords",
   components: {
-    IonCardSubtitle,
+    IonCardSubtitle, IonCardHeader, IonCardContent,
     FontAwesomeIcon, IonCardTitle, IonCard, IonIcon, IonSpinner, IonButton, IonToolbar, IonButtons, IonTitle, IonRippleEffect},
   props: {
     vehicle: {type: Object as PropType<Vehicle>, required: true},

@@ -47,14 +47,14 @@
 </template>
 <script lang="ts">
 import {defineComponent, PropType} from "vue";
-import {IonButton, IonIcon, IonRippleEffect} from "@ionic/vue";
+import {IonButton, IonIcon, IonRippleEffect, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle, IonCard} from "@ionic/vue";
 import {formatDate} from "@/utils/dateUtils";
 import axiosInstance from "@/config/axiosConfig";
 import {documentTextOutline, eyeOutline, trashOutline} from "ionicons/icons";
 import {Media} from "@/interfaces/Media";
 import { modalController } from '@ionic/vue';
 export default defineComponent({
-  components: {IonIcon, IonButton, IonRippleEffect},
+  components: {IonIcon, IonButton, IonRippleEffect, IonCardHeader, IonCardContent, IonCardTitle, IonCardSubtitle, IonCard},
   name: "FileTable",
   props: {
     files: {
