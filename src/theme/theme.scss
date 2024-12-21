@@ -1,0 +1,101 @@
+@use 'menu.scss';
+@use 'banners.scss';
+@use 'dark-only.scss';
+@use 'light-only.scss';
+@use 'mobile-only.scss';
+@use 'desktop-only.scss';
+@use 'modifiers.scss';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --ion-font-family: 'Montserrat', sans-serif;
+}
+.container {
+    text-align: left;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
+
+    strong {
+        font-size: 20px;
+        line-height: 26px;
+    }
+
+    p, li {
+        font-size: 16px;
+        line-height: 22px;
+        color: #8c8c8c;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
+
+ion-note {
+    display: inline-block;
+    font-size: 16px;
+
+    color: var(--ion-color-medium-shade);
+}
+
+ion-spinner {
+    display: block;
+    margin: auto;
+}
+ion-item {
+    .item-heading {
+        margin-top: 10px;
+        margin-bottom: 0;
+        padding: 0;
+        font-size: 0.85em;
+        color: var(--ion-color-base);
+    }
+    .item-value {
+        color: var(--ion-color-base);
+        margin-top: 5px;
+        padding-top: 0;
+        margin-bottom: 10px;
+    }
+}
+.fullscreen {
+    --width:100% !important;
+    --height:100% !important;
+}
+.page-style {
+    padding: 25px;
+    min-height: 50vh;
+    background: var(--ion-item-background);
+    margin-bottom: 50px;
+}
+
+.copyright-text {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    padding-bottom: 20px;
+}
+
+ion-button {
+    text-transform: capitalize;
+}
+.large-icon {
+    font-size: 5em;
+    color: var(--ion-color-medium-tint);
+}
+li {
+    padding-bottom: 10px;
+}
+
+a {
+    cursor: pointer;
+}
+a:hover {
+    color: var(--ion-color-primary-shade);
+    text-decoration: underline;
+}

@@ -9,7 +9,7 @@
     Hide Changes
   </a>
   <div v-if="open">
-    <ion-spinner class="is-loading" v-if="!hasLoaded" style="margin: auto"></ion-spinner>
+    <ion-spinner v-if="!hasLoaded" style="margin: auto"></ion-spinner>
     <div v-else>
      <div v-for="(item, key) in items" :key="key" class="audit-item">
        <FontAwesomeIcon :icon="faWrench()" class="m-r-5"></FontAwesomeIcon>

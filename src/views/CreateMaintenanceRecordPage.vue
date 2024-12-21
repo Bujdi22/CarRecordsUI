@@ -9,20 +9,17 @@
         <span v-else>
           Add
         </span>
-        record for {{ vehicle.displayName }}
+        record
       </span>
     </header-toolbar>
     <ion-content ref="maintenance-content">
       <div class="container">
         <ion-card color="light" v-if="isEdit && form?.createdAt">
           <ion-card-header>
-            <div class="icon-title">
+            <ion-card-title>
               <ion-icon :icon="informationCircleOutline()"></ion-icon>
-              <ion-card-title>
-                You are now editing a record.
-              </ion-card-title>
-            </div>
-            <ion-card-subtitle>This record was first added on {{ formatDate(form.createdAt) }}</ion-card-subtitle>
+              You are now editing a record.
+            </ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-button @click="cancelEdit">

@@ -1,0 +1,25 @@
+@media only screen and (min-width: 768px) {
+  .home-section {
+    display: flex;
+  }
+
+  .is-half-desktop {
+    width: 50%;
+  }
+
+  .home-section .image-container img{
+    height: 25vh;
+  }
+
+  .is-grid-desktop {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .is-grid-item-desktop {
+    border-radius: 20px;
+    margin: 1%;
+    width: 23%;
+  }
+}

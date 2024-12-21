@@ -1,0 +1,48 @@
+ion-label.validation {
+  font-size: 0.8em;
+  margin-left: 15px
+}
+
+ion-card {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 20px;
+  &.ion-color-success {
+    background-color: transparent;
+    border: 2px solid var(--ion-color-success-shade);
+    color: var(--ion-color-success-shade);
+    box-shadow: none;
+  }
+}
+ion-card-content {
+  p {
+    padding-bottom: 5px;
+    padding-top: 5px;
+  }
+  ion-button {
+    margin-top: 20px;
+  }
+}
+
+.error-list {
+  border-radius: 10px;
+  border-width: 2px;
+  border-color: var(--ion-color-danger);
+  border-style: solid;
+  h2, h3 {
+    color: var(--ion-color-danger);
+    margin: 20px;
+  }
+}
+
+.card-icon-header {
+  display: flex;
+  padding: 15px;
+  ion-card-title {
+    line-height: 50px;
+    margin-left: 30px;
+  }
+  ion-icon {
+    font-size: 50px;
+  }
+}

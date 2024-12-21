@@ -1,0 +1,18 @@
+@media only screen and (max-width: 767px) {
+  .home-section {
+    .image-container{
+      width: 80%;
+      margin: 20px auto;
+    }
+    .image-container img{
+      width: 100%;
+    }
+  }
+  .large-icon {
+    text-align: center
+  }
+
+  .mobile-bottom-padded {
+    padding-bottom: 600px;
+  }
+}
