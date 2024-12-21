@@ -9,15 +9,17 @@
     </ion-buttons>
     <ion-title>Records</ion-title>
   </ion-toolbar>
-  <ion-spinner class="is-loading" v-if="loading" style="margin: auto"></ion-spinner>
+  <ion-spinner v-if="loading" style="margin: auto"></ion-spinner>
   <ion-card v-else v-for="record in records" :key="record.id"
             class="ion-activatable ripple-parent rounded-rectangle mouse-pointer"
             @click="viewRecord(record)"
   >
     <ion-ripple-effect></ion-ripple-effect>
     <ion-card-header>
-      <FontAwesomeIcon :icon="faWrench()" class="m-r-5"></FontAwesomeIcon>
-      <ion-card-title>{{ record.title }}</ion-card-title>
+      <ion-card-title>
+        <FontAwesomeIcon :icon="faWrench()" class="m-r-5"></FontAwesomeIcon>
+        {{ record.title }}
+      </ion-card-title>
     </ion-card-header>
 
     <ion-card-content>

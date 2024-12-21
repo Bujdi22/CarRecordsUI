@@ -84,13 +84,10 @@
         <div v-else-if="vehicle && editing && form">
           <ion-card color="light">
             <ion-card-header>
-              <div class="icon-title">
+              <ion-card-title>
                 <ion-icon :icon="informationCircleOutline()"></ion-icon>
-                <ion-card-title>
-                  You are now editing this vehicle
-                </ion-card-title>
-              </div>
-              <ion-card-subtitle>Please make your changes in the form below.</ion-card-subtitle>
+                You are now editing this vehicle
+              </ion-card-title>
             </ion-card-header>
             <ion-card-content>
               <ion-button @click="cancelEdit">

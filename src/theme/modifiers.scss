@@ -1,0 +1,60 @@
+.has-background {
+  background: var(--ion-item-background);
+}
+.has-padding {
+  padding: 12px;
+}
+.is-color-base {
+  color: var(--ion-color-base)!important;
+}
+.is-color-primary {
+  color: var(--ion-color-primary-shade)!important;
+}
+
+.is-half {
+  width: 50%;
+}
+
+.has-text-right {
+  text-align: right;
+}
+.has-text-center {
+  text-align: center;
+}
+.has-text-justified {
+  text-align: justify;
+}
+
+.is-flex {
+  display: flex;
+}
+
+.m-r-10 {
+  margin-right: 10px !important;
+}
+
+.m-t-50 {
+  margin-top: 50px !important;
+}
+.m-b-20 {
+  margin-bottom: 20px !important;
+}
+.m-b-50 {
+  margin-bottom: 50px !important;
+}
+
+.m-b-10 {
+  margin-bottom: 10px !important;
+}
+
+.p-b-50 {
+  padding-bottom: 50px !important;
+}
+
+.m-r-5 {
+  margin-right: 5px;
+}
+
+.mouse-pointer {
+  cursor: pointer;
+}
