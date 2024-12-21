@@ -18,7 +18,7 @@
             </h4>
           </div>
           <div class="image-container is-half-desktop has-text-right">
-            <img src="/src/assets/new-illustration.png"/>
+            <img src="/src/assets/new-illustration.webp" alt="car maintenance illustration"/>
           </div>
 
 

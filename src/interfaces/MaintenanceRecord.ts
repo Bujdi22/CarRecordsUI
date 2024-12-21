@@ -10,5 +10,6 @@ export interface MaintenanceRecord {
     updatedAt: string,
     media: Media[],
     vehicleId: string,
-    deleteFiles: string[];
+    deleteFiles: string[],
+    odometer: number,
 }

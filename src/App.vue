@@ -5,7 +5,7 @@
         <ion-content>
           <ion-list id="inbox-list" style="padding-top: 60px">
             <div>
-              <img src="./assets/logo.png"
+              <img src="./assets/logo.webp"
                   style="display: block; width: 80%; margin: auto; height: auto;"
                   alt="logo"/>
             </div>

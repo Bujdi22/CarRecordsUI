@@ -66,6 +66,14 @@
                 ></Datepicker>
               </div>
             </ion-item>
+            <ion-item>
+              <ion-input v-model="form.odometer"
+                         type="number"
+                         label="Odometer reading"
+                         label-placement="stacked"
+                         placeholder="Enter miles or km">
+              </ion-input>
+            </ion-item>
           </ion-list>
           <ion-list style="margin-top:20px; margin-bottom: 20px">
             <h5 class="has-padding" style="margin:0">Serviced Items</h5>
@@ -331,6 +339,7 @@ export default defineComponent({
       this.redirect(record);
     },
     redirect(record: MaintenanceRecord) {
+      this.$store.commit('setCachedRecord', null);
       Toast.fire({'icon': 'success', title: 'Record saved'});
       this.loading = false;
       this.$router.push({path: `/vehicles/view-maintenance-record/${record.id}`});
