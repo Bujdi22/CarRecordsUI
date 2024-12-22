@@ -31,13 +31,17 @@
               <ion-select-option v-for="(make, key) in carmakers.brands" :value="make.name" :key="key">{{ make.name }}</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-item>
-            <ion-input v-model="model"
-                       label="Model"
-                       label-placement="stacked"
-                       placeholder="Enter the model">
-            </ion-input>
-          </ion-item>
+          <custom-select
+              v-model="model"
+              :is-item="true"
+              :options="[
+                  { label: 'Option #1', value: 'option_1' },
+                  { label: 'Option #2', value: 'option_2' },
+                  { label: 'Option #3', value: 'option_3' },
+                ]"
+          >
+            Model
+          </custom-select>
           <ion-item>
             <ion-input v-model="year"
                        type="number"
@@ -74,10 +78,12 @@ import FormErrorList from "@/components/FormErrorList.vue";
 import carmakers from "@/assets/carmakers.json";
 import {defineComponent} from "vue";
 import FormErrors from '../mixins/FormErrors';
+import CustomSelect from "@/components/CustomSelect.vue";
 
 export default defineComponent({
   name: "AddVehiclePage",
   components: {
+    CustomSelect,
     IonPage,
     IonButton,
     IonContent,
