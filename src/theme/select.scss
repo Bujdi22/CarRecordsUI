@@ -1,0 +1,52 @@
+.vue-select {
+  height: 34px;
+  overflow: visible;
+  .menu[role=listbox] {
+    position: relative;
+  }
+}
+.select-item-wrapper {
+  padding: 12px;
+  padding-left: 4px;
+  margin-left: 12px;
+  border-bottom: 1px solid #DEDEDE;
+  .select-title {
+    margin-bottom: 5px;
+    padding: 0;
+    font-size: 0.80em;
+    color: var(--ion-color-base);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .vue-select {
+    --vs-input-bg: var(--ion-background-color-step-50); /* Dark gray background */
+    --vs-input-outline: var(--ion-background-color-step-100); /* Blue outline */
+    --vs-input-placeholder-color: var(--ion-text-color-step-300); /* Light gray placeholder */
+
+    --vs-border: 1px solid #374151; /* Dark border */
+    --vs-text-color: #f9fafb; /* Light text */
+
+    --vs-menu-border: 1px solid #374151; /* Dark border */
+    --vs-menu-bg: #1f2937; /* Dark background */
+
+    --vs-option-text-color: var(--vs-text-color); /* Use light text */
+    --vs-option-bg: var(--vs-menu-bg); /* Use dark menu background */
+    --vs-option-hover-color: #334155; /* Slightly lighter gray for hover */
+    --vs-option-focused-color: var(--vs-option-hover-color); /* Same as hover */
+    --vs-option-selected-color: #2563eb; /* Blue for selected */
+    --vs-option-disabled-color: #4b5563; /* Gray for disabled */
+    --vs-option-disabled-text-color: #9ca3af; /* Light gray for disabled text */
+
+    --vs-multi-value-text-color: #d1d5db; /* Light gray */
+    --vs-multi-value-bg: #374151; /* Medium gray */
+    --vs-multi-value-xmark-color: var(--vs-multi-value-text-color); /* Match text */
+
+    --vs-icon-color: var(--vs-text-color); /* Match light text */
+
+    --vs-spinner-color: var(--vs-text-color); /* Match light text */
+  }
+  .select-item-wrapper {
+    border-bottom: 1px solid #363636;
+  }
+}

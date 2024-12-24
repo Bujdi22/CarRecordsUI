@@ -21,23 +21,20 @@
                        placeholder="Enter the registration">
             </ion-input>
           </ion-item>
-          <ion-item>
-            <ion-select
-                v-model="make"
-                label="Make"
-                label-placement="stacked"
-                placeholder="Enter the make"
-            >
-              <ion-select-option v-for="(make, key) in carmakers.brands" :value="make.name" :key="key">{{ make.name }}</ion-select-option>
-            </ion-select>
-          </ion-item>
-          <ion-item>
-            <ion-input v-model="model"
-                       label="Model"
-                       label-placement="stacked"
-                       placeholder="Enter the model">
-            </ion-input>
-          </ion-item>
+          <custom-select
+              v-model="make"
+              :is-item="true"
+              :options="carMakes"
+          >
+            Make
+          </custom-select>
+          <custom-select
+              v-model="model"
+              :is-item="true"
+              :options="carModels"
+          >
+            Model
+          </custom-select>
           <ion-item>
             <ion-input v-model="year"
                        type="number"
@@ -66,26 +63,23 @@ import {
   IonList,
   IonItem,
   IonInput,
-  IonSelect,
-  IonSelectOption,
 } from "@ionic/vue";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrorList from "@/components/FormErrorList.vue";
-import carmakers from "@/assets/carmakers.json";
 import {defineComponent} from "vue";
 import FormErrors from '../mixins/FormErrors';
+import CustomSelect from "@/components/CustomSelect.vue";
 
 export default defineComponent({
   name: "AddVehiclePage",
   components: {
+    CustomSelect,
     IonPage,
     IonButton,
     IonContent,
     IonList,
     IonItem,
     IonInput,
-    IonSelect,
-    IonSelectOption,
     HeaderToolbar,
     FormErrorList
   },
@@ -97,7 +91,9 @@ export default defineComponent({
       model: '',
       year: '',
       registration: '',
-      carmakers: carmakers,
+      carMakes: [] as string[],
+      carModelsCache: {},
+      carModels: [],
     }
   },
   mounted() {
@@ -106,6 +102,11 @@ export default defineComponent({
     this.model = '';
     this.year = '';
     this.registration = '';
+    this.$axios.get('/api/car-makes').then(({data}) => {
+      this.carMakes = data.map((make) => {
+        return {label: make, value: make};
+      });
+    })
   },
   methods: {
     add() {
@@ -124,10 +125,33 @@ export default defineComponent({
             this.parseFormErrors(error.response.data);
       })
     },
+    getModelOptions() {
+      if (!this.make) {
+        this.carModels = [];
+        this.model = '';
+        return;
+      }
+      if (this.carModelsCache[this.make]) {
+        this.carModels = this.carModelsCache[this.make];
+        return;
+      }
+
+      this.$axios.get(`/api/car-models?make=${this.make}`).then(({data}) => {
+        this.carModels = data.map((model) => {
+          return { label: model, value: model };
+        });
+        this.carModelsCache[this.make] = this.carModels;
+      })
+    },
   },
   computed: {
     isDisabled() {
       return !this.displayName || !this.make || !this.model || !this.year;
+    },
+  },
+  watch: {
+    make() {
+      this.getModelOptions();
     },
   }
 })

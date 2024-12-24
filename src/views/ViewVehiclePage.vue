@@ -112,26 +112,20 @@
                          placeholder="Enter the registration">
               </ion-input>
             </ion-item>
-            <ion-item>
-              <ion-select
-                  v-model="form.make"
-                  label="Make"
-                  label-placement="stacked"
-                  placeholder="Enter the make"
-              >
-                <ion-select-option v-for="(make, key) in carmakers.brands" :value="make.name" :key="key">{{
-                    make.name
-                  }}
-                </ion-select-option>
-              </ion-select>
-            </ion-item>
-            <ion-item>
-              <ion-input v-model="form.model"
-                         label="Model"
-                         label-placement="stacked"
-                         placeholder="Enter the model">
-              </ion-input>
-            </ion-item>
+            <custom-select
+                v-model="form.make"
+                :is-item="true"
+                :options="carMakes"
+            >
+              Make
+            </custom-select>
+            <custom-select
+                v-model="form.model"
+                :is-item="true"
+                :options="carModels"
+            >
+              Model
+            </custom-select>
             <ion-item>
               <ion-input v-model="form.year"
                          type="number"
@@ -180,11 +174,13 @@ import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 import AuditsViewer from "@/components/AuditsViewer.vue";
 import useCarlogos from "@/mixins/useCarlogos";
+import CustomSelect from "@/components/CustomSelect.vue";
 
 export default defineComponent({
   name: "ViewVehiclePage",
   mixins: [FormErrors, useCarlogos],
   components: {
+    CustomSelect,
     AuditsViewer,
     MaintenanceRecords,
     IonIcon,
@@ -204,6 +200,9 @@ export default defineComponent({
       form: {} as Vehicle | null,
       reloader: 0,
       logoPath: null,
+      carMakes: [] as string[],
+      carModelsCache: {},
+      carModels: [],
     }
   },
   created() {
@@ -215,6 +214,12 @@ export default defineComponent({
       this.loadingUpdate = false;
       this.load();
     });
+
+    this.$axios.get('/api/car-makes').then(({data}) => {
+      this.carMakes = data.map((make) => {
+        return {label: make, value: make};
+      });
+    })
   },
   methods: {
     formatUpdatedAt,
@@ -287,6 +292,24 @@ export default defineComponent({
         }
       });
     },
+
+    getModelOptions() {
+      if (!this.form?.make) {
+        this.carModels = [];
+        return;
+      }
+      if (this.carModelsCache[this.form?.make]) {
+        this.carModels = this.carModelsCache[this.form.make];
+        return;
+      }
+
+      this.$axios.get(`/api/car-models?make=${this.form?.make}`).then(({data}) => {
+        this.carModels = data.map((model) => {
+          return { label: model, value: model };
+        });
+        this.carModelsCache[this.form?.make] = this.carModels;
+      })
+    },
   },
   computed: {
     isSaveDisabled(): boolean {
@@ -298,6 +321,9 @@ export default defineComponent({
       if (v?.make) {
         this.logoPath = await this.getLogo(v.make);
       }
+    },
+    'form.make'() {
+      this.getModelOptions();
     },
   },
 })
