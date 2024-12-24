@@ -151,7 +151,6 @@ export default {
       axiosInstance.get('/api/vehicles').then(async ({data}) => {
         this.vehicles = await Promise.all(data.map(async (vehicle: Vehicle) => {
           vehicle.icon = await this.getLogo(vehicle.make);
-          console.log(vehicle.icon);
           return vehicle;
         }));
 

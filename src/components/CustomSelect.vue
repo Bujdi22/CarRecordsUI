@@ -11,7 +11,11 @@ defineEmits(['update:modelValue'])
         <slot>
         </slot>
       </p>
+    <p v-if="!options.length">
+      No options available.
+    </p>
     <VueSelect
+        v-else
         :modelValue="modelValue"
         @update:modelValue="(v) => $emit('update:modelValue', v)"
         :options="options"
