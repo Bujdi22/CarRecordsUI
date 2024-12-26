@@ -25,14 +25,19 @@
                   <img v-if="logoPath" :src="logoPath" style="height:50px" alt="car brand logo"/>
                 </div>
                 <div class="buttons">
-                  <ion-button color="primary" @click="edit">
-                    <ion-icon slot="start" :icon="createOutline()"></ion-icon>
-                    Edit
-                  </ion-button>
-                  <ion-button color="danger" @click="destroy" style="margin-left: 10px;">
+                  <ion-button class="m-r-10" color="danger" @click="destroy">
                     <ion-icon slot="start" :icon="trashOutline()"></ion-icon>
                     Delete
                   </ion-button>
+                  <ion-button class="m-r-10" color="light" @click="edit">
+                    <ion-icon slot="start" :icon="createOutline()"></ion-icon>
+                    Edit
+                  </ion-button>
+                  <ion-button color="light" @click="downloadPDF">
+                    <ion-icon slot="start" :icon="cloudDownloadOutline()"></ion-icon>
+                    Export PDF
+                  </ion-button>
+
                 </div>
               </div>
             </ion-item>
@@ -168,13 +173,14 @@ import axiosInstance from "@/config/axiosConfig";
 import Toast from "@/utils/toast";
 import FormErrors from "@/mixins/FormErrors";
 import FormErrorList from "@/components/FormErrorList.vue";
-import {createOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
+import {cloudDownloadOutline, createOutline, informationCircleOutline, trashOutline} from "ionicons/icons";
 import Confirm from "@/utils/confirm";
 import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 import AuditsViewer from "@/components/AuditsViewer.vue";
 import useCarlogos from "@/mixins/useCarlogos";
 import CustomSelect from "@/components/CustomSelect.vue";
+import {downloadFile, downloadFileFromServer} from "@/utils/fileDownloader";
 
 export default defineComponent({
   name: "ViewVehiclePage",
@@ -222,6 +228,9 @@ export default defineComponent({
     })
   },
   methods: {
+    cloudDownloadOutline() {
+      return cloudDownloadOutline
+    },
     formatUpdatedAt,
     formatCreatedAt,
     trashOutline() {
@@ -309,6 +318,12 @@ export default defineComponent({
         });
         this.carModelsCache[this.form?.make] = this.carModels;
       })
+    },
+    downloadPDF() {
+      if (!this.vehicle) {
+        return;
+      }
+      downloadFileFromServer(`/api/vehicles/export/${this.vehicle.id}`, this.vehicle.displayName + '.pdf');
     },
   },
   computed: {
