@@ -35,40 +35,80 @@
 
         </div>
 
-        <ion-card v-for="vehicle in vehicles"
-                  :key="vehicle.id"
-                  class="ion-activatable ripple-parent rounded-rectangle mouse-pointer"
-                  @click="openVehicle(vehicle)"
-        >
-          <ion-ripple-effect></ion-ripple-effect>
-          <div class="card-icon-header">
-            <div class="icon">
-              <img v-if="vehicle.icon"
-                   :src="vehicle.icon"
-                   style="height: 50px;"
-              />
-              <ion-icon v-else :icon="carOutline()"></ion-icon>
+        <div v-else class="has-background m-b-20 is-flex">
+          <ion-searchbar
+              placeholder="Search ..."
+              v-model="searchKey"
+          >
+          </ion-searchbar>
+          <layout-switch v-model="layout"></layout-switch>
+        </div>
+
+        <div v-if="layout === 'grid'">
+          <ion-card v-for="vehicle in filteredVehicles"
+                    :key="vehicle.id"
+                    class="ion-activatable ripple-parent rounded-rectangle mouse-pointer"
+                    @click="openVehicle(vehicle)"
+          >
+            <ion-ripple-effect></ion-ripple-effect>
+            <div class="card-icon-header">
+              <div class="icon">
+                <img v-if="vehicle.icon"
+                     :src="vehicle.icon"
+                     style="height: 50px;"
+                />
+                <ion-icon v-else :icon="carOutline()"></ion-icon>
+              </div>
+
+              <ion-card-title>{{ vehicle.displayName }}</ion-card-title>
+
             </div>
 
-            <ion-card-title>{{ vehicle.displayName }}</ion-card-title>
+            <ion-card-content>
+              <ion-card-subtitle>Make: {{ vehicle.make }}</ion-card-subtitle>
+              <ion-card-subtitle>Model: {{ vehicle.model }}</ion-card-subtitle>
+              <ion-card-subtitle>Year: {{ vehicle.year }}</ion-card-subtitle>
+              <ion-card-subtitle>Maintenance records: none</ion-card-subtitle>
+              <ion-card-subtitle>Created: {{ formatCreatedAt(vehicle.createdAt) }}</ion-card-subtitle>
+              <ion-card-subtitle>Last update: {{ formatUpdatedAt(vehicle.updatedAt) }}</ion-card-subtitle>
 
-          </div>
+              <router-link :to="`/vehicles/${vehicle.id}`">
+                <ion-button shape="round" fill="outline">View</ion-button>
+              </router-link>
 
-          <ion-card-content>
-            <ion-card-subtitle>Make: {{ vehicle.make }}</ion-card-subtitle>
-            <ion-card-subtitle>Model: {{ vehicle.model }}</ion-card-subtitle>
-            <ion-card-subtitle>Year: {{ vehicle.year }}</ion-card-subtitle>
-            <ion-card-subtitle>Maintenance records: none</ion-card-subtitle>
-            <ion-card-subtitle>Created: {{ formatCreatedAt(vehicle.createdAt) }}</ion-card-subtitle>
-            <ion-card-subtitle>Last update: {{ formatUpdatedAt(vehicle.updatedAt) }}</ion-card-subtitle>
+            </ion-card-content>
 
-            <router-link :to="`/vehicles/${vehicle.id}`">
-              <ion-button shape="round" fill="outline">View</ion-button>
-            </router-link>
+          </ion-card>
+        </div>
+        <div v-else>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Make & Model</th>
+                <th>Reg. Plate</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                v-for="vehicle in filteredVehicles"
+                :key="vehicle.id"
+                @click="openVehicle(vehicle)"
+              >
+                <td>{{ vehicle.displayName }}</td>
+                <td>{{ vehicle.make }} {{ vehicle.model }} ({{vehicle.year}})</td>
+                <td>{{ vehicle.registration }}</td>
+                <td style="width: 20px;">
+                  <router-link :to="`/vehicles/${vehicle.id}`">
+                    <ion-button shape="round" fill="outline" size="small">View</ion-button>
+                  </router-link>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-          </ion-card-content>
-
-        </ion-card>
       </div>
 
     </ion-content>
@@ -90,7 +130,9 @@ import {
   onIonViewDidEnter,
   IonProgressBar,
   IonButtons,
-  IonTitle, IonRippleEffect
+  IonTitle,
+  IonRippleEffect,
+  IonSearchbar,
 } from "@ionic/vue";
 import {add, carOutline} from "ionicons/icons";
 import HeaderToolbar from "@/components/HeaderToolbar.vue";
@@ -101,9 +143,12 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {faHouseCircleExclamation} from "@fortawesome/free-solid-svg-icons";
 import axiosInstance from "@/config/axiosConfig";
 import useCarlogos from "@/mixins/useCarlogos";
+import {searchStringInArray} from "@/utils/stringUtils";
+import LayoutSwitch from "@/components/LayoutSwitch.vue";
 
 export default {
   components: {
+    LayoutSwitch,
     IonRippleEffect,
     FontAwesomeIcon,
     SkeletonCard,
@@ -119,12 +164,15 @@ export default {
     IonButtons,
     IonTitle,
     HeaderToolbar,
+    IonSearchbar,
   },
   mixins: [useCarlogos],
   data() {
     return {
       loading: false,
       vehicles: [] as Vehicle[],
+      searchKey: '',
+      layout: 'grid',
     }
   },
   created() {
@@ -160,7 +208,24 @@ export default {
     openVehicle(vehicle: Vehicle) {
       this.$router.push(`/vehicles/${vehicle.id}`);
     }
-  }
+  },
+
+  computed: {
+    filteredVehicles(): Vehicle[] {
+      if (!this.searchKey) {
+        return this.vehicles;
+      }
+
+      return this.vehicles.filter((vehicle) => {
+        return searchStringInArray(this.searchKey, [
+          vehicle.displayName,
+          vehicle.make,
+          vehicle.model,
+          vehicle.registration,
+        ]);
+      })
+    }
+  },
 }
 </script>
 

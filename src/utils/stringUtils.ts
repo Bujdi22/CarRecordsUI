@@ -5,3 +5,14 @@ export function humanize(str: string): string {
     }
     return frags.join(' ');
 }
+
+export function strip(str: string): string {
+    return str.replace(/[^a-zA-Z0-9]/g, '');
+}
+
+export function searchStringInArray(needle: string, haystack: string[]) : boolean {
+    needle = strip(needle.toLowerCase());
+    haystack = haystack.map((s) => strip(s.toLowerCase()));
+
+    return haystack.some((s) => s.includes(needle));
+}
