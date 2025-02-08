@@ -20,8 +20,8 @@
         <div v-else-if="vehicle && !editing">
           <ion-list :inset="true">
             <ion-item>
-              <div style="display: flex; justify-content: space-between; width: 100%;">
-                <div style="margin: 10px 10px 10px 0;">
+              <div style="display: flex; justify-content: space-between; width: 100%;" class="is-block-mobile">
+                <div style="margin: 10px 10px 10px 0;" class="is-text-align-center-mobile">
                   <img v-if="logoPath" :src="logoPath" style="height:50px" alt="car brand logo"/>
                 </div>
                 <div class="buttons">
@@ -35,45 +35,60 @@
                   </ion-button>
                   <ion-button color="light" @click="downloadPDF">
                     <ion-icon slot="start" :icon="cloudDownloadOutline()"></ion-icon>
-                    Export PDF
+                    Export
                   </ion-button>
 
                 </div>
               </div>
             </ion-item>
-            <ion-item>
-              <ion-label>
-                Registration: {{ vehicle.registration }}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Make: {{ vehicle.make }}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Model: {{ vehicle.model }}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Year:
-                {{ vehicle.year }}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Created:
-                {{ formatCreatedAt(vehicle.createdAt) }}
-              </ion-label>
-            </ion-item>
-            <ion-item>
-              <ion-label>
-                Last updated:
-                {{ formatUpdatedAt(vehicle.updatedAt) }}
-              </ion-label>
-            </ion-item>
+            <div class="ion-padding">
+              <table class="table is-small">
+                <tbody>
+                <tr>
+                  <th>Registration:</th>
+                  <td>{{ vehicle.registration }}</td>
+                </tr>  <tr>
+                  <th>Make:</th>
+                  <td>{{ vehicle.make }}</td>
+                </tr>
+                <tr>
+                  <th>Model:</th>
+                  <td>
+                    {{ vehicle.model }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Year:</th>
+                  <td>
+                    {{ vehicle.year }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Records:</th>
+                  <td>
+                    {{ vehicle.recordCount > 0 ? vehicle.recordCount : 'None' }} created
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Created:
+                  </th>
+                  <td>
+                    {{ formatCreatedAt(vehicle.createdAt) }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Updated:
+                  </th>
+                  <td>
+                    {{ formatUpdatedAt(vehicle.updatedAt) }}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+
             <ion-item>
               <ion-label>
                 <audits-viewer

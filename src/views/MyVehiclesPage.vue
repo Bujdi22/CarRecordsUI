@@ -64,16 +64,55 @@
 
             </div>
 
-            <ion-card-content>
-              <ion-card-subtitle>Make: {{ vehicle.make }}</ion-card-subtitle>
-              <ion-card-subtitle>Model: {{ vehicle.model }}</ion-card-subtitle>
-              <ion-card-subtitle>Year: {{ vehicle.year }}</ion-card-subtitle>
-              <ion-card-subtitle>Maintenance records: none</ion-card-subtitle>
-              <ion-card-subtitle>Created: {{ formatCreatedAt(vehicle.createdAt) }}</ion-card-subtitle>
-              <ion-card-subtitle>Last update: {{ formatUpdatedAt(vehicle.updatedAt) }}</ion-card-subtitle>
+            <ion-card-content class="">
+              <table class="table is-small">
+                <tbody>
+                <tr>
+                  <th>Registration:</th>
+                  <td>{{ vehicle.registration }}</td>
+                </tr>  <tr>
+                  <th>Make:</th>
+                  <td>{{ vehicle.make }}</td>
+                </tr>
+                <tr>
+                  <th>Model:</th>
+                  <td>
+                    {{ vehicle.model }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Year:</th>
+                  <td>
+                    {{ vehicle.year }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>Records:</th>
+                  <td>
+                    {{ vehicle.recordCount > 0 ? vehicle.recordCount : 'None' }} created
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Created:
+                  </th>
+                  <td>
+                    {{ formatCreatedAt(vehicle.createdAt) }}
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    Updated:
+                  </th>
+                  <td>
+                    {{ formatUpdatedAt(vehicle.updatedAt) }}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
 
               <router-link :to="`/vehicles/${vehicle.id}`">
-                <ion-button shape="round" fill="outline">View</ion-button>
+                <ion-button shape="round" fill="outline" expand="block">View</ion-button>
               </router-link>
 
             </ion-card-content>
@@ -83,28 +122,28 @@
         <div v-else>
           <table class="table">
             <thead>
-              <tr>
-                <th>Name</th>
-                <th>Make & Model</th>
-                <th>Reg. Plate</th>
-                <th></th>
-              </tr>
+            <tr>
+              <th>Name</th>
+              <th>Make & Model</th>
+              <th>Reg. Plate</th>
+              <th></th>
+            </tr>
             </thead>
             <tbody>
-              <tr
+            <tr
                 v-for="vehicle in filteredVehicles"
                 :key="vehicle.id"
                 @click="openVehicle(vehicle)"
-              >
-                <td>{{ vehicle.displayName }}</td>
-                <td>{{ vehicle.make }} {{ vehicle.model }} ({{vehicle.year}})</td>
-                <td>{{ vehicle.registration }}</td>
-                <td style="width: 20px;">
-                  <router-link :to="`/vehicles/${vehicle.id}`">
-                    <ion-button shape="round" fill="outline" size="small">View</ion-button>
-                  </router-link>
-                </td>
-              </tr>
+            >
+              <td>{{ vehicle.displayName }}</td>
+              <td>{{ vehicle.make }} {{ vehicle.model }} ({{ vehicle.year }})</td>
+              <td>{{ vehicle.registration }}</td>
+              <td style="width: 20px;">
+                <router-link :to="`/vehicles/${vehicle.id}`">
+                  <ion-button shape="round" fill="outline" size="small">View</ion-button>
+                </router-link>
+              </td>
+            </tr>
             </tbody>
           </table>
         </div>

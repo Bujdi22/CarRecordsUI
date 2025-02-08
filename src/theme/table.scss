@@ -1,4 +1,5 @@
 .table {
+  table-layout: fixed;
   width: 100%;
   border-radius: 15px;
   background: var(--ion-item-background);
@@ -15,9 +16,21 @@
     tr:nth-of-type(odd) {
       background: var(--ion-color-light);
     }
+    tr:nth-of-type(even) {
+      background: var(--ion-color-light-shade);
+    }
     tr:hover {
       background: var(--ion-color-light-tint);
       cursor: pointer;
+    }
+  }
+
+  &.is-small {
+    th {
+      padding: 10px;
+    }
+    td {
+      padding: 5px 10px;
     }
   }
 

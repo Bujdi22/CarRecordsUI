@@ -8,4 +8,5 @@ export interface Vehicle {
     year: number,
     createdAt: string,
     updatedAt: string,
+    recordCount: number,
 }

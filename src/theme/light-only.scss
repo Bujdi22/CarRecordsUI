@@ -1,10 +1,10 @@
 @media (prefers-color-scheme: light) {
   .card-icon-header {
-    background: var(--ion-color-dark-shade);
-    color: var(--ion-color-dark-contrast);
+    background-color: #e8eaef;
+    color: var(--ion-color-dark);
   }
 
   .card-icon-header ion-card-title {
-    color: var(--ion-color-dark-contrast);
+    color: var(--ion-color-dark);
   }
 }
