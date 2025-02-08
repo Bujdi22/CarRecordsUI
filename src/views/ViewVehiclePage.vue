@@ -64,12 +64,6 @@
                   </td>
                 </tr>
                 <tr>
-                  <th>Records:</th>
-                  <td>
-                    {{ vehicle.recordCount > 0 ? vehicle.recordCount : 'None' }} created
-                  </td>
-                </tr>
-                <tr>
                   <th>
                     Created:
                   </th>
