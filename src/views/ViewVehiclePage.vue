@@ -188,8 +188,8 @@ import MaintenanceRecords from "@/components/MaintenanceRecords.vue";
 import {formatCreatedAt, formatUpdatedAt} from "../utils/dateUtils";
 import AuditsViewer from "@/components/AuditsViewer.vue";
 import useCarlogos from "@/mixins/useCarlogos";
+import {downloadFileFromServer} from "@/utils/fileDownloader";
 import CustomSelect from "@/components/CustomSelect.vue";
-import {downloadFile, downloadFileFromServer} from "@/utils/fileDownloader";
 
 export default defineComponent({
   name: "ViewVehiclePage",
