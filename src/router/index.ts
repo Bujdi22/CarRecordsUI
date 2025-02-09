@@ -19,22 +19,22 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/login',
     component: () => import ('../views/LoginPage.vue'),
-    meta: {unauthenticated: true},
+    meta: {unauthenticated: true, entirePage: true},
   },
   {
     path: '/register',
     component: () => import ('../views/RegisterPage.vue'),
-    meta: {unauthenticated: true},
+    meta: {unauthenticated: true, entirePage: true},
   },
   {
     path: '/resetPassword',
     component: () => import ('../views/ForgotPasswordPage.vue'),
-    meta: {unauthenticated: true},
+    meta: {unauthenticated: true, entirePage: true},
   },
   {
     path: '/forgot-password',
     component: () => import ('../views/SendForgotPasswordPage.vue'),
-    meta: {unauthenticated: true},
+    meta: {unauthenticated: true, entirePage: true},
   },
   {
     path: '/google-auth-success',

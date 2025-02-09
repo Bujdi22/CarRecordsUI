@@ -1,11 +1,30 @@
 <template>
   <ion-page>
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
-
-    <header-toolbar>Sign in</header-toolbar>
     <ion-content>
+      <div class="is-login-container has-background">
+        <router-link to="/" class="back-link">
+          <ion-icon :icon="arrowBackOutline()"></ion-icon>
+          <span>
+            Go Back
+          </span>
+        </router-link>
 
-      <div class="container">
+        <img src="../assets/logo.webp"
+             class="is-our-logo"
+             alt="logo"/>
+        <h1>Welcome back</h1>
+        <p>sign in to continue</p>
+
+        <div class="has-button-padding m-t-10">
+          <google-sign-in-button></google-sign-in-button>
+        </div>
+        <div class="separator">
+          <div></div>
+          <span>OR</span>
+          <div></div>
+        </div>
+
         <ion-card v-if="afterForgot" color="success">
           <ion-card-header>
             <ion-card-title>Password reset successful</ion-card-title>
@@ -31,43 +50,37 @@
 
         <ion-list>
           <ion-item>
-            <ion-input v-model="username" label="Email" label-placement="stacked" placeholder="Type your email">
+            <ion-input v-model="username" placeholder="Email">
               <ion-icon slot="end" :icon="personCircleOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="password" label="Password" label-placement="stacked" type="password"
-                       placeholder="Type your password" @keyup.enter="login">
+            <ion-input v-model="password" type="password"
+                       placeholder="Password" @keyup.enter="login">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
 
         </ion-list>
 
-        <div class="has-background has-padding">
 
-          <div class="has-padding is-flex">
+          <div class="has-button-padding">
             <ion-button expand="block" @click="login">
               Sign In
             </ion-button>
           </div>
-          <google-sign-in-button></google-sign-in-button>
-          <div class="has-padding is-flex">
+          <div class="has-button-padding">
+            <ion-button expand="block" @click="redirectToRegister" color="light">
+              Sign up
+            </ion-button>
+          </div>
 
-            <div class="m-r-10">
-              <ion-button expand="block" @click="redirectToRegister" color="light">
-                New here? Create an account
-              </ion-button>
-            </div>
-
-            <div>
-              <ion-button expand="block" @click="redirectToForgotPassword" color="light">
-                Forgot Password?
-              </ion-button>
-            </div>
+          <div class="has-button-padding">
+            <ion-button expand="block" @click="redirectToForgotPassword" color="light">
+              Forgot Password?
+            </ion-button>
           </div>
         </div>
-      </div>
 
     </ion-content>
 
@@ -94,6 +107,7 @@ import {
 } from "@ionic/vue";
 
 import {
+  arrowBackOutline,
   lockClosedOutline,
   personCircleOutline
 } from 'ionicons/icons';
@@ -138,6 +152,9 @@ export default defineComponent({
     });
   },
   methods: {
+    arrowBackOutline() {
+      return arrowBackOutline
+    },
     baseUrl() {
       return baseUrl
     },
@@ -193,5 +210,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 </style>

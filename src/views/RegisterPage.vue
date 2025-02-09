@@ -2,24 +2,21 @@
   <ion-page>
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
 
-    <header-toolbar>Register</header-toolbar>
     <ion-content>
 
-      <div class="container">
-
+      <div class="is-login-container has-background">
+        <router-link to="/login" class="back-link">
+          <ion-icon :icon="arrowBackOutline"></ion-icon>
+          <span>
+            Go Back
+          </span>
+        </router-link>
+        <img src="../assets/logo.webp"
+             class="is-our-logo"
+             alt="logo"/>
+        <h1>Sign up below</h1>
         <form-error-list :errors="formErrors"></form-error-list>
 
-        <div class="has-padding has-background m-b-20">
-          <div class="has-padding is-flex">
-            <router-link to="/login">
-              <ion-button expand="block" color="light">
-                Have an account? Sign in here
-              </ion-button>
-            </router-link>
-          </div>
-          <google-sign-in-button></google-sign-in-button>
-
-        </div>
 
         <ion-list>
           <ion-item>
@@ -84,8 +81,7 @@ import {
   IonLabel,
   IonProgressBar
 } from "@ionic/vue";
-import HeaderToolbar from "@/components/HeaderToolbar.vue";
-import {lockClosedOutline, personCircleOutline} from "ionicons/icons";
+import {arrowBackOutline, lockClosedOutline, personCircleOutline} from "ionicons/icons";
 import FormErrorList from "@/components/FormErrorList.vue";
 import GoogleSignInButton from "@/components/GoogleSignInButton.vue";
 

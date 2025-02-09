@@ -1,20 +1,17 @@
 <template>
   <ion-page>
 
-    <header-toolbar>Forgot password</header-toolbar>
     <ion-content>
 
-      <div class="container">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>You are now going to reset your password.</ion-card-title>
-          </ion-card-header>
-        </ion-card>
-        <ion-card-content>
-          <p>Please type your new password.</p>
-        </ion-card-content>
-        <form-error-list :errors="formErrors"></form-error-list>
+      <div class="is-login-container has-background">
 
+        <img src="../assets/logo.webp"
+             class="is-our-logo"
+             alt="logo"/>
+        <h1>Password Reset</h1>
+        <p class="m-b-50">Please create your new password.</p>
+
+        <form-error-list :errors="formErrors"></form-error-list>
         <ion-list>
           <ion-item>
             <ion-input
@@ -51,7 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import {lockClosedOutline} from "ionicons/icons";
+import {arrowBackOutline, lockClosedOutline} from "ionicons/icons";
 import FormErrorList from "@/components/FormErrorList.vue";
 </script>
 <script lang="ts">

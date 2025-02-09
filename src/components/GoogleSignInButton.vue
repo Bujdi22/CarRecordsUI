@@ -17,16 +17,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="has-padding is-flex">
-    <a :href="getGoogleURI()">
-      <ion-button expand="block" color="light">
-        <img src="/src/assets/google.webp" style="height: 1.5em; margin-right: 10px"/>
-        Sign in with Google
-      </ion-button>
-    </a>
-  </div>
+  <a :href="getGoogleURI()">
+    <ion-button expand="block" color="primary">
+      <img src="/src/assets/google.webp" style="height: 1.5em; margin-right: 10px"/>
+      Continue with Google
+    </ion-button>
+  </a>
 </template>
 
 <style scoped>
-
+a {
+  text-decoration: none;
+}
 </style>
