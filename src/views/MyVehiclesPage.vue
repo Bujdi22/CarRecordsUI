@@ -3,14 +3,12 @@
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
     <header-toolbar>
       <template #raw>
-        <ion-buttons slot="start">
-          <router-link to="/vehicles/add">
-            <ion-button color="primary" shape="round">
-              <ion-icon slot="start" :icon="add()"></ion-icon>
-              <p>Add</p>
-            </ion-button>
-          </router-link>
-        </ion-buttons>
+        <router-link to="/vehicles/add" slot="start" class="m-l-10">
+          <ion-button color="primary" shape="round">
+            <ion-icon slot="start" :icon="add()"></ion-icon>
+            <p>Add</p>
+          </ion-button>
+        </router-link>
         <ion-title>My Vehicles</ion-title>
       </template>
     </header-toolbar>

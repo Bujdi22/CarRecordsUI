@@ -1,12 +1,10 @@
 <template>
 <div style="padding:0 16px;">
   <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button color="secondary" shape="round" style="margin-right: 20px;" @click="addRecord">
-        <ion-icon slot="start" :icon="add()"></ion-icon>
-        Add
-      </ion-button>
-    </ion-buttons>
+    <ion-button slot="end" color="primary" shape="round" style="margin-right: 20px;" @click="addRecord">
+      <ion-icon slot="start" :icon="add()"></ion-icon>
+      Add
+    </ion-button>
     <ion-title>Records</ion-title>
   </ion-toolbar>
   <ion-spinner v-if="loading" style="margin: auto"></ion-spinner>

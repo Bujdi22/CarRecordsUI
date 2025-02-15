@@ -19,7 +19,9 @@ export default defineComponent({
 <template>
   <a :href="getGoogleURI()">
     <ion-button expand="block" color="primary">
-      <img src="/src/assets/google.webp" style="height: 1.5em; margin-right: 10px"/>
+      <div class="google-bg">
+        <img src="/src/assets/google.webp" style="height: 1.5em;"/>
+      </div>
       Continue with Google
     </ion-button>
   </a>
@@ -28,5 +30,11 @@ export default defineComponent({
 <style scoped>
 a {
   text-decoration: none;
+}
+.google-bg {
+  background-color: white;
+  margin: -3px 10px -3px -3px;
+  padding: 3px;
+  border-radius: 5px;
 }
 </style>

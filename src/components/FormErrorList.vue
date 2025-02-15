@@ -1,15 +1,17 @@
 <template>
-  <ion-list :inset="true" class="error-list" v-if="errors">
-    <h3>
-      There were error(s) in your submission:
-    </h3>
-    <ion-item v-for="(error, key) in errors" :key="key">
-      <ion-label>
-        <h2>{{ humanize(key) }}</h2>
+  <div v-if="errors" class="message-banner is-danger">
+    <p>
+      <strong>
+        Error:
+      </strong>
+    </p>
+    <ul v-for="(error, key) in errors" :key="key">
+      <li>
+        <p>{{ humanize(key) }}</p>
         <div style="color: #8c8c8c" v-html="getRenderedError(error)"></div>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+      </li>
+    </ul>
+  </div>
   <div v-else></div>
 
 
@@ -17,7 +19,6 @@
 
 <script setup lang="ts">
 
-import {IonItem, IonLabel, IonList} from "@ionic/vue";
 import {humanize} from "@/utils/stringUtils";
 </script>
 
@@ -44,5 +45,4 @@ export default {
 
 </script>
 <style scoped>
-
 </style>

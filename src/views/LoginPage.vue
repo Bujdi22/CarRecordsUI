@@ -14,7 +14,7 @@
              class="is-our-logo"
              alt="logo"/>
         <h1>Welcome back</h1>
-        <p>sign in to continue</p>
+        <p class="has-text-center">sign in to continue</p>
 
         <div class="has-button-padding m-t-10">
           <google-sign-in-button></google-sign-in-button>
