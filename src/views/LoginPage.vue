@@ -1,73 +1,87 @@
 <template>
   <ion-page>
     <ion-progress-bar v-if="loading" type="indeterminate"></ion-progress-bar>
-
-    <header-toolbar>Sign in</header-toolbar>
     <ion-content>
+      <div class="is-login-container has-background">
+        <router-link to="/" class="back-link">
+          <ion-icon :icon="arrowBackOutline()"></ion-icon>
+          <span>
+            Go Back
+          </span>
+        </router-link>
 
-      <div class="container">
-        <ion-card v-if="afterForgot" color="success">
-          <ion-card-header>
-            <ion-card-title>Password reset successful</ion-card-title>
-            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-        <ion-card v-else-if="afterRegister" color="success">
-          <ion-card-header>
-            <ion-card-title>We sent you an e-mail.</ion-card-title>
-            <ion-card-subtitle>Please check your e-mail and click the verification link.</ion-card-subtitle>
-            <ion-card-subtitle>After that, you can use your credentials to sign in to your new account.</ion-card-subtitle>
-            <ion-card-subtitle>Welcome to the team!</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-        <ion-card v-else-if="afterVerification" color="success">
-          <ion-card-header>
-            <ion-card-title>You verified your e-mail.</ion-card-title>
-            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
+        <img src="../assets/logo.webp"
+             class="is-our-logo"
+             alt="logo"/>
+        <h1>Welcome back</h1>
+        <p class="has-text-center">sign in to continue</p>
+
+        <div class="has-button-padding m-t-10">
+          <google-sign-in-button></google-sign-in-button>
+        </div>
+        <div class="separator">
+          <div></div>
+          <span>OR</span>
+          <div></div>
+        </div>
+
+        <message-banner
+            v-if="afterForgot"
+            type="is-success"
+        >
+          <template #title><span>Password reset successful</span></template>
+          <p>Please use your new credentials to login below.</p>
+        </message-banner>
+        <message-banner
+            v-else-if="afterRegister"
+            type="is-success"
+        >
+          <template #title><span>We sent you an e-mail.</span></template>
+          <p>Please check your e-mail and click the verification link.</p>
+        </message-banner>
+        <message-banner
+            v-else-if="afterVerification"
+            type="is-success"
+        >
+          <template #title><span>You verified your e-mail.</span></template>
+          <p>Please use your new credentials to login below.</p>
+        </message-banner>
 
         <form-error-list :errors="formErrors"></form-error-list>
 
         <ion-list>
           <ion-item>
-            <ion-input v-model="username" label="Email" label-placement="stacked" placeholder="Type your email">
+            <ion-input v-model="username" placeholder="Email">
               <ion-icon slot="end" :icon="personCircleOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
           <ion-item>
-            <ion-input v-model="password" label="Password" label-placement="stacked" type="password"
-                       placeholder="Type your password" @keyup.enter="login">
+            <ion-input v-model="password" type="password"
+                       placeholder="Password" @keyup.enter="login">
               <ion-icon slot="end" :icon="lockClosedOutline" size="medium" aria-hidden="true"></ion-icon>
             </ion-input>
           </ion-item>
 
         </ion-list>
 
-        <div class="has-background has-padding">
 
-          <div class="has-padding is-flex">
+          <div class="has-button-padding">
             <ion-button expand="block" @click="login">
               Sign In
             </ion-button>
           </div>
-          <google-sign-in-button></google-sign-in-button>
-          <div class="has-padding is-flex">
+          <div class="has-button-padding">
+            <ion-button expand="block" @click="redirectToRegister" color="light">
+              Sign up
+            </ion-button>
+          </div>
 
-            <div class="m-r-10">
-              <ion-button expand="block" @click="redirectToRegister" color="light">
-                New here? Create an account
-              </ion-button>
-            </div>
-
-            <div>
-              <ion-button expand="block" @click="redirectToForgotPassword" color="light">
-                Forgot Password?
-              </ion-button>
-            </div>
+          <div class="has-button-padding">
+            <ion-button expand="block" @click="redirectToForgotPassword" color="light">
+              Forgot Password?
+            </ion-button>
           </div>
         </div>
-      </div>
 
     </ion-content>
 
@@ -94,6 +108,7 @@ import {
 } from "@ionic/vue";
 
 import {
+  arrowBackOutline,
   lockClosedOutline,
   personCircleOutline
 } from 'ionicons/icons';
@@ -102,10 +117,12 @@ import FormErrorList from "@/components/FormErrorList.vue";
 import {defineComponent} from "vue";
 import axiosInstance from "@/config/axiosConfig";
 import GoogleSignInButton from "@/components/GoogleSignInButton.vue";
+import MessageBanner from "@/components/MessageBanner.vue";
 
 export default defineComponent({
   name: 'LoginPage',
   components: {
+    MessageBanner,
     GoogleSignInButton,
     IonContent,
     IonIcon,
@@ -138,6 +155,9 @@ export default defineComponent({
     });
   },
   methods: {
+    arrowBackOutline() {
+      return arrowBackOutline
+    },
     baseUrl() {
       return baseUrl
     },
@@ -193,5 +213,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 </style>

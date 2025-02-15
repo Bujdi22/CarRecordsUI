@@ -14,20 +14,20 @@
     </header-toolbar>
     <ion-content ref="maintenance-content">
       <div class="container">
-        <ion-card color="light" v-if="isEdit && form?.createdAt">
-          <ion-card-header>
-            <ion-card-title>
+        <message-banner v-if="isEdit && form?.createdAt" type="is-info m-b-20 is-narrow">
+          <template #title>
+            <div>
               <ion-icon :icon="informationCircleOutline()"></ion-icon>
               You are now editing a record.
-            </ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
+            </div>
+          </template>
+          <div>
             <ion-button @click="cancelEdit">
               Cancel
             </ion-button>
-          </ion-card-content>
-        </ion-card>
-
+          </div>
+        </message-banner>
+        
         <div v-if="fail" class="container">
           <h3>
             Sorry, vehicle not found
@@ -168,10 +168,12 @@ import {addOutline, attachOutline, informationCircleOutline, trashOutline, warni
 import Toast from "@/utils/toast";
 import FileTable from "@/components/FileTable.vue";
 import {Media} from "@/interfaces/Media";
+import MessageBanner from "@/components/MessageBanner.vue";
 
 export default defineComponent({
   name: "CreateMaintenanceRecordPage",
   components: {
+    MessageBanner,
     FileTable,
     IonCardSubtitle,
     IonCard,

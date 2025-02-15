@@ -96,19 +96,19 @@
           <maintenance-records :vehicle="vehicle"></maintenance-records>
         </div>
         <div v-else-if="vehicle && editing && form">
-          <ion-card color="light">
-            <ion-card-header>
-              <ion-card-title>
+          <message-banner type="is-info m-b-20 is-narrow">
+            <template #title>
+              <div>
                 <ion-icon :icon="informationCircleOutline()"></ion-icon>
                 You are now editing this vehicle
-              </ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
+              </div>
+            </template>
+            <div>
               <ion-button @click="cancelEdit">
                 Cancel
               </ion-button>
-            </ion-card-content>
-          </ion-card>
+            </div>
+          </message-banner>
 
           <form-error-list :errors="formErrors"></form-error-list>
           <ion-list>
@@ -190,11 +190,13 @@ import AuditsViewer from "@/components/AuditsViewer.vue";
 import useCarlogos from "@/mixins/useCarlogos";
 import {downloadFileFromServer} from "@/utils/fileDownloader";
 import CustomSelect from "@/components/CustomSelect.vue";
+import MessageBanner from "@/components/MessageBanner.vue";
 
 export default defineComponent({
   name: "ViewVehiclePage",
   mixins: [FormErrors, useCarlogos],
   components: {
+    MessageBanner,
     CustomSelect,
     AuditsViewer,
     MaintenanceRecords,

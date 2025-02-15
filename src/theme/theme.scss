@@ -101,3 +101,63 @@ a:hover {
     color: var(--ion-color-primary-shade);
     text-decoration: underline;
 }
+
+
+.is-login-container {
+    max-width: 375px;
+    min-width: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid var(--ion-color-medium-shade);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    .has-button-padding {
+        padding: 2px 5px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    .separator {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 13px;
+        margin: 15px 0;
+    }
+
+    .separator > div {
+        width: 40%;
+        height: 3px;
+        border-radius: 5px;
+        background-color: var(--ion-color-medium);
+    }
+
+    .separator > span {
+        font-weight: 600;
+    }
+
+    p {
+        color: var(--ion-color-medium);
+    }
+
+    img.is-our-logo {
+        width: 50%;
+        margin: auto;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .back-link {
+        font-size: .85em;
+        display: flex;
+        span{ display: block; margin-left: 5px;}
+    }
+}

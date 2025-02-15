@@ -1,6 +1,9 @@
 <template>
   <ion-app>
-    <ion-split-pane content-id="main-content">
+    <template v-if="isEntirePageView">
+      <ion-router-outlet></ion-router-outlet>
+    </template>
+    <ion-split-pane v-else content-id="main-content">
       <ion-menu content-id="main-content" type="overlay">
         <ion-content>
           <ion-list id="inbox-list" style="padding-top: 60px">
@@ -100,9 +103,14 @@ export default {
     }
   },
 
-  computed: mapState({
-    account: state => state.account
-  }),
+  computed: {
+    isEntirePageView() {
+      return this.$route?.meta?.entirePage ?? false;
+    },
+   ...mapState({
+     account: state => state.account
+   })
+  },
 
   watch: {
     account(account) {

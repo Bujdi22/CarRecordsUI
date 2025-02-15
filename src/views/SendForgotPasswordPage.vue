@@ -1,22 +1,21 @@
 <template>
   <ion-page>
 
-    <header-toolbar>Forgot password</header-toolbar>
     <ion-content>
+      <div class="is-login-container has-background">
+        <router-link to="/login" class="back-link">
+          <ion-icon :icon="arrowBackOutline"></ion-icon>
+          <span>
+            Go Back
+          </span>
+        </router-link>
 
-      <div class="container">
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Request a password reset</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p>
-              If you have forgotten your password, please enter your e-mail address below,
-              and we will send a password reset link if we find a matching account.
-            </p>
-          </ion-card-content>
+        <img src="../assets/logo.webp"
+             class="is-our-logo"
+             alt="logo"/>
+        <h1>Forgot Password</h1>
+        <p class="m-b-50">Enter your e-mail to reset your password</p>
 
-        </ion-card>
         <form-error-list :errors="formErrors"></form-error-list>
 
         <ion-list>
@@ -42,6 +41,7 @@
 
 <script setup lang="ts">
 import FormErrorList from "@/components/FormErrorList.vue";
+import {arrowBackOutline} from "ionicons/icons";
 </script>
 <script lang="ts">
 import {defineComponent} from 'vue'

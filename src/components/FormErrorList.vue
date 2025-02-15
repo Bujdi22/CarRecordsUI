@@ -1,24 +1,26 @@
 <template>
-  <ion-list :inset="true" class="error-list" v-if="errors">
-    <h3>
-      There were error(s) in your submission:
-    </h3>
-    <ion-item v-for="(error, key) in errors" :key="key">
-      <ion-label>
-        <h2>{{ humanize(key) }}</h2>
-        <div style="color: #8c8c8c" v-html="getRenderedError(error)"></div>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <message-banner v-if="errors" type="is-danger">
+    <template #title>
+      <span>Error:</span>
+    </template>
+    <ul v-for="(error, key) in errors" :key="key">
+      <li>
+        <div v-if="isErrorList(error)">
+          <p>{{ humanize(key) }}</p>
+          <div style="color: #8c8c8c" v-html="getRenderedListError(error)"></div>
+        </div>
+        <p v-else> {{ humanize(key) }}: {{ error }}</p>
+      </li>
+    </ul>
+  </message-banner>
   <div v-else></div>
-
 
 </template>
 
 <script setup lang="ts">
 
-import {IonItem, IonLabel, IonList} from "@ionic/vue";
 import {humanize} from "@/utils/stringUtils";
+import MessageBanner from "@/components/MessageBanner.vue";
 </script>
 
 <script lang="ts">
@@ -28,21 +30,21 @@ export default {
     errors: {required: false}
   },
   methods: {
-    getRenderedError(error: string): string {
-      if (error.includes(";")) {
-        const parts = error.split(';');
-        let rendered = '<ul>';
+    getRenderedListError(error: string): string {
+      const parts = error.split(';');
+      let rendered = '<ul>';
 
-        parts.forEach((part) => rendered += `<li>${part}</li>`)
+      parts.forEach((part) => rendered += `<li>${part}</li>`)
 
-        return rendered + '</ul>'
-      }
-      return `<p>${error}</p>`;
+      return rendered + '</ul>'
+
+    },
+    isErrorList(error: string) {
+      return error.includes(";");
     }
   }
 }
 
 </script>
 <style scoped>
-
 </style>
