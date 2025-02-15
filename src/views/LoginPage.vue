@@ -25,26 +25,27 @@
           <div></div>
         </div>
 
-        <ion-card v-if="afterForgot" color="success">
-          <ion-card-header>
-            <ion-card-title>Password reset successful</ion-card-title>
-            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-        <ion-card v-else-if="afterRegister" color="success">
-          <ion-card-header>
-            <ion-card-title>We sent you an e-mail.</ion-card-title>
-            <ion-card-subtitle>Please check your e-mail and click the verification link.</ion-card-subtitle>
-            <ion-card-subtitle>After that, you can use your credentials to sign in to your new account.</ion-card-subtitle>
-            <ion-card-subtitle>Welcome to the team!</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
-        <ion-card v-else-if="afterVerification" color="success">
-          <ion-card-header>
-            <ion-card-title>You verified your e-mail.</ion-card-title>
-            <ion-card-subtitle>Please use your new credentials to login below.</ion-card-subtitle>
-          </ion-card-header>
-        </ion-card>
+        <message-banner
+            v-if="afterForgot"
+            type="is-success"
+        >
+          <template #title><span>Password reset successful</span></template>
+          <p>Please use your new credentials to login below.</p>
+        </message-banner>
+        <message-banner
+            v-else-if="afterRegister"
+            type="is-success"
+        >
+          <template #title><span>We sent you an e-mail.</span></template>
+          <p>Please check your e-mail and click the verification link.</p>
+        </message-banner>
+        <message-banner
+            v-else-if="afterVerification"
+            type="is-success"
+        >
+          <template #title><span>You verified your e-mail.</span></template>
+          <p>Please use your new credentials to login below.</p>
+        </message-banner>
 
         <form-error-list :errors="formErrors"></form-error-list>
 
@@ -116,10 +117,12 @@ import FormErrorList from "@/components/FormErrorList.vue";
 import {defineComponent} from "vue";
 import axiosInstance from "@/config/axiosConfig";
 import GoogleSignInButton from "@/components/GoogleSignInButton.vue";
+import MessageBanner from "@/components/MessageBanner.vue";
 
 export default defineComponent({
   name: 'LoginPage',
   components: {
+    MessageBanner,
     GoogleSignInButton,
     IonContent,
     IonIcon,

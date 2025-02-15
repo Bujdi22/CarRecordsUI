@@ -1,7 +1,6 @@
 <template>
   <ion-page>
 
-    <header-toolbar>Forgot password</header-toolbar>
     <ion-content>
       <div class="is-login-container has-background">
         <router-link to="/login" class="back-link">

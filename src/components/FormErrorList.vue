@@ -1,25 +1,26 @@
 <template>
-  <div v-if="errors" class="message-banner is-danger">
-    <p>
-      <strong>
-        Error:
-      </strong>
-    </p>
+  <message-banner v-if="errors" type="is-danger">
+    <template #title>
+      <span>Error:</span>
+    </template>
     <ul v-for="(error, key) in errors" :key="key">
       <li>
-        <p>{{ humanize(key) }}</p>
-        <div style="color: #8c8c8c" v-html="getRenderedError(error)"></div>
+        <div v-if="isErrorList(error)">
+          <p>{{ humanize(key) }}</p>
+          <div style="color: #8c8c8c" v-html="getRenderedListError(error)"></div>
+        </div>
+        <p v-else> {{ humanize(key) }}: {{ error }}</p>
       </li>
     </ul>
-  </div>
+  </message-banner>
   <div v-else></div>
-
 
 </template>
 
 <script setup lang="ts">
 
 import {humanize} from "@/utils/stringUtils";
+import MessageBanner from "@/components/MessageBanner.vue";
 </script>
 
 <script lang="ts">
@@ -29,16 +30,17 @@ export default {
     errors: {required: false}
   },
   methods: {
-    getRenderedError(error: string): string {
-      if (error.includes(";")) {
-        const parts = error.split(';');
-        let rendered = '<ul>';
+    getRenderedListError(error: string): string {
+      const parts = error.split(';');
+      let rendered = '<ul>';
 
-        parts.forEach((part) => rendered += `<li>${part}</li>`)
+      parts.forEach((part) => rendered += `<li>${part}</li>`)
 
-        return rendered + '</ul>'
-      }
-      return `<p>${error}</p>`;
+      return rendered + '</ul>'
+
+    },
+    isErrorList(error: string) {
+      return error.includes(";");
     }
   }
 }

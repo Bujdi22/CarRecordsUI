@@ -9,7 +9,7 @@
              class="is-our-logo"
              alt="logo"/>
         <h1>Password Reset</h1>
-        <p class="m-b-50">Please create your new password.</p>
+        <p class="m-b-50 has-text-center">Please create your new password.</p>
 
         <form-error-list :errors="formErrors"></form-error-list>
         <ion-list>
@@ -53,7 +53,6 @@ import FormErrorList from "@/components/FormErrorList.vue";
 </script>
 <script lang="ts">
 import {defineComponent} from 'vue'
-import HeaderToolbar from "@/components/HeaderToolbar.vue";
 import FormErrors from '../mixins/FormErrors';
 import {
   IonPage,
@@ -75,7 +74,7 @@ export default defineComponent({
     IonButton,
     IonInput,
     IonLabel,
-    IonList, HeaderToolbar, IonPage, IonCard, IonCardHeader, IonCardTitle, IonContent, IonCardContent},
+    IonList, IonPage, IonCard, IonCardHeader, IonCardTitle, IonContent, IonCardContent},
     mixins: [FormErrors],
 
   data() {
