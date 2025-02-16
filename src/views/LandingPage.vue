@@ -105,6 +105,8 @@ export default defineComponent({
     padding: 20px;
     margin-top: 60px;
     background: rgb(0,0,0, 0.75);
+    color:white;
+    padding-bottom: 150px;
   }
 }
 @media only screen and (max-width: 767px) {
