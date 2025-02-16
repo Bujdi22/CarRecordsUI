@@ -1,6 +1,9 @@
 <template>
   <ion-header :translucent="true">
     <ion-toolbar>
+      <div slot="start" v-if="$slots['start']">
+        <slot name="start"></slot>
+      </div>
       <ion-buttons v-if="hasBackButton || backButtonTarget" slot="start">
         <router-link v-if="backButtonTarget" :to="backButtonTarget">
           <ion-button color="dark">
@@ -23,7 +26,7 @@
         <ion-label v-else>Sign in</ion-label>
       </ion-chip>
     </ion-toolbar>
-    <ion-toolbar>
+    <ion-toolbar v-if="$slots['default'] || $slots['raw']">
       <ion-title>
         <slot></slot>
       </ion-title>
