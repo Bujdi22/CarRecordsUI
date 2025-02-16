@@ -16,6 +16,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import ('../views/AboutPage.vue'),
     meta: {unauthenticated: true},
   },
+
+  {
+    path: '/test',
+    component: () => import ('../views/LandingPage.vue'),
+    meta: {unauthenticated: true, entirePage: true},
+  },
   {
     path: '/login',
     component: () => import ('../views/LoginPage.vue'),
