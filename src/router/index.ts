@@ -3,22 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 import store from "@/store";
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
-    component: () => import ('../views/HomePage.vue'),
-    meta: {unauthenticated: true},
-  },
-  {
-    path: '/about',
-    component: () => import ('../views/AboutPage.vue'),
-    meta: {unauthenticated: true},
-  },
-
-  {
-    path: '/test',
+    path: '/',
     component: () => import ('../views/LandingPage.vue'),
     meta: {unauthenticated: true, entirePage: true},
   },
@@ -51,6 +36,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/verifyEmail',
     component: () => import ('../views/VerifyEmail.vue'),
     meta: {unauthenticated: true},
+  },
+  {
+    path: '/home',
+    component: () => import ('../views/HomePage.vue'),
+    meta: {unauthenticated: false},
+  },
+  {
+    path: '/about',
+    component: () => import ('../views/AboutPage.vue'),
+    meta: {unauthenticated: false},
   },
   {
     path: '/vehicles',
