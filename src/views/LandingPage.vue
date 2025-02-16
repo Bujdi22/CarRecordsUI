@@ -75,7 +75,7 @@ export default defineComponent({
   margin-left: 1em;
 }
 .landing {
-  background-image: url('../assets/landing.jpg');
+  background-image: url('../assets/erik-mclean-ZRns2R5azu0-unsplash-1080.webp');
   height: calc(100vh - 4em);
   overflow-y: auto;
   background-size: cover;
