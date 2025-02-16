@@ -54,7 +54,7 @@ export default defineComponent({
           this.$store.commit('setAccount', data.data)
           localStorage.setItem('account', JSON.stringify(data.data));
           this.loggingIn = false;
-          this.$router.push('/');
+          this.$router.push('/home');
         })
       })
 
