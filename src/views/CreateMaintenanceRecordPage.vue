@@ -299,7 +299,7 @@ export default defineComponent({
       })
     },
     cancelEdit() {
-      this.$router.push({path: `/vehicles/${this.vehicle.id}`})
+      this.$router.replace({path: `/vehicles/${this.vehicle.id}`})
     },
     onFilePicked(event: Event) {
       const files = event.target.files
@@ -341,7 +341,7 @@ export default defineComponent({
       this.$store.commit('setCachedRecord', null);
       Toast.fire({'icon': 'success', title: 'Record saved'});
       this.loading = false;
-      this.$router.push({path: `/vehicles/view-maintenance-record/${record.id}`});
+      this.$router.replace({path: `/vehicles/view-maintenance-record/${record.id}`});
     },
     pickFile() {
       this.$refs.fileInput.click()
