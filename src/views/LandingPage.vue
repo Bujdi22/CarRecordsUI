@@ -88,7 +88,6 @@ export default defineComponent({
   .text {
     width: fit-content;
     margin-top: 60vh;
-    margin-left: auto;
     padding: 20px 50px;
     background: rgb(0, 0, 0, 0.5);
 
