@@ -4,18 +4,13 @@ import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import {defineConfig, loadEnv} from 'vite'
-import fs from 'fs';
 
 // https://vitejs.dev/config/
 
 export default defineConfig(({ mode }) => {
-  console.log('MODE:', mode); // 👈 Check what this prints
 
   const env = loadEnv(mode, process.cwd()); // Only VITE_*
 
-  console.log('HELLO', env.VITE_API_URL);
-
-  console.log('.env.development exists?', fs.existsSync('.env.development'));
   return {
     plugins: [
       vue(),
