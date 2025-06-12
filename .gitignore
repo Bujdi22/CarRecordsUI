@@ -34,3 +34,4 @@ npm-debug.log*
 /ios
 
 .env.development
+.env
