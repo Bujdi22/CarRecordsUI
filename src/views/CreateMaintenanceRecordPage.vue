@@ -169,6 +169,8 @@ import Toast from "@/utils/toast";
 import FileTable from "@/components/FileTable.vue";
 import {Media} from "@/interfaces/Media";
 import MessageBanner from "@/components/MessageBanner.vue";
+import FileCompressor from "@/utils/FileCompressor";
+import compressImage from "@/utils/FileCompressor";
 
 export default defineComponent({
   name: "CreateMaintenanceRecordPage",
@@ -301,9 +303,9 @@ export default defineComponent({
     cancelEdit() {
       this.$router.replace({path: `/vehicles/${this.vehicle.id}`})
     },
-    onFilePicked(event: Event) {
+    async onFilePicked(event: Event) {
       const files = event.target.files
-      const file = files[0];
+      let file = files[0];
       const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
 
       if (file) {
@@ -312,14 +314,19 @@ export default defineComponent({
           return;
         }
 
-        const maxSizeInMB = 10;
-        const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+        if (file.type === 'application/pdf') {
+          const maxSizeInMB = 10;
+          const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
 
-        if (file.size > maxSizeInBytes) {
-          // Handle file rejection
-          alert(`File size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
-          return; // Exit the function without adding the file
+          if (file.size > maxSizeInBytes) {
+            // Handle file rejection
+            alert(`File size exceeds ${maxSizeInMB} MB. Please upload a smaller file.`);
+            return; // Exit the function without adding the file
+          }
+        } else {
+          file = await compressImage(file)
         }
+
 
         this.files.push(file);
       }

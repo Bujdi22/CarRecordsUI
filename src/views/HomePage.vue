@@ -182,7 +182,6 @@ export default defineComponent({
       this.$router.push(`/vehicles/${vehicle.id}`);
     },
     viewRecord(record: MaintenanceRecord) {
-      this.$store.commit('setCachedRecord', record);
       this.$router.push({path: `/vehicles/view-maintenance-record/${record.id}`})
     },
   }

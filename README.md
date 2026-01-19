@@ -10,6 +10,7 @@ The server is a separate repository (https://github.com/Bujdi22/CarRecords)
 ## Environment variables
 Save this in root directory in a file named .env
 ```env
+# URL for the back-end service
 VITE_API_URL=http://localhost:8080
 ```
 
