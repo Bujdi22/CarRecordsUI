@@ -1,5 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosError } from 'axios';
 import getBaseUrl from "@/utils/baseUrlProvider";
+import router from "@/router";
+import store from "@/store";
 
 // Determine the base URL based on the environment
 const baseURL: string = getBaseUrl()
@@ -32,6 +34,26 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
     response => response,
     (error: AxiosError): Promise<AxiosError> => {
+    if (error.response?.status === 401) {
+
+        store.commit('setAccount', null);
+
+        localStorage.clear();
+
+        const currentRoute = router.currentRoute.value;
+
+        const redirectPath = currentRoute.fullPath;
+
+        if (currentRoute.path !== '/login') {
+            router.push({
+                path: '/login',
+                query: {
+                    redirect: redirectPath
+                }
+            });
+        }
+    }
+
     // Handle errors globally
     return Promise.reject(error);
 }
